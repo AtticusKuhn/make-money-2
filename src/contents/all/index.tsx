@@ -17,7 +17,7 @@ function injectCode(code: string): void {
     injectionScript.addEventListener('load', () => {
         injectionScript.remove();
     });
-    document.head.append(injectionScript);
+    document.head.append(injectionScript); //help me
 }
 
 chrome.storage.sync.get(null, function (storageItems) {
