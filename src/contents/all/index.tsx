@@ -1,5 +1,6 @@
 import './style.scss';
 import inject from '../../injected/script';
+import { myWindow } from '../../types';
 
 /*
     note that this will throw an error in the extension
@@ -24,7 +25,7 @@ chrome.storage.sync.get(null, function (storageItems) {
 });
 
 const injectedConfigSetter = (config: any) => {
-    window.chromeStorage = config;
+    ((window as unknown) as myWindow).chromeStorage = config;
     console.log('setting config');
 };
 export function setConfig(config: any): void {
@@ -32,7 +33,8 @@ export function setConfig(config: any): void {
     injectCode(`(${injectedConfigSetter.toString()})(${JSON.stringify(config)})`);
 }
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-    console.log(sender.tab ? 'from a content script:' + sender.tab.url : 'from the extension');
+    // console.log(sender.tab ? 'from a content script:' + sender.tab.url : 'from the extension');
+    console.log('revieced a message');
     setConfig(request);
     // if (request.greeting == 'hello') sendResponse({ farewell: 'goodbye' });
 });
