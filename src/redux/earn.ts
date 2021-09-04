@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { Upgrade } from '../popup/pages/store'
 import { chromeStorage } from '../types'
 import type { RootState } from './store'
 
@@ -6,17 +7,23 @@ import type { RootState } from './store'
 interface CounterState {
   value: number
 }
-
-// Define the initial state using that type
-const initialState: CounterState = {
-  value: 0,
+interface UpgradeState {
+  purchasedUpgrades: Upgrade[];
+  equippedUpgrades: Upgrade[];
 }
-export const setS = (x: chromeStorage) => {
+type InitalState = CounterState & UpgradeState
+// Define the initial state using that type
+const initialState: InitalState = {
+  value: 0,
+  purchasedUpgrades: [],
+  equippedUpgrades: [],
+}
+export const setS = (x: Partial<InitalState>) => {
   console.log("seteing chome money to", x);
   chrome.storage.sync.set({ data: x })
 }
-export const getS = (): Promise<chromeStorage> => new Promise(resolve => chrome.storage.sync.get("data", (x) => {
-  resolve(x.data as chromeStorage)
+export const getS = (): Promise<InitalState> => new Promise(resolve => chrome.storage.sync.get("data", (x) => {
+  resolve(x.data as InitalState)
 }))
 export const counterSlice = createSlice({
   name: 'counter',
@@ -25,11 +32,11 @@ export const counterSlice = createSlice({
   reducers: {
     increment: (state) => {
       state.value += 1
-      setS({ money: state.value })
+      setS({ value: state.value })
     },
     set: (state, action: PayloadAction<number>) => {
       state.value = action.payload
-      setS({ money: state.value })
+      setS({ value: state.value })
     },
     decrement: (state) => {
       state.value -= 1
@@ -38,10 +45,17 @@ export const counterSlice = createSlice({
     incrementByAmount: (state, action: PayloadAction<number>) => {
       state.value += action.payload
     },
+    purchase: (state, item: PayloadAction<Upgrade>) => {
+      if (state.purchasedUpgrades.some(x => x.name === item.payload.name)) {
+        return;
+      }
+      state.value -= item.payload.cost;
+      state.purchasedUpgrades.push(item.payload)
+    }
   },
 })
 
-export const { increment, decrement, incrementByAmount, set } = counterSlice.actions
+export const { increment, decrement, incrementByAmount, set, purchase } = counterSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectCount = (state: RootState) => state.money.value

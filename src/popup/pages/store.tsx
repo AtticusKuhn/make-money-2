@@ -3,12 +3,12 @@ import { useSelector } from "react-redux"
 import { RootState } from "../../redux/store"
 
 
-class Upgrade {
+export class Upgrade {
     constructor(public name: string, public cost: number, public component: React.FC) { }
 }
 
 const betterButton = new Upgrade("better button", 10, () => <>hello</>)
-const upgrades: Array<Upgrade> = [betterButton]
+export const upgrades: Array<Upgrade> = [betterButton]
 
 function getPossibleUpgrades(money: number): Array<Upgrade> {
     return upgrades.filter(upgrade => upgrade.cost < money)
