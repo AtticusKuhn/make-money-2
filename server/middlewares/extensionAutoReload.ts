@@ -1,9 +1,7 @@
-import fs from 'fs';
-import { resolve } from 'path';
-import { debounce } from 'lodash';
 import { RequestHandler } from 'express';
-import { Compiler, Stats } from 'webpack';
+import { debounce } from 'lodash';
 import SSEStream from 'ssestream';
+import { Compiler, Stats } from 'webpack';
 
 export default function extensionAutoReload(compiler: Compiler): RequestHandler {
     return (req, res, next) => {
@@ -11,13 +9,13 @@ export default function extensionAutoReload(compiler: Compiler): RequestHandler 
         sseStream.pipe(res);
 
         let closed = false;
-        const contentScriptsModules = fs.readdirSync(resolve(__dirname, '../../src/contents'));
+        // const contentScriptsModules = fs.readdirSync(resolve(__dirname, '../../src/contents'));
         const compileDoneHook = debounce((stats: Stats) => {
             const { modules } = stats.toJson({ all: false, modules: true });
             const shouldReload =
                 !stats.hasErrors() &&
-                modules?.length === 1 &&
-                contentScriptsModules.includes(modules[0].chunks[0] as string);
+                modules?.length === 1 //&&
+                // contentScriptsModules.includes(modules[0].chunks[0] as string);
 
             if (shouldReload) {
                 sseStream.write(

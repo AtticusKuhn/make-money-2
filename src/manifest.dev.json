@@ -1,7 +1,7 @@
 {
-    "name": "conflict of nations chrome exteions",
+    "name": "make money 2",
     "version": "1.0",
-    "description": "does stuff",
+    "description": "a fun game where you make money",
     "manifest_version": 2,
     "minimum_chrome_version": "80",
     "content_security_policy": "script-src 'self' 'unsafe-eval' 'unsafe-inline'; object-src 'self';",
@@ -10,14 +10,6 @@
         "scripts": ["js/background.js"],
         "persistent": true
     },
-    "content_scripts": [
-        {
-            "all_frames": true,
-            "matches": ["https://www.conflictnations.com/clients/con-uber/con-uber_live/*"],
-            "css": ["css/all.css"],
-            "js": ["js/all.js"]
-        }
-    ],
     "web_accessible_resources": ["injected/script.js", "contents/all/index.js"],
     "browser_action": {
         "default_popup": "popup.html",

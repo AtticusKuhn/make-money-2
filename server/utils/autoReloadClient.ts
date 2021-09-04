@@ -52,10 +52,10 @@ source.addEventListener(
                             res => {
                                 if (!res) return;
 
-                                const { from, action } = res;
+                                const { /*from,*/ action } = res;
                                 if (
                                     !received &&
-                                    from === 'content script' &&
+                                    // from === 'content script' &&
                                     action === 'reload extension'
                                 ) {
                                     received = true;

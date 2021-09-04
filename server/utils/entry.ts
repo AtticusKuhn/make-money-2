@@ -1,8 +1,7 @@
-import { resolve } from 'path';
-import fs from 'fs';
 import { command } from 'execa';
+import { resolve } from 'path';
+import { ENABLE_DEVTOOLS, HOST, HRM_PATH, PORT, __DEV__ } from './constants';
 
-import { HOST, PORT, HRM_PATH, __DEV__, ENABLE_DEVTOOLS } from './constants';
 
 const src = resolve(__dirname, '../../src');
 const HMR_URL = encodeURIComponent(`http://${HOST}:${PORT}${HRM_PATH}`);
@@ -36,24 +35,24 @@ if (ENABLE_DEVTOOLS) {
     });
 }
 
-const scriptNames = fs.readdirSync(resolve(src, 'contents'));
-const validExtensions = ['tsx', 'ts'];
-scriptNames.forEach((name) => {
-    const hasValid = validExtensions.some((ext) => {
-        const abs = resolve(src, `contents/${name}/index.${ext}`);
-        if (fs.existsSync(abs)) {
-            entry[name] = [abs];
-            return true;
-        }
+// const scriptNames = fs.readdirSync(resolve(src, 'contents'));
+// const validExtensions = ['tsx', 'ts'];
+// scriptNames.forEach((name) => {
+//     const hasValid = validExtensions.some((ext) => {
+//         const abs = resolve(src, `contents/${name}/index.${ext}`);
+//         if (fs.existsSync(abs)) {
+//             entry[name] = [abs];
+//             return true;
+//         }
 
-        return false;
-    });
+//         return false;
+//     });
 
-    if (!hasValid) {
-        const dir = resolve(src, `contents/${name}`);
-        throw new Error(`You must put index.tsx or index.is under ${dir}`);
-    }
-});
+    // if (!hasValid) {
+    //     const dir = resolve(src, `contents/${name}`);
+    //     throw new Error(`You must put index.tsx or index.is under ${dir}`);
+    // }
+// });
 
 if (entry.all && __DEV__) {
     entry.all.unshift(resolve(__dirname, './autoRefreshClient.ts'));

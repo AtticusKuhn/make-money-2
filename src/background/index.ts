@@ -1,3 +1,2 @@
-console.log('This is background page!');
-
-export default null;
+console.log("background script running")
+export default null
