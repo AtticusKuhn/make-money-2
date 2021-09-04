@@ -1,17 +1,19 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { increment } from '../../redux/earn';
+import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
+import { Upgrade } from './store';
 
 export default function Index() {
     const money = useSelector<RootState>((state) => state.money.value)
-
-    const dispatch = useDispatch()
+    const upgrades = useSelector<RootState>((state) => state.money.equippedUpgrades) as Upgrade[]
+    console.log({ upgrades })
+    // const dispatch = useDispatch()
     return (
         <>
             <h1>hello I am index</h1>
             {money}
-            <button onClick={() => dispatch(increment())}>Make Money</button>
+            {upgrades[0].component}
+            {/* <button onClick={() => dispatch(increment())}>Make Money</button> */}
         </>
     );
 }

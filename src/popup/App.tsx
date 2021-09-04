@@ -3,11 +3,11 @@ import { hot } from 'react-hot-loader/root';
 import { useDispatch } from 'react-redux';
 import { Route } from 'react-router';
 import { Link } from 'react-router-dom';
-import { getS, set } from '../redux/earn';
+import { getS, set, setAll } from '../redux/earn';
 import './App.scss';
 import Index from './pages/Index';
 import LoadOut from './pages/loadout';
-import store from './pages/store';
+import store, { originalButton } from './pages/store';
 
 
 const App = () => {
@@ -16,6 +16,12 @@ const App = () => {
         getS().then(s => {
             console.log("money is ", s.value)
             dispatch(set(s.value || 1))
+            dispatch(setAll({
+                value: s.value || 1,
+                equippedUpgrades: s.equippedUpgrades || [originalButton],
+                purchasedUpgrades: s.purchasedUpgrades || []
+            }))
+
         })
     }, [])
     return <div>    <li>

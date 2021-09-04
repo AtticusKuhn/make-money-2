@@ -1,6 +1,6 @@
 import React from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { increment } from "../../redux/earn"
+import { increment, purchase } from "../../redux/earn"
 import { RootState } from "../../redux/store"
 
 
@@ -17,9 +17,10 @@ const bb: React.FC<{}> = () => {
     return <button onClick={() => dispatch(increment())}>Make More Money</button>
 
 }
-const originalButton = new Upgrade("original button", 0, ob)
+export const originalButton = new Upgrade("original button", 0, ob)
 const betterButton = new Upgrade("better button", 10, bb)
 export const upgrades: Array<Upgrade> = [originalButton, betterButton]
+const findUpgrade = (name: string): Upgrade => upgrades.find(x => x.name === name) as Upgrade
 
 function getPossibleUpgrades(money: number): Array<Upgrade> {
     const allreadyPurchased = useSelector<RootState>((state) => state.money.purchasedUpgrades) as Upgrade[]
@@ -32,14 +33,16 @@ interface PossiblePurchaseProps {
     cost: number;
 }
 const PossiblePurchase: React.FC<PossiblePurchaseProps> = (props) => {
+    const dispatch = useDispatch()
     return (<>
         <h1>{props.name}</h1>
-        <button>buy for {props.cost}</button>
+        <button onClick={() => dispatch(purchase(findUpgrade(props.name)))}>buy for {props.cost}</button>
     </>)
 }
 
 const store: React.FC = () => {
     const money = useSelector<RootState>((state) => state.money.value) as number
+
     return (<>
         I am store
         {getPossibleUpgrades(money).map(e => <PossiblePurchase {...e} />)}
