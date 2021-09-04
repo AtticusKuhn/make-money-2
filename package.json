@@ -25,22 +25,6 @@
         "clean": "rimraf -rf ./extension ./dist ./*.zip ./*.crx",
         "reinstall": "rimraf -rf ./node_modules && yarn"
     },
-    "husky": {
-        "hooks": {
-            "pre-commit": "lint-staged"
-        }
-    },
-    "lint-staged": {
-        "*.{ts,tsx,js}": [
-            "eslint -c .eslintrc.js"
-        ],
-        "*.{css,less,scss}": [
-            "stylelint --config .stylelintrc.json"
-        ],
-        "*.{ts,tsx,json,js,css,less,scss,md}": [
-            "prettier --write"
-        ]
-    },
     "dependencies": {
         "@reduxjs/toolkit": "^1.6.1",
         "antd": "^4.4.2",
@@ -123,7 +107,6 @@
         "get-port": "^5.1.1",
         "html-webpack-plugin": "^4.3.0",
         "http-proxy-middleware": "^1.0.5",
-        "husky": "^4.2.5",
         "less": "^3.11.3",
         "less-loader": "^6.2.0",
         "lint-staged": "^10.2.11",
