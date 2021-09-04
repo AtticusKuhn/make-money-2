@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Upgrade } from '../popup/pages/store'
-import { chromeStorage } from '../types'
 import type { RootState } from './store'
 
 // Define a type for the slice state

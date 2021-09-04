@@ -5,6 +5,7 @@ import { RootState } from '../../redux/store';
 
 export default function Index() {
     const money = useSelector<RootState>((state) => state.money.value)
+
     const dispatch = useDispatch()
     return (
         <>

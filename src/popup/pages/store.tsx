@@ -1,17 +1,30 @@
 import React from "react"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
+import { increment } from "../../redux/earn"
 import { RootState } from "../../redux/store"
 
 
 export class Upgrade {
     constructor(public name: string, public cost: number, public component: React.FC) { }
 }
+const ob: React.FC<{}> = () => {
+    const dispatch = useDispatch()
+    return <button onClick={() => dispatch(increment())}>Make Money</button>
 
-const betterButton = new Upgrade("better button", 10, () => <>hello</>)
-export const upgrades: Array<Upgrade> = [betterButton]
+}
+const bb: React.FC<{}> = () => {
+    const dispatch = useDispatch()
+    return <button onClick={() => dispatch(increment())}>Make More Money</button>
+
+}
+const originalButton = new Upgrade("original button", 0, ob)
+const betterButton = new Upgrade("better button", 10, bb)
+export const upgrades: Array<Upgrade> = [originalButton, betterButton]
 
 function getPossibleUpgrades(money: number): Array<Upgrade> {
-    return upgrades.filter(upgrade => upgrade.cost < money)
+    const allreadyPurchased = useSelector<RootState>((state) => state.money.purchasedUpgrades) as Upgrade[]
+
+    return upgrades.filter(upgrade => upgrade.cost < money && !allreadyPurchased.includes(upgrade))
 }
 
 interface PossiblePurchaseProps {

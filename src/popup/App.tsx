@@ -14,8 +14,8 @@ const App = () => {
     const dispatch = useDispatch()
     useEffect(() => {
         getS().then(s => {
-            console.log("money is ", s.money)
-            dispatch(set(s.money || 1))
+            console.log("money is ", s.value)
+            dispatch(set(s.value || 1))
         })
     }, [])
     return <div>    <li>
