@@ -7,22 +7,30 @@ interface CounterState {
   value: number
 }
 interface UpgradeState {
-  purchasedUpgrades: Upgrade[];
-  equippedUpgrades: Upgrade[];
+  purchasedUpgrades: storageUpgrade[];
+  equippedUpgrades: storageUpgrade[];
 }
 type InitalState = CounterState & UpgradeState
+export type storageUpgrade = {
+  name: string
+}
+type ChromeStorage = {
+  value: number,
+  purchasedUpgrades: storageUpgrade[],
+  equippedUpgrades: storageUpgrade[],
+}
 // Define the initial state using that type
 const initialState: InitalState = {
   value: 0,
-  purchasedUpgrades: [originalButton],
-  equippedUpgrades: [],
+  purchasedUpgrades: [{ name: originalButton.name }],
+  equippedUpgrades: [{ name: originalButton.name }],
 }
-export const setS = (x: Partial<InitalState>) => {
+export const setS = (x: Partial<ChromeStorage>) => {
   console.log("seteing chome money to", x);
   chrome.storage.sync.set({ data: x })
 }
-export const getS = (): Promise<InitalState> => new Promise(resolve => chrome.storage.sync.get("data", (x) => {
-  resolve(x.data as InitalState)
+export const getS = (): Promise<ChromeStorage> => new Promise(resolve => chrome.storage.sync.get("data", (x) => {
+  resolve(x.data as ChromeStorage)
 }))
 export const counterSlice = createSlice({
   name: 'counter',
@@ -39,7 +47,10 @@ export const counterSlice = createSlice({
     },
     setAll: (state, action: PayloadAction<InitalState>) => {
       state = action.payload
-      setS(action.payload)
+      const e = action.payload.purchasedUpgrades.map(e => ({ name: e.name }))
+      const b = action.payload.equippedUpgrades.map(e => ({ name: e.name }))
+
+      setS({ ...action.payload, equippedUpgrades: b, purchasedUpgrades: e, })
     },
 
     decrement: (state) => {
@@ -54,7 +65,8 @@ export const counterSlice = createSlice({
         return;
       }
       state.value -= item.payload.cost;
-      state.purchasedUpgrades.push(item.payload)
+      state.purchasedUpgrades.push({ name: item.payload.name })
+      setS({ purchasedUpgrades: state.purchasedUpgrades })
     }
   },
 })
