@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Upgrade } from '../popup/pages/store'
+import { findUpgrade, originalButton } from '../popup/pages/store'
 import type { RootState } from './store'
-import { originalButton } from "../popup/pages/store"
 // Define a type for the slice state
 interface CounterState {
-  value: number
+  value: loading<number>
 }
+//eee
 interface UpgradeState {
   purchasedUpgrades: storageUpgrade[];
   equippedUpgrades: storageUpgrade[];
@@ -19,15 +19,17 @@ type ChromeStorage = {
   purchasedUpgrades: storageUpgrade[],
   equippedUpgrades: storageUpgrade[],
 }
+export type loading<T> = T | undefined
 // Define the initial state using that type
 const initialState: InitalState = {
-  value: 0,
+  value: undefined,
   purchasedUpgrades: [{ name: originalButton.name }],
   equippedUpgrades: [{ name: originalButton.name }],
 }
-export const setS = (x: Partial<ChromeStorage>) => {
+export const setS = async (x: Partial<ChromeStorage>) => {
   console.log("seteing chome money to", x);
-  chrome.storage.sync.set({ data: x })
+  let a = await getS()
+  chrome.storage.sync.set({ data: Object.assign(a, x) })
 }
 export const getS = (): Promise<ChromeStorage> => new Promise(resolve => chrome.storage.sync.get("data", (x) => {
   resolve(x.data as ChromeStorage)
@@ -38,33 +40,47 @@ export const counterSlice = createSlice({
   initialState,
   reducers: {
     increment: (state) => {
-      state.value += 1
-      setS({ value: state.value })
+      if (state.value) {
+        state.value += 1
+        setS({ value: state.value })
+      }
     },
     set: (state, action: PayloadAction<number>) => {
       state.value = action.payload
       setS({ value: state.value })
     },
     setAll: (state, action: PayloadAction<InitalState>) => {
-      state = action.payload
-      const e = action.payload.purchasedUpgrades.map(e => ({ name: e.name }))
-      const b = action.payload.equippedUpgrades.map(e => ({ name: e.name }))
+      console.log("setAll recieved payload", action.payload)
+      // state = action.payload
+      // const e = action.payload.purchasedUpgrades.map(e => ({ name: e.name }))
+      // const b = action.payload.equippedUpgrades.map(e => ({ name: e.name }))
 
-      setS({ ...action.payload, equippedUpgrades: b, purchasedUpgrades: e, })
+      // setS(action.payload)
+      // state = action.payload
+      // state = Object.assign(state, action.payload)
+      state.value = action.payload.value
+      state.equippedUpgrades = action.payload.equippedUpgrades
+      state.purchasedUpgrades = action.payload.purchasedUpgrades
+
+      console.log("in setAll, state is", state)
     },
 
     decrement: (state) => {
-      state.value -= 1
+      if (state.value)
+        state.value -= 1
     },
     // Use the PayloadAction type to declare the contents of `action.payload`
     incrementByAmount: (state, action: PayloadAction<number>) => {
-      state.value += action.payload
+      if (state.value)
+        state.value += action.payload
     },
-    purchase: (state, item: PayloadAction<Upgrade>) => {
+    purchase: (state, item: PayloadAction<storageUpgrade>) => {
       if (state.purchasedUpgrades.some(x => x.name === item.payload.name)) {
         return;
       }
-      state.value -= item.payload.cost;
+      const i = findUpgrade(item.payload.name)
+      if (state.value)
+        state.value -= i.cost;
       state.purchasedUpgrades.push({ name: item.payload.name })
       setS({ purchasedUpgrades: state.purchasedUpgrades })
     }

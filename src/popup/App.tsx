@@ -3,25 +3,39 @@ import { hot } from 'react-hot-loader/root';
 import { useDispatch } from 'react-redux';
 import { Route } from 'react-router';
 import { Link } from 'react-router-dom';
-import { getS, set, setAll, storageUpgrade } from '../redux/earn';
-import { chromeStorage } from '../types';
+import { getS, setAll, storageUpgrade } from '../redux/earn';
 import './App.scss';
 import Debug from './pages/debug';
 import Index from './pages/Index';
 import LoadOut from './pages/loadout';
 import store, { Upgrade, upgrades } from './pages/store';
-
-const tmp = (a: storageUpgrade[]) => a.map(u => upgrades.find(x => x.name === u.name) as Upgrade).map(e => ({ name: e.name })) || [{ name: "original button" }]
+//s
+const tmp = (a: storageUpgrade[]) => {
+    console.log("a", a)
+    console.log("a.map", a.map)
+    return a.map(u => upgrades.find(x => x.name === u.name) as Upgrade).map(e => ({ name: e.name })) || [{ name: "original button" }]
+}
 const App = () => {
     const dispatch = useDispatch()
     useEffect(() => {
         getS().then(s => {
+            // dispatch(setAll({
+            //     value: 12,
+            //     equippedUpgrades: [{ name: "original button" }],
+            //     purchasedUpgrades: [{ name: "original button" }],
+            // }))
+            // return;
             console.log("money is ", s.value)
-            dispatch(set(s.value || 1))
+            console.log("s", s)
+            const ne = tmp(Array.from(s.equippedUpgrades || [{ name: "original button" }]));
+            const np = tmp(Array.from(s.purchasedUpgrades || [{ name: "original button" }]));
+            console.log({ ne, np })
+            // debugger;
+            // dispatch(set(s.value || ee1))
             dispatch(setAll({
-                value: s.value || 1,
-                equippedUpgrades: tmp(s.equippedUpgrades),
-                purchasedUpgrades: tmp(s.purchasedUpgrades)
+                value: s.value || -1,
+                equippedUpgrades: [{ name: "original button" }],
+                purchasedUpgrades: [{ name: "original button" }],
             }))
 
         })

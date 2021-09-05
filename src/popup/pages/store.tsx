@@ -2,6 +2,7 @@ import React from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { increment, purchase } from "../../redux/earn"
 import { RootState } from "../../redux/store"
+import { UTous } from "../../utils"
 
 
 export class Upgrade {
@@ -20,7 +21,7 @@ const bb: React.FC<{}> = () => {
 export const originalButton = new Upgrade("original button", 0, ob)
 const betterButton = new Upgrade("better button", 10, bb)
 export const upgrades: Array<Upgrade> = [originalButton, betterButton]
-const findUpgrade = (name: string): Upgrade => upgrades.find(x => x.name === name) as Upgrade
+export const findUpgrade = (name: string): Upgrade => upgrades.find(x => x.name === name) as Upgrade
 
 function getPossibleUpgrades(money: number): Array<Upgrade> {
     const allreadyPurchased = useSelector<RootState>((state) => state.money.purchasedUpgrades) as Upgrade[]
@@ -36,7 +37,7 @@ const PossiblePurchase: React.FC<PossiblePurchaseProps> = (props) => {
     const dispatch = useDispatch()
     return (<>
         <h1>{props.name}</h1>
-        <button onClick={() => dispatch(purchase(findUpgrade(props.name)))}>buy for {props.cost}</button>
+        <button onClick={() => dispatch(purchase(UTous(findUpgrade(props.name))))}>buy for {props.cost}</button>
     </>)
 }
 
