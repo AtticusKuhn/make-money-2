@@ -27,9 +27,14 @@ const initialState: InitalState = {
   equippedUpgrades: [{ name: originalButton.name }],
 }
 export const setS = async (x: Partial<ChromeStorage>) => {
-  console.log("seteing chome money to", x);
   let a = await getS()
-  chrome.storage.sync.set({ data: Object.assign(a, x) })
+  if (!a) {
+    chrome.storage.sync.set({ data: x }, console.log)
+    return;
+  }
+  console.log("in setS, x is", x, " and a is", a);
+
+  chrome.storage.sync.set({ data: Object.assign(a, x) }, console.log)
 }
 export const getS = (): Promise<ChromeStorage> => new Promise(resolve => chrome.storage.sync.get("data", (x) => {
   resolve(x.data as ChromeStorage)
@@ -82,7 +87,7 @@ export const counterSlice = createSlice({
       if (state.value)
         state.value -= i.cost;
       state.purchasedUpgrades.push({ name: item.payload.name })
-      setS({ purchasedUpgrades: state.purchasedUpgrades })
+      setS({ purchasedUpgrades: [...state.purchasedUpgrades] })
     }
   },
 })

@@ -13,7 +13,7 @@ import store, { Upgrade, upgrades } from './pages/store';
 const tmp = (a: storageUpgrade[]) => {
     console.log("a", a)
     console.log("a.map", a.map)
-    return a.map(u => upgrades.find(x => x.name === u.name) as Upgrade).map(e => ({ name: e.name })) || [{ name: "original button" }]
+    return a.map(u => upgrades.find(x => x?.name === u?.name) as Upgrade).map(e => ({ name: e?.name })) || [{ name: "original button" }]
 }
 const App = () => {
     const dispatch = useDispatch()
@@ -25,6 +25,14 @@ const App = () => {
             //     purchasedUpgrades: [{ name: "original button" }],
             // }))
             // return;
+            if (!s) {
+                dispatch(setAll({
+                    value: 1,
+                    equippedUpgrades: [{ name: "original button" }],
+                    purchasedUpgrades: [{ name: "original button" }],
+                }))
+                return;
+            }
             console.log("money is ", s.value)
             console.log("s", s)
             const ne = tmp(Array.from(s.equippedUpgrades || [{ name: "original button" }]));
@@ -34,8 +42,8 @@ const App = () => {
             // dispatch(set(s.value || ee1))
             dispatch(setAll({
                 value: s.value || -1,
-                equippedUpgrades: [{ name: "original button" }],
-                purchasedUpgrades: [{ name: "original button" }],
+                equippedUpgrades: ne,//[{ name: "original button" }],
+                purchasedUpgrades: np,//[{ name: "original button" }],
             }))
 
         })
