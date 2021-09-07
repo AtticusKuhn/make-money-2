@@ -69,11 +69,6 @@ export const counterSlice = createSlice({
 
       console.log("in setAll, state is", state)
     },
-
-    decrement: (state) => {
-      if (state.value)
-        state.value -= 1
-    },
     // Use the PayloadAction type to declare the contents of `action.payload`
     incrementByAmount: (state, action: PayloadAction<number>) => {
       if (state.value)
@@ -86,13 +81,29 @@ export const counterSlice = createSlice({
       const i = findUpgrade(item.payload.name)
       if (state.value)
         state.value -= i.cost;
+      console.log("in purchase, using i", i)
       state.purchasedUpgrades.push({ name: item.payload.name })
-      setS({ purchasedUpgrades: [...state.purchasedUpgrades] })
+      getS().then((b) => {
+        const x = b.purchasedUpgrades || []
+        x.push({ name: item.payload.name })
+        setS({ purchasedUpgrades: x })
+        console.log("in purchase, x", x)
+      })
+    },
+    reset: (state) => {
+      state.value = 1;
+      state.equippedUpgrades = [{ name: "default button" }]
+      state.purchasedUpgrades = [{ name: "default button" }]
+      setS({
+        value: 1,
+        purchasedUpgrades: [{ name: "default button" }],
+        equippedUpgrades: [{ name: "default button" }],
+      })
     }
   },
 })
 
-export const { increment, decrement, incrementByAmount, set, purchase, setAll } = counterSlice.actions
+export const { reset, increment, incrementByAmount, set, purchase, setAll } = counterSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectCount = (state: RootState) => state.money.value
