@@ -12,19 +12,21 @@ interface UpgradeState {
 }
 type InitalState = CounterState & UpgradeState
 export type storageUpgrade = {
-  name: string
+  name: string,
+  isButton: boolean,
 }
 type ChromeStorage = {
   value: number,
   purchasedUpgrades: storageUpgrade[],
   equippedUpgrades: storageUpgrade[],
+  equippedButton: storageUpgrade[],
 }
 export type loading<T> = T | undefined
 // Define the initial state using that type
 const initialState: InitalState = {
   value: undefined,
-  purchasedUpgrades: [{ name: originalButton.name }],
-  equippedUpgrades: [{ name: originalButton.name }],
+  purchasedUpgrades: [{ name: originalButton.name, isButton: true }],
+  equippedUpgrades: [{ name: originalButton.name, isButton: true }],
 }
 export const setS = async (x: Partial<ChromeStorage>) => {
   let a = await getS()
@@ -82,22 +84,22 @@ export const counterSlice = createSlice({
       if (state.value)
         state.value -= i.cost;
       console.log("in purchase, using i", i)
-      state.purchasedUpgrades.push({ name: item.payload.name })
+      state.purchasedUpgrades.push({ name: item.payload.name, isButton: item.payload.isButton })
       getS().then((b) => {
         const x = b.purchasedUpgrades || []
-        x.push({ name: item.payload.name })
+        x.push({ name: item.payload.name, isButton: item.payload.isButton })
         setS({ purchasedUpgrades: x })
         console.log("in purchase, x", x)
       })
     },
     reset: (state) => {
       state.value = 1;
-      state.equippedUpgrades = [{ name: "default button" }]
-      state.purchasedUpgrades = [{ name: "default button" }]
+      state.equippedUpgrades = [{ name: "default button", isButton: true }]
+      state.purchasedUpgrades = [{ name: "default button", isButton: true }]
       setS({
         value: 1,
-        purchasedUpgrades: [{ name: "default button" }],
-        equippedUpgrades: [{ name: "default button" }],
+        purchasedUpgrades: [{ name: "default button", isButton: true }],
+        equippedUpgrades: [{ name: "default button", isButton: true }],
       })
     }
   },

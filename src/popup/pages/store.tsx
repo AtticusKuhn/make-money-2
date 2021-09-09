@@ -6,7 +6,7 @@ import { UTous } from "../../utils"
 
 
 export class Upgrade {
-    constructor(public name: string, public cost: number, public component: React.FC) { }
+    constructor(public name: string, public cost: number, public isButton: boolean, public component: React.FC) { }
 }
 const ob: React.FC<{}> = () => {
     const dispatch = useDispatch()
@@ -18,8 +18,8 @@ const bb: React.FC<{}> = () => {
     return <button onClick={() => dispatch(increment())}>Make More Money</button>
 
 }
-export const originalButton = new Upgrade("original button", 0, ob)
-const betterButton = new Upgrade("better button", 10, bb)
+export const originalButton = new Upgrade("original button", 0, true, ob,)
+const betterButton = new Upgrade("better button", 10, true, bb)
 export const upgrades: Array<Upgrade> = [originalButton, betterButton]
 export const findUpgrade = (name: string): Upgrade => upgrades.find(x => x.name === name) as Upgrade
 

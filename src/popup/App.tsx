@@ -10,10 +10,10 @@ import Index from './pages/Index';
 import LoadOut from './pages/loadout';
 import store, { Upgrade, upgrades } from './pages/store';
 //s
-const tmp = (a: storageUpgrade[]) => {
+const tmp = (a: storageUpgrade[]): storageUpgrade[] => {
     console.log("a", a)
     console.log("a.map", a.map)
-    return a.map(u => upgrades.find(x => x?.name === u?.name) as Upgrade).map(e => ({ name: e?.name })) || [{ name: "original button" }]
+    return a.map(u => upgrades.find(x => x?.name === u?.name) as Upgrade).map(e => ({ name: e?.name, isButton: e.isButton })) || [{ name: "original button", isButton: true }]
 }
 const App = () => {
     const dispatch = useDispatch()
@@ -28,15 +28,15 @@ const App = () => {
             if (!s) {
                 dispatch(setAll({
                     value: 1,
-                    equippedUpgrades: [{ name: "original button" }],
-                    purchasedUpgrades: [{ name: "original button" }],
+                    equippedUpgrades: [{ name: "original button", isButton: true }],
+                    purchasedUpgrades: [{ name: "original button", isButton: true }],
                 }))
                 return;
             }
             console.log("money is ", s.value)
             console.log("s", s)
-            const ne = tmp(Array.from(s.equippedUpgrades || [{ name: "original button" }]));
-            const np = tmp(Array.from(s.purchasedUpgrades || [{ name: "original button" }]));
+            const ne = tmp(Array.from(s.equippedUpgrades || [{ name: "original button", isButton: true }]));
+            const np = tmp(Array.from(s.purchasedUpgrades || [{ name: "original button", isButton: true }]));
             console.log({ ne, np })
             // debugger;
             // dispatch(set(s.value || ee1))
