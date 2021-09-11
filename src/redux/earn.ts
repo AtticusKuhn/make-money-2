@@ -10,7 +10,7 @@ interface UpgradeState {
   purchasedUpgrades: storageUpgrade[];
   equippedUpgrades: storageUpgrade[];
 }
-type InitalState = CounterState & UpgradeState
+export type InitalState = CounterState & UpgradeState
 export type storageUpgrade = {
   name: string,
   isButton: boolean,
@@ -101,11 +101,14 @@ export const counterSlice = createSlice({
         purchasedUpgrades: [{ name: "default button", isButton: true }],
         equippedUpgrades: [{ name: "default button", isButton: true }],
       })
+    },
+    equip: (state, upgrade: PayloadAction<storageUpgrade>) => {
+      console.log("equpiiung", state, upgrade)
     }
   },
 })
 
-export const { reset, increment, incrementByAmount, set, purchase, setAll } = counterSlice.actions
+export const { reset, increment, incrementByAmount, set, purchase, setAll, equip } = counterSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectCount = (state: RootState) => state.money.value

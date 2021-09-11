@@ -1,6 +1,6 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { storageUpgrade } from '../../redux/earn';
+import { useDispatch, useSelector } from 'react-redux';
+import { equip, storageUpgrade } from '../../redux/earn';
 import { RootState } from '../../redux/store';
 
 interface ChooseButtonProps {
@@ -9,8 +9,9 @@ interface ChooseButtonProps {
 
 
 const ChooseButton: React.FC<ChooseButtonProps> = (props) => {
+    const dispatch = useDispatch()
     function check() {
-
+        dispatch(equip(props.button))
     }
     return (<>
         <p>{props.button.name}</p>
