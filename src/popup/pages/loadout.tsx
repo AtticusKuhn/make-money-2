@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { equip, storageUpgrade } from '../../redux/earn';
+import { equip, storageUpgrade, unequip } from '../../redux/earn';
 import { RootState } from '../../redux/store';
 
 interface ChooseButtonProps {
@@ -8,14 +8,14 @@ interface ChooseButtonProps {
 }
 
 
-const ChooseButton: React.FC<ChooseButtonProps> = (props) => {
+const ChooseButton: React.FC<ChooseButtonProps> = ({ button }) => {
     const dispatch = useDispatch()
-    function check() {
-        dispatch(equip(props.button))
-    }
+    const equipped = useSelector<RootState, storageUpgrade[]>((state) => state.money.equippedUpgrades)
+    const isChecked = equipped.some(b => b.name === button.name)
+    const check = () => isChecked ? dispatch(unequip(button)) : dispatch(equip(button))
     return (<>
-        <p>{props.button.name}</p>
-        <input type="checkbox" onChange={check} />
+        <p>{button.name}</p>
+        <input checked={isChecked} type="checkbox" onChange={check} />
     </>)
 }
 

@@ -1,11 +1,11 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { loading, storageUpgrade } from '../../redux/earn';
+import { storageUpgrade } from '../../redux/earn';
 import { RootState } from '../../redux/store';
 import { usToU } from '../../utils';
 
 export default function Index() {
-    const money = useSelector<RootState, loading<number>>((state) => state.money.value)
+    const money = useSelector<RootState, number>((state) => state.money.value)
     const upgrades = useSelector<RootState, storageUpgrade[]>((state) => state.money.equippedUpgrades)
     console.log({ upgrades })
     console.log("in index.tsx, money is", money)
@@ -13,7 +13,7 @@ export default function Index() {
     return (
         <>
             <h1>hello I am index</h1>
-            {money ? money : "loading..."}
+            {money}
             {usToU(upgrades[0]).component({})}
             {/* <button onClick={() => dispatch(increment())}>Make Money</button> */}
         </>

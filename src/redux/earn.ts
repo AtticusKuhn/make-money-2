@@ -21,7 +21,6 @@ type ChromeStorage = {
   equippedUpgrades: storageUpgrade[],
   equippedButton: storageUpgrade[],
 }
-export type loading<T> = T | undefined
 // Define the initial state using that type
 const initialState: InitalState = {
   value: 1239712398,
@@ -58,21 +57,10 @@ export const counterSlice = createSlice({
       setS({ value: state.value })
     },
     setAll: (state, action: PayloadAction<InitalState>) => {
-      console.log("setAll recieved payload", action.payload)
-      // state = action.payload
-      // const e = action.payload.purchasedUpgrades.map(e => ({ name: e.name }))
-      // const b = action.payload.equippedUpgrades.map(e => ({ name: e.name }))
-
-      // setS(action.payload)
-      // state = action.payload
-      // state = Object.assign(state, action.payload)
       state.value = action.payload.value
       state.equippedUpgrades = action.payload.equippedUpgrades
-      state.purchasedUpgrades = action.payload.purchasedUpgrades
-
-      console.log("in setAll, state is", state)
+      state.purchasedUpgrades = action.payload.purchasedUpgrades;
     },
-    // Use the PayloadAction type to declare the contents of `action.payload`
     incrementByAmount: (state, action: PayloadAction<number>) => {
       if (state.value)
         state.value += action.payload
@@ -89,7 +77,6 @@ export const counterSlice = createSlice({
       getS().then((b) => {
         const x = b.purchasedUpgrades || []
         x.push({ name: item.payload.name, isButton: item.payload.isButton })
-        setS({ purchasedUpgrades: x })
         console.log("in purchase, x", x)
       })
     },
@@ -97,19 +84,28 @@ export const counterSlice = createSlice({
       state.value = 1;
       state.equippedUpgrades = [{ name: "default button", isButton: true }]
       state.purchasedUpgrades = [{ name: "default button", isButton: true }]
-      // setS({
-      //   value: 1,
-      //   purchasedUpgrades: [{ name: "default button", isButton: true }],
-      //   equippedUpgrades: [{ name: "default button", isButton: true }],
-      // })
     },
-    equip: (state, upgrade: PayloadAction<storageUpgrade>) => {
-      console.log("equpiiung", state, upgrade)
+    equip: (state, e: PayloadAction<storageUpgrade>) => {
+      const equpping = e.payload
+      console.log("equipping", e.payload.name)
+      if (state.equippedUpgrades.some(b => b.name === e.payload.name))
+        return;
+      if (equpping.isButton)
+        state.equippedUpgrades = state.equippedUpgrades.filter(upgrades => !upgrades.isButton)
+      state.equippedUpgrades.push(equpping)
+      console.log("in equip, after equpping, the equipped upgrades are", state.equippedUpgrades)
+    },
+    unequip: (state, e: PayloadAction<storageUpgrade>) => {
+      console.log("unequipping", e.payload.name)
+      const equpping = e.payload
+      if (equpping.isButton)
+        return;
+      state.equippedUpgrades = state.equippedUpgrades.filter(x => x.name !== equpping.name)
     }
   },
 })
 
-export const { reset, increment, incrementByAmount, set, purchase, setAll, equip } = counterSlice.actions
+export const { reset, increment, incrementByAmount, set, purchase, setAll, equip, unequip } = counterSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectCount = (state: RootState) => state.money.value
