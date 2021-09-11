@@ -3,7 +3,7 @@ import { findUpgrade, originalButton } from '../popup/pages/store'
 import type { RootState } from './store'
 // Define a type for the slice state
 interface CounterState {
-  value: loading<number>
+  value: number;
 }
 //eee
 interface UpgradeState {
@@ -24,7 +24,7 @@ type ChromeStorage = {
 export type loading<T> = T | undefined
 // Define the initial state using that type
 const initialState: InitalState = {
-  value: undefined,
+  value: 1239712398,
   purchasedUpgrades: [{ name: originalButton.name, isButton: true }],
   equippedUpgrades: [{ name: originalButton.name, isButton: true }],
 }
@@ -47,9 +47,10 @@ export const counterSlice = createSlice({
   initialState,
   reducers: {
     increment: (state) => {
+      console.log("increment called")
       if (state.value) {
         state.value += 1
-        setS({ value: state.value })
+        // setS({ value: state.value })
       }
     },
     set: (state, action: PayloadAction<number>) => {
@@ -96,11 +97,11 @@ export const counterSlice = createSlice({
       state.value = 1;
       state.equippedUpgrades = [{ name: "default button", isButton: true }]
       state.purchasedUpgrades = [{ name: "default button", isButton: true }]
-      setS({
-        value: 1,
-        purchasedUpgrades: [{ name: "default button", isButton: true }],
-        equippedUpgrades: [{ name: "default button", isButton: true }],
-      })
+      // setS({
+      //   value: 1,
+      //   purchasedUpgrades: [{ name: "default button", isButton: true }],
+      //   equippedUpgrades: [{ name: "default button", isButton: true }],
+      // })
     },
     equip: (state, upgrade: PayloadAction<storageUpgrade>) => {
       console.log("equpiiung", state, upgrade)
