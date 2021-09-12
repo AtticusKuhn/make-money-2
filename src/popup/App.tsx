@@ -13,7 +13,7 @@ import store, { getPossibleUpgrades } from './pages/store';
 const App = () => {
     const money = useSelector<RootState, number>((state) => state.money.value)
     const l = getPossibleUpgrades(money).length;
-    const msg = l > 0 ? `(${l} upgades available)` : ""
+    const msg = l > 0 ? `(${l} upgade${l > 1 ? "s" : ""} available)` : ""
     return <div className="app">    <li>
         <Link to="/">Home</Link>
     </li>
