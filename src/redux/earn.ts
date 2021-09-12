@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { originalButton, findUpgrade } from '../upgrades/buttons'
+import { UTous } from '../utils'
 import type { RootState } from './store'
 // Define a type for the slice state
 interface CounterState {
@@ -19,11 +20,10 @@ type ChromeStorage = {
   value: number,
   purchasedUpgrades: storageUpgrade[],
   equippedUpgrades: storageUpgrade[],
-  equippedButton: storageUpgrade[],
 }
 // Define the initial state using that type
 const initialState: InitalState = {
-  value: 1239712398,
+  value: 1,
   purchasedUpgrades: [{ name: originalButton.name, isButton: true }],
   equippedUpgrades: [{ name: originalButton.name, isButton: true }],
 }
@@ -83,9 +83,10 @@ export const counterSlice = createSlice({
       })
     },
     reset: (state) => {
+      // state = initialState;
       state.value = 1;
-      state.equippedUpgrades = [{ name: "default button", isButton: true }]
-      state.purchasedUpgrades = [{ name: "default button", isButton: true }]
+      state.equippedUpgrades = [UTous(originalButton)]
+      state.purchasedUpgrades = [UTous(originalButton)]
     },
     equip: (state, e: PayloadAction<storageUpgrade>) => {
       const equpping = e.payload
