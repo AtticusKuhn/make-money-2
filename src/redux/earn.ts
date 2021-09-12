@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { originalButton, findUpgrade } from '../upgrades/buttons'
+import { findUpgrade } from '../upgrades'
+import { originalButton } from '../upgrades/buttons'
 import { UTous } from '../utils'
 import type { RootState } from './store'
 // Define a type for the slice state
@@ -12,7 +13,10 @@ interface UpgradeState {
   equippedUpgrades: storageUpgrade[];
   equippedButton: storageUpgrade;
 }
-export type InitalState = CounterState & UpgradeState
+interface Misc {
+  lastSaved: number;
+}
+export type InitalState = CounterState & UpgradeState & Misc
 export type storageUpgrade = {
   name: string,
   isButton: boolean,
@@ -27,7 +31,8 @@ const initialState: InitalState = {
   value: 1,
   purchasedUpgrades: [{ name: originalButton.name, isButton: true }],
   equippedUpgrades: [{ name: originalButton.name, isButton: true }],
-  equippedButton: { name: originalButton.name, isButton: true }
+  equippedButton: { name: originalButton.name, isButton: true },
+  lastSaved: new Date().getTime(),
 }
 export const setS = async (x: Partial<ChromeStorage>) => {
   let a = await getS()
@@ -89,6 +94,7 @@ export const counterSlice = createSlice({
       state.value = 1;
       state.equippedUpgrades = [UTous(originalButton)]
       state.purchasedUpgrades = [UTous(originalButton)]
+      state.equippedButton = UTous(originalButton);
     },
     equip: (state, e: PayloadAction<storageUpgrade>) => {
       const equpping = e.payload
@@ -108,11 +114,14 @@ export const counterSlice = createSlice({
       if (equpping.isButton)
         return;
       state.equippedUpgrades = state.equippedUpgrades.filter(x => x.name !== equpping.name)
+    },
+    updateTs: (state) => {
+      state.lastSaved = new Date().getTime();
     }
   },
 })
 
-export const { reset, increment, incrementByAmount, set, purchase, setAll, equip, unequip, earn } = counterSlice.actions
+export const { reset, increment, incrementByAmount, set, purchase, setAll, equip, unequip, earn, updateTs } = counterSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectCount = (state: RootState) => state.money.value

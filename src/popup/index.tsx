@@ -12,7 +12,8 @@ getS().then(s => {
         value: 12,
         equippedUpgrades: [{ name: "original button", isButton: true }],
         purchasedUpgrades: [{ name: "original button", isButton: true }],
-        equippedButton: { name: "original button", isButton: true }
+        equippedButton: { name: "original button", isButton: true },
+        lastSaved: new Date().getTime()
     };
     const combined = Object.assign(defaultState, s)
     const st = makeStore({ money: combined });

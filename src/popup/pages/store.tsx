@@ -2,9 +2,9 @@ import React from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { purchase, storageUpgrade } from "../../redux/earn"
 import { RootState } from "../../redux/store"
-import { findUpgrade, Upgrade } from "../../upgrades/buttons"
+import { Upgrade } from "../../upgrades/buttons"
 import { UTous } from "../../utils"
-import upgrades from "../../upgrades/index"
+import upgrades, { findUpgrade } from "../../upgrades/index"
 
 export function findPossibleUpgrades() {
     const allreadyPurchased = useSelector<RootState, storageUpgrade[]>((state) => state.money.purchasedUpgrades)
@@ -33,7 +33,7 @@ const store: React.FC<{}> = () => {
     return (<>
         <h1>welcome to the store</h1> <br />
         <h3>Buttons: </h3> <br />
-        {possibleUpgrads.length > 0 ? possibleUpgrads.filter(x => x.isButton).map((e, i) => <PossiblePurchase key={i} {...e} />) : "no upgrades availbe for purchase"}
+        {possibleUpgrads.length > 0 ? possibleUpgrads.filter(x => x.isButton).map((e, i) => <PossiblePurchase key={i} {...e} />) : "no buttons availbe for purchase"}
         <h3>Upgrades: </h3> <br />
         {possibleUpgrads.length > 0 ? possibleUpgrads.filter(x => !x.isButton).map((e, i) => <PossiblePurchase key={i} {...e} />) : "no upgrades availbe for purchase"}
 

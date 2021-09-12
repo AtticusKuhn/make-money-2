@@ -111,4 +111,3 @@ export const findButton = (us: storageUpgrade): Button => {
     return upgrades.find(u => u.name === us.name) as Button
 }
 export const upgrades: Array<Upgrade> = [originalButton, betterButton, movingButton, movingBonusButton]
-export const findUpgrade = (name: string): Upgrade => upgrades.find(x => x.name === name) as Upgrade
