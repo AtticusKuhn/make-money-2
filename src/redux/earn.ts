@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { findUpgrade, originalButton } from '../popup/pages/store'
+import { originalButton, findUpgrade } from '../upgrades/buttons'
 import type { RootState } from './store'
 // Define a type for the slice state
 interface CounterState {
@@ -49,12 +49,14 @@ export const counterSlice = createSlice({
       console.log("increment called")
       if (state.value) {
         state.value += 1
-        // setS({ value: state.value })
       }
+    },
+    earn: (state, action?: PayloadAction<number>) => {
+      state.value ?
+        state.value += action?.payload || 1 : state
     },
     set: (state, action: PayloadAction<number>) => {
       state.value = action.payload
-      setS({ value: state.value })
     },
     setAll: (state, action: PayloadAction<InitalState>) => {
       state.value = action.payload.value
@@ -105,7 +107,7 @@ export const counterSlice = createSlice({
   },
 })
 
-export const { reset, increment, incrementByAmount, set, purchase, setAll, equip, unequip } = counterSlice.actions
+export const { reset, increment, incrementByAmount, set, purchase, setAll, equip, unequip, earn } = counterSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectCount = (state: RootState) => state.money.value

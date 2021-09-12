@@ -2,7 +2,7 @@
     "name": "awesome-chrome-extension-boilerplate",
     "version": "1.0.0",
     "description": "an awesome boilerplate for chrome extension development!",
-    "private": true,
+    "private": false,
     "author": "YuTengjing",
     "license": "MIT",
     "homepage": "https://github.com/tjx666/awesome-chrome-extension-boilerplate#readme",

@@ -1,27 +1,9 @@
 import React from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { increment, purchase, storageUpgrade } from "../../redux/earn"
+import { purchase, storageUpgrade } from "../../redux/earn"
 import { RootState } from "../../redux/store"
+import { findUpgrade, Upgrade, upgrades } from "../../upgrades/buttons"
 import { UTous } from "../../utils"
-
-
-export class Upgrade {
-    constructor(public name: string, public cost: number, public isButton: boolean, public component: React.FC) { }
-}
-const ob: React.FC<{}> = () => {
-    const dispatch = useDispatch()
-    return <button onClick={() => dispatch(increment())}>Make Money</button>
-
-}
-const bb: React.FC<{}> = () => {
-    const dispatch = useDispatch()
-    return <button onClick={() => dispatch(increment())}>Make More Money</button>
-
-}
-export const originalButton = new Upgrade("original button", 0, true, ob,)
-const betterButton = new Upgrade("better button", 10, true, bb)
-export const upgrades: Array<Upgrade> = [originalButton, betterButton]
-export const findUpgrade = (name: string): Upgrade => upgrades.find(x => x.name === name) as Upgrade
 
 function getPossibleUpgrades(money: number): Array<Upgrade> {
     const allreadyPurchased = useSelector<RootState>((state) => state.money.purchasedUpgrades) as storageUpgrade[]

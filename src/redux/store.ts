@@ -1,23 +1,18 @@
 import { AnyAction, configureStore, Dispatch, MiddlewareAPI } from '@reduxjs/toolkit'
-import earn, { InitalState, setS } from "./earn"
+import earn, { InitalState, setS, storageUpgrade } from "./earn"
 const storeActionInChrome = (store: MiddlewareAPI<Dispatch<AnyAction>, { money: InitalState; }>) => (next: Dispatch<AnyAction>) => (action: AnyAction) => {
+    next(action)
     const state = store.getState()
     console.log("storeActionInChrome called", state)
     setS(state.money)
-    return next(action)
+    return;
 }
 
 export const makeStore = (preloadedState?: {
-    money?: {
+    money: {
         value: number;
-        purchasedUpgrades: {
-            name: string;
-            isButton: boolean;
-        }[];
-        equippedUpgrades: {
-            name: string;
-            isButton: boolean;
-        }[];
+        purchasedUpgrades: storageUpgrade[];
+        equippedUpgrades: storageUpgrade[];
     }
 }) => configureStore({
     reducer: {
