@@ -10,6 +10,7 @@ interface CounterState {
 interface UpgradeState {
   purchasedUpgrades: storageUpgrade[];
   equippedUpgrades: storageUpgrade[];
+  equippedButton: storageUpgrade;
 }
 export type InitalState = CounterState & UpgradeState
 export type storageUpgrade = {
@@ -26,6 +27,7 @@ const initialState: InitalState = {
   value: 1,
   purchasedUpgrades: [{ name: originalButton.name, isButton: true }],
   equippedUpgrades: [{ name: originalButton.name, isButton: true }],
+  equippedButton: { name: originalButton.name, isButton: true }
 }
 export const setS = async (x: Partial<ChromeStorage>) => {
   let a = await getS()
@@ -93,8 +95,10 @@ export const counterSlice = createSlice({
       console.log("equipping", e.payload.name)
       if (state.equippedUpgrades.some(b => b.name === e.payload.name))
         return;
-      if (equpping.isButton)
+      if (equpping.isButton) {
         state.equippedUpgrades = state.equippedUpgrades.filter(upgrades => !upgrades.isButton)
+        state.equippedButton = equpping;
+      }
       state.equippedUpgrades.push(equpping)
       console.log("in equip, after equpping, the equipped upgrades are", state.equippedUpgrades)
     },

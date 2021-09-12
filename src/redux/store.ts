@@ -13,6 +13,7 @@ export const makeStore = (preloadedState?: {
         value: number;
         purchasedUpgrades: storageUpgrade[];
         equippedUpgrades: storageUpgrade[];
+        equippedButton: storageUpgrade;
     }
 }) => configureStore({
     reducer: {

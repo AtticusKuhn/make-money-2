@@ -1,18 +1,15 @@
 import React from 'react';
 import { hot } from 'react-hot-loader/root';
-import { useSelector } from 'react-redux';
 import { Route } from 'react-router';
 import { Link } from 'react-router-dom';
-import { RootState } from '../redux/store';
 import './App.scss';
 import Debug from './pages/debug';
 import Index from './pages/Index';
 import LoadOut from './pages/loadout';
-import store, { getPossibleUpgrades } from './pages/store';
+import store, { findPossibleUpgrades } from './pages/store';
 
 const App = () => {
-    const money = useSelector<RootState, number>((state) => state.money.value)
-    const l = getPossibleUpgrades(money).length;
+    const l = findPossibleUpgrades().length;
     const msg = l > 0 ? `(${l} upgade${l > 1 ? "s" : ""} available)` : ""
     return <div className="app">    <li>
         <Link to="/">Home</Link>
