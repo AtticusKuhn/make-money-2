@@ -15,4 +15,5 @@ export const MilestoneComponent: React.FC<{}> = () => {
     const msg = stones.find(x => money > x.v)?.n || "you are so rich you caused a bug in the fabric of the universe";
     return <div> milestone: {msg} </div>;
 }
-export default [milestone]
+export const darkMode = new Equippable("dark mode", 12)
+export default [milestone, darkMode]
