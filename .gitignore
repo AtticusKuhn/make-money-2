@@ -1,6 +1,6 @@
 # custom
 extension
-
+node_modules
 # Logs
 logs
 *.log
