@@ -107,12 +107,15 @@ const fdb: React.FC<{}> = () => {
     const dispatch = useDispatch()
     type v = { up: number, right: number }
     const [pos, setPos] = useState<v>({ up: 0, right: 0 })
-    const [tPos, setTPos] = useState<v>({ up: 0, right: 0 })
+    const r = () => Math.floor((Math.random() * 100));
+    const [tPos, setTPos] = useState<v>({
+        right: r(),
+        up: r(),
+    })
     const [direction, setD] = useState<v>({ up: 0, right: 0 })
     const earnM = () => {
-        if (Math.sqrt((pos.right - tPos.right) ** 2 + (pos.up - tPos.up) ** 2) < 5) {
+        if (Math.sqrt((pos.right - tPos.right) ** 2 + (pos.up - tPos.up) ** 2) < 10) {
             dispatch(earn(5));
-            const r = () => Math.floor((Math.random() * 100));
             setTPos({
                 right: r(),
                 up: r(),
@@ -148,13 +151,13 @@ const fdb: React.FC<{}> = () => {
             setD({ ...direction, up: -10 })
         earnM()
     }
-    return <div onKeyDown={keyPress}>
-        <div onKeyPress={keyPress}>
+    return <div onKeyDown={keyPress} style={{ height: "200px" }}>
+        <div onKeyPress={keyPress} style={{ height: "200px" }}>
             <pre>Direction: {JSON.stringify(direction, null, 4)}</pre> <br />
             <pre>position: {JSON.stringify(pos, null, 4)}</pre> <br />
             <pre>target positon: {JSON.stringify(tPos, null, 4)}</pre> <br />
+            <div style={{ position: "absolute", marginLeft: `${tPos.right}px`, marginTop: `${100 - tPos.up}px`, width: "10px", height: "10px", backgroundColor: "black" }} />
             <button style={{ marginLeft: `${pos.right}px`, marginTop: `${100 - pos.up}px` }} onClick={click}> - money moves anywhere - </button>
-            <div style={{ marginLeft: `${tPos.right}px`, marginTop: `${tPos.up}px`, width: "5px", height: "30px", backgroundColor: "black" }} />
         </div>
     </div>
 }
