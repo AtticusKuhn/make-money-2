@@ -161,14 +161,36 @@ const fdb: React.FC<{}> = () => {
         </div>
     </div>
 }
-
+const tb: React.FC<{}> = () => {
+    const dispatch = useDispatch()
+    const getSentence = (): string => "I like apple pie"
+    const [currentSentence, setCurrentSentence] = useState<string>(getSentence())
+    const keyPress: React.KeyboardEventHandler<HTMLDivElement> = (key) => {
+        if (key.key === currentSentence[0]) {
+            dispatch(earn(10))
+            setCurrentSentence(currentSentence.slice(1))
+        } else {
+            dispatch(earn(1))
+        }
+        if (currentSentence.length === 0) {
+            setCurrentSentence(getSentence())
+        }
+    }
+    return <div onKeyDown={keyPress} style={{ height: "200px" }}>
+        <div onKeyPress={keyPress} style={{ height: "200px" }}>
+            <button style={{}} onClick={() => dispatch(earn(1))}>What is the "type" of money?</button>
+            <br />{currentSentence}
+        </div>
+    </div>
+}
 export const originalButton = new Button("original button", 0, ob,)
 const betterButton = new Button("better button", 10, bb)
 const movingButton = new Button("moving button", 2, mb)
 const movingBonusButton = new Button("moving bonus button", 12, mbb)
 const allDirectionButton = new Button("all direction moving button", 12, fdb)
+const typingButton = new Button("typing button", 12, tb)
 
 export const findButton = (us: storageUpgrade): Button => {
     return upgrades.find(u => u.name === us.name) as Button
 }
-export const upgrades: Array<Upgrade> = [originalButton, betterButton, movingButton, movingBonusButton, allDirectionButton]
+export const upgrades: Array<Button> = [originalButton, betterButton, movingButton, movingBonusButton, allDirectionButton, typingButton]
