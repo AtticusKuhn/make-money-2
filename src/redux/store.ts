@@ -4,7 +4,7 @@ const storeActionInChrome = (store: MiddlewareAPI<Dispatch<AnyAction>, { money: 
     next(action)
     const state = store.getState()
     console.log("storeActionInChrome called", state)
-    if (Math.abs(state.money.lastSaved - new Date().getTime()) > 1000) { // only save once a second
+    if (Math.abs(state.money.lastSaved - new Date().getTime()) > 300) { // only save once a second
         setS(state.money)
         store.dispatch(updateTs())
     }

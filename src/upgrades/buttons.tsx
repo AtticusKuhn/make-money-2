@@ -114,13 +114,13 @@ const fdb: React.FC<{}> = () => {
     const [direction, setD] = useState<v>({ up: 0, right: 0 })
     const earnM = () => {
         if (Math.sqrt((pos.right - tPos.right) ** 2 + (pos.up - tPos.up) ** 2) < 10) {
-            dispatch(earn(5));
+            dispatch(earn(300));
             setTPos({
                 right: r(),
                 up: r(),
             })
         } else {
-            dispatch(earn(2));
+            dispatch(earn(1));
         }
         setPos({
             up: inRange(100, 0, pos.up + direction.up),
@@ -152,11 +152,11 @@ const fdb: React.FC<{}> = () => {
     }
     return <div onKeyDown={keyPress} style={{ height: "200px" }}>
         <div onKeyPress={keyPress} style={{ height: "200px" }}>
-            <pre>Direction: {JSON.stringify(direction, null, 4)}</pre> <br />
+            {/* <pre>Direction: {JSON.stringify(direction, null, 4)}</pre> <br />
             <pre>position: {JSON.stringify(pos, null, 4)}</pre> <br />
-            <pre>target positon: {JSON.stringify(tPos, null, 4)}</pre> <br />
+            <pre>target positon: {JSON.stringify(tPos, null, 4)}</pre> <br /> */}
             <div style={{ position: "absolute", marginLeft: `${tPos.right}px`, marginTop: `${100 - tPos.up}px`, width: "10px", height: "10px", backgroundColor: "black" }} />
-            <button style={{ marginLeft: `${pos.right}px`, marginTop: `${100 - pos.up}px` }} onClick={click}> - money moves anywhere - </button>
+            <button style={{ marginLeft: `${pos.right}px`, marginTop: `${100 - pos.up}px`, marginBottom: `${pos.up}px` }} onClick={click}> - money moves anywhere - </button>
         </div>
     </div>
 }
@@ -188,10 +188,11 @@ const sb: React.FC<{}> = () => {
     const [height, setHeight] = useState<number>(200)
 
     const run = () => {
-        console.log("run called")
+        console.log("run called, l is", left, "and h is", height)
         setLeft(left - 1)
-        setHeight(height - 1);
+        setHeight(Math.max(0, height - 1));
         if (left <= 0) {
+            console.log("left is negative, resetting to 200")
             setLeft(200)
         }
         if (left <= 10 && height <= 10) {
@@ -200,19 +201,24 @@ const sb: React.FC<{}> = () => {
     }
     const click = () => {
         dispatch(earn(1))
+        console.log("increasing height")
+
         setHeight(Math.min(30, height + 5))
     }
     useEffect(() => {
         console.log("useEffect called in scrolling button")
-        const gameLoop = setInterval(run, 300)
+        const gameLoop = setInterval(run, 30)
         return () => clearInterval(gameLoop);
-    }, [])
+    }, [height, left])
     return (<>
         left: {left} <br />
         height: {height} <br />
-        <button style={{ marginBottom: `${height}px` }} onClick={click}>money requires effort</button>
-        <br />
-        <div style={{ position: "absolute", marginLeft: `${left}px`, width: "10px", height: "100px", backgroundColor: "red" }} />
+        <div className="holder">
+            <div style={{ position: "absolute", marginLeft: `${left}px`, width: "5px", height: "30px", backgroundColor: "red" }} />
+
+            <button style={{ position: "relative", marginBottom: `${height}px`, marginTop: `${100 - height}px` }} onClick={click}>money requires effort</button>
+            {/* <br /> */}
+        </div>
     </>)
 }
 export const originalButton = new Button("original button", 0, ob,)
