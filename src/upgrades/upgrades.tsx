@@ -1,6 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { storageUpgrade } from "../redux/earn";
 import { RootState } from "../redux/store";
+import { usToU } from "../utils";
 import { Equippable } from "./buttons";
 
 export const milestone = new Equippable("money milestone", 10)
@@ -15,5 +17,24 @@ export const MilestoneComponent: React.FC<{}> = () => {
     const msg = stones.find(x => money > x.v)?.n || "you are so rich you caused a bug in the fabric of the universe";
     return <div> milestone: {msg} </div>;
 }
-export const darkMode = new Equippable("dark mode", 12)
-export default [milestone, darkMode]
+export class Appearence extends Equippable {
+    constructor(public name: string, public cost: number, public cls: string) {
+        super(name, cost)
+    }
+}
+
+export const darkMode = new Appearence("dark mode", 12, "darkTheme")
+export const hypeButtons = new Appearence("hype beast buttons", 12, "hypebuttons")
+export const toCss = (equipped: storageUpgrade[]): string => {
+    const c = equipped.map(usToU)
+    let s = "";
+    for (const e of c) {
+        console.log("in toCss, e is", e)
+        if (e instanceof Appearence) {
+            console.log("in toCss, this extends apperance")
+            s += e.cls + " "
+        }
+    }
+    return s
+}
+export default [milestone, darkMode, hypeButtons]

@@ -1,5 +1,4 @@
-import React from "react"
-import { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 import { earn, increment, storageUpgrade } from "../redux/earn"
 import { inRange } from "../utils"
@@ -178,10 +177,43 @@ const tb: React.FC<{}> = () => {
     }
     return <div onKeyDown={keyPress} style={{ height: "200px" }}>
         <div onKeyPress={keyPress} style={{ height: "200px" }}>
-            <button style={{}} onClick={() => dispatch(earn(1))}>What is the "type" of money?</button>
+            <button onClick={() => dispatch(earn(1))}>What is the "type" of money?</button>
             <br />{currentSentence}
         </div>
     </div>
+}
+const sb: React.FC<{}> = () => {
+    const dispatch = useDispatch()
+    const [left, setLeft] = useState<number>(200)
+    const [height, setHeight] = useState<number>(200)
+
+    const run = () => {
+        console.log("run called")
+        setLeft(left - 1)
+        setHeight(height - 1);
+        if (left <= 0) {
+            setLeft(200)
+        }
+        if (left <= 10 && height <= 10) {
+            dispatch(earn(-1))
+        }
+    }
+    const click = () => {
+        dispatch(earn(1))
+        setHeight(Math.min(30, height + 5))
+    }
+    useEffect(() => {
+        console.log("useEffect called in scrolling button")
+        const gameLoop = setInterval(run, 300)
+        return () => clearInterval(gameLoop);
+    }, [])
+    return (<>
+        left: {left} <br />
+        height: {height} <br />
+        <button style={{ marginBottom: `${height}px` }} onClick={click}>money requires effort</button>
+        <br />
+        <div style={{ position: "absolute", marginLeft: `${left}px`, width: "10px", height: "100px", backgroundColor: "red" }} />
+    </>)
 }
 export const originalButton = new Button("original button", 0, ob,)
 const betterButton = new Button("better button", 10, bb)
@@ -189,8 +221,9 @@ const movingButton = new Button("moving button", 2, mb)
 const movingBonusButton = new Button("moving bonus button", 12, mbb)
 const allDirectionButton = new Button("all direction moving button", 12, fdb)
 const typingButton = new Button("typing button", 12, tb)
+const scrollingButton = new Button("scrolling button", 12, sb)
 
 export const findButton = (us: storageUpgrade): Button => {
     return upgrades.find(u => u.name === us.name) as Button
 }
-export const upgrades: Array<Button> = [originalButton, betterButton, movingButton, movingBonusButton, allDirectionButton, typingButton]
+export const upgrades: Array<Button> = [originalButton, betterButton, movingButton, movingBonusButton, allDirectionButton, typingButton, scrollingButton]

@@ -1,8 +1,9 @@
 import { storageUpgrade } from "./redux/earn";
-import { Upgrade, upgrades } from "./upgrades/buttons";
+import { Upgrade, } from "./upgrades/buttons";
+import upgrades from "./upgrades/index";
 
 export const usToU = (us: storageUpgrade): Upgrade => {
-    return upgrades.find(u => u.name === us.name) as Upgrade
+    return upgrades.all.find(u => u.name === us.name) as Upgrade
 }
 export const UTous = (us: Upgrade): storageUpgrade => {
     return { name: us.name, isButton: us.isButton }

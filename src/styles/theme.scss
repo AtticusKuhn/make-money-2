@@ -27,7 +27,29 @@ $themes: (
 // #app {
 //   text-align: center;
 // }
+@keyframes color-rotate {
+  from {
+      filter: hue-rotate(0deg);
+  }
+  to {
+      filter: hue-rotate(360deg);
+  }
+}
 
+.hypebuttons {
+  button {
+    background:linear-gradient(45deg, rgb(61, 114, 220), rgb(59, 201, 51))    !important;
+    color: rgb(147, 43, 43)  !important;
+   
+  
+   
+  }
+  button:hover {
+    animation: color-rotate 1s;
+    animation-iteration-count: infinite; 
+    animation-direction: alternate;
+}
+}
 .content {
 //   padding: 32px;
   transition: 1000ms;

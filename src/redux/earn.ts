@@ -40,8 +40,6 @@ export const setS = async (x: Partial<ChromeStorage>) => {
     chrome.storage.sync.set({ data: x }, console.log)
     return;
   }
-  console.log("in setS, x is", x, " and a is", a);
-
   chrome.storage.sync.set({ data: Object.assign(a, x) }, console.log)
 }
 export const getS = (): Promise<ChromeStorage> => new Promise(resolve => chrome.storage.sync.get("data", (x) => {
