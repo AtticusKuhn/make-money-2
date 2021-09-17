@@ -223,8 +223,8 @@ const sb: React.FC<{}> = () => {
 }
 export const originalButton = new Button("original button", 0, ob,)
 const betterButton = new Button("better button", 20, bb)
-const movingButton = new Button("moving button", 100, mb)
-const movingBonusButton = new Button("moving bonus button", 300, mbb)
+const movingButton = new Button("moving button", 150, mb)
+const movingBonusButton = new Button("moving bonus button", 450, mbb)
 const allDirectionButton = new Button("all direction moving button", 700, fdb)
 const typingButton = new Button("typing button", 2000, tb)
 const scrollingButton = new Button("scrolling button", 3000, sb)

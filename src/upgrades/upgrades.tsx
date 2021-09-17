@@ -30,9 +30,10 @@ export class Appearence extends Equippable {
     }
 }
 
-export const darkMode = new Appearence("dark mode", 200, "darkTheme")
+export const darkMode = new Appearence("dark mode", 230, "darkTheme")
 export const hypeButtons = new Appearence("hype beast buttons", 1500, "hypebuttons")
-export const economical = new Appearence("economical look", 100, "economical")
+export const economical = new Appearence("economical look", 90, "economical")
+export const suave = new Appearence("suave look", 405, "suave")
 
 export const toCss = (equipped: storageUpgrade[]): string => {
     const c = equipped.map(usToU)
@@ -46,4 +47,4 @@ export const toCss = (equipped: storageUpgrade[]): string => {
     }
     return s
 }
-export default [milestone, darkMode, hypeButtons, economical]
+export default [milestone, darkMode, hypeButtons, economical, suave]

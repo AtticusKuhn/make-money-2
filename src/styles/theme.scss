@@ -48,13 +48,31 @@ $themes: (
     background-color: #3f7116;
   }
 }
+.suave {
+  body {
+    padding: 30px;
+  }
+  button:hover {
+    background-color: #f5f5f584;
+  }
+  a {
+    flex-direction: row;
+  }
+  a:hover {
+    color: #325dc2;
+  }
+  *{
+    transition: 100ms;
+    display: flex;
+    padding: 2%;
+    flex-direction: column;
+    flex:auto;
+  }
+}
 .hypebuttons {
   button {
     background:linear-gradient(45deg, rgb(61, 114, 220), rgb(59, 201, 51))    !important;
     color: rgb(147, 43, 43)  !important;
-   
-  
-   
   }
   button:hover {
     animation: color-rotate 1s;
