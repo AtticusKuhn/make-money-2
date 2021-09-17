@@ -13,7 +13,7 @@ export default function Index() {
     console.log("isMilestone", isMilestone)
     return (
         <>
-            <h1>hello I am index</h1>
+            <h1>Make Money 2</h1>
             {money}
             {findButton(button).component({})}
             {isMilestone && <MilestoneComponent />}

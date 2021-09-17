@@ -9,7 +9,7 @@ import './App.scss';
 
 getS().then(s => {
     const defaultState: InitalState = {
-        value: 12,
+        value: 1,
         equippedUpgrades: [{ name: "original button", isButton: true }],
         purchasedUpgrades: [{ name: "original button", isButton: true }],
         equippedButton: { name: "original button", isButton: true },

@@ -5,19 +5,26 @@
     "manifest_version": 2,
     "minimum_chrome_version": "80",
     "content_security_policy": "script-src 'self' 'unsafe-eval' 'unsafe-inline'; object-src 'self';",
-    "permissions": ["storage"],
+    "permissions": [
+        "storage"
+    ],
     "background": {
-        "scripts": ["js/background.js"],
+        "scripts": [
+            "js/background.js"
+        ],
         "persistent": true
     },
-    "web_accessible_resources": ["injected/script.js", "contents/all/index.js"],
+    "web_accessible_resources": [
+        "injected/script.js",
+        "contents/all/index.js"
+    ],
     "browser_action": {
         "default_popup": "popup.html",
         "default_icon": {
-            "16": "icons/extension-icon-x16.png",
-            "32": "icons/extension-icon-x32.png",
-            "48": "icons/extension-icon-x48.png",
-            "128": "icons/extension-icon-x128.png"
+            "16": "icons/1.png",
+            "32": "icons/1.png",
+            "48": "icons/1.png",
+            "128": "icons/1.png"
         }
     },
     "options_ui": {
@@ -25,9 +32,9 @@
         "open_in_tab": true
     },
     "icons": {
-        "16": "icons/extension-icon-x16.png",
-        "32": "icons/extension-icon-x32.png",
-        "48": "icons/extension-icon-x48.png",
-        "128": "icons/extension-icon-x128.png"
+        "16": "icons/1.png",
+        "32": "icons/1.png",
+        "48": "icons/1.png",
+        "128": "icons/1.png"
     }
 }
