@@ -9,3 +9,4 @@ export const UTous = (us: Upgrade): storageUpgrade => {
     return { name: us.name, isButton: us.isButton }
 }
 export const inRange = (max: number, min: number, num: number) => Math.min(max, Math.max(min, num))
+export const randomInRange = (min: number, max: number): number => Math.floor(Math.random() * (max - min) + min)

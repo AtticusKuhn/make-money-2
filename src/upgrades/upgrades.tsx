@@ -12,8 +12,12 @@ export const MilestoneComponent: React.FC<{}> = () => {
         { v: 0, n: "you very poor" },
         { v: 1, n: "you are poor" },
         { v: 10, n: "you have the wealth of a 10 year old" },
+        { v: 40, n: "you are as wealthy as one meal" },
+        { v: 100, n: "you have one tv" },
+        { v: 300, n: "you have one iphone" },
         { v: 1000, n: " you are rich" },
-    ].reverse();
+        { v: 2500, n: "you can buy 100 cardano" },
+    ].sort().reverse();
     const msg = stones.find(x => money > x.v)?.n || "you are so rich you caused a bug in the fabric of the universe";
     return <div> milestone: {msg} </div>;
 }
@@ -25,6 +29,8 @@ export class Appearence extends Equippable {
 
 export const darkMode = new Appearence("dark mode", 12, "darkTheme")
 export const hypeButtons = new Appearence("hype beast buttons", 12, "hypebuttons")
+export const economical = new Appearence("economical look", 12, "economical")
+
 export const toCss = (equipped: storageUpgrade[]): string => {
     const c = equipped.map(usToU)
     let s = "";
@@ -37,4 +43,4 @@ export const toCss = (equipped: storageUpgrade[]): string => {
     }
     return s
 }
-export default [milestone, darkMode, hypeButtons]
+export default [milestone, darkMode, hypeButtons, economical]

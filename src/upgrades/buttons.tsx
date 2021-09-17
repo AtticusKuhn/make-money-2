@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 import { earn, increment, storageUpgrade } from "../redux/earn"
-import { inRange } from "../utils"
+import { inRange, randomInRange } from "../utils"
 
 
 export class Upgrade {
@@ -184,40 +184,45 @@ const tb: React.FC<{}> = () => {
 }
 const sb: React.FC<{}> = () => {
     const dispatch = useDispatch()
-    const [left, setLeft] = useState<number>(200)
+    const [left, setLeft] = useState<number>(300)
     const [height, setHeight] = useState<number>(200)
+    const [v, setV] = useState<number>(0)
+    const [ob, setob] = useState<number>(randomInRange(4, 8))
 
     const run = () => {
         console.log("run called, l is", left, "and h is", height)
-        setLeft(left - 1)
-        setHeight(Math.max(0, height - 1));
+        setLeft(left - ob)
+        setHeight(Math.max(0, height + v));
+        setV(Math.max(-20, v - 1))
         if (left <= 0) {
             console.log("left is negative, resetting to 200")
             setLeft(200)
+            setob(randomInRange(4, 8))
         }
-        if (left <= 10 && height <= 10) {
+        if (left <= 40 && height <= 10) {
             dispatch(earn(-1))
         }
     }
     const click = () => {
         dispatch(earn(1))
         console.log("increasing height")
-
-        setHeight(Math.min(30, height + 5))
+        if (height === 0) {
+            setV(10)
+        }
+        // setHeight(Math.min(30, height + 5))
     }
     useEffect(() => {
         console.log("useEffect called in scrolling button")
         const gameLoop = setInterval(run, 30)
         return () => clearInterval(gameLoop);
-    }, [height, left])
+    }, [height, left, v])
     return (<>
         left: {left} <br />
         height: {height} <br />
+        v: {v} <br />
         <div className="holder">
-            <div style={{ position: "absolute", marginLeft: `${left}px`, width: "5px", height: "30px", backgroundColor: "red" }} />
-
-            <button style={{ position: "relative", marginBottom: `${height}px`, marginTop: `${100 - height}px` }} onClick={click}>money requires effort</button>
-            {/* <br /> */}
+            <div style={{ marginTop: "100px", marginBottom: "20px", position: "absolute", marginLeft: `${left}px`, width: "5px", height: "30px", backgroundColor: "red" }} />
+            <button style={{ position: "relative", marginBottom: `${height}px`, marginTop: `${100 - height}px` }} onClick={click}>jump</button>
         </div>
     </>)
 }

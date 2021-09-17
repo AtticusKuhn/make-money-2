@@ -35,7 +35,19 @@ $themes: (
       filter: hue-rotate(360deg);
   }
 }
-
+.content {
+  height: 100%;
+}
+.economical {
+  *, body, html {
+    color:#79e422;
+    background-color: #2f5411;
+    transition: 500ms;
+  }
+  *:hover {
+    background-color: #3f7116;
+  }
+}
 .hypebuttons {
   button {
     background:linear-gradient(45deg, rgb(61, 114, 220), rgb(59, 201, 51))    !important;
