@@ -41,7 +41,7 @@ const mb: React.FC<{}> = () => {
             l();
             setD("left")
         }
-        dispatch(earn(2));
+        dispatch(earn(7));
     }
     const click = () => {
         dispatch(earn(2));
@@ -152,9 +152,6 @@ const fdb: React.FC<{}> = () => {
     }
     return <div onKeyDown={keyPress} style={{ height: "200px" }}>
         <div onKeyPress={keyPress} style={{ height: "200px" }}>
-            {/* <pre>Direction: {JSON.stringify(direction, null, 4)}</pre> <br />
-            <pre>position: {JSON.stringify(pos, null, 4)}</pre> <br />
-            <pre>target positon: {JSON.stringify(tPos, null, 4)}</pre> <br /> */}
             <div style={{ position: "absolute", marginLeft: `${tPos.right}px`, marginTop: `${100 - tPos.up}px`, width: "10px", height: "10px", backgroundColor: "black" }} />
             <button style={{ marginLeft: `${pos.right}px`, marginTop: `${100 - pos.up}px`, marginBottom: `${pos.up}px` }} onClick={click}> - money moves anywhere - </button>
         </div>
@@ -166,14 +163,13 @@ const tb: React.FC<{}> = () => {
     const [currentSentence, setCurrentSentence] = useState<string>(getSentence())
     const keyPress: React.KeyboardEventHandler<HTMLDivElement> = (key) => {
         if (key.key === currentSentence[0]) {
-            dispatch(earn(10))
+            dispatch(earn(16))
             setCurrentSentence(currentSentence.slice(1))
         } else {
             dispatch(earn(1))
         }
-        if (currentSentence.length === 0) {
+        if (currentSentence.length === 0)
             setCurrentSentence(getSentence())
-        }
     }
     return <div onKeyDown={keyPress} style={{ height: "200px" }}>
         <div onKeyPress={keyPress} style={{ height: "200px" }}>
@@ -188,7 +184,6 @@ const sb: React.FC<{}> = () => {
     const [height, setHeight] = useState<number>(200)
     const [v, setV] = useState<number>(0)
     const [ob, setob] = useState<number>(randomInRange(4, 8))
-
     const run = () => {
         console.log("run called, l is", left, "and h is", height)
         setLeft(left - ob)
@@ -204,7 +199,7 @@ const sb: React.FC<{}> = () => {
         }
     }
     const click = () => {
-        dispatch(earn(1))
+        dispatch(earn(100))
         console.log("increasing height")
         if (height === 0) {
             setV(10)
@@ -227,12 +222,12 @@ const sb: React.FC<{}> = () => {
     </>)
 }
 export const originalButton = new Button("original button", 0, ob,)
-const betterButton = new Button("better button", 10, bb)
-const movingButton = new Button("moving button", 2, mb)
-const movingBonusButton = new Button("moving bonus button", 12, mbb)
-const allDirectionButton = new Button("all direction moving button", 12, fdb)
-const typingButton = new Button("typing button", 12, tb)
-const scrollingButton = new Button("scrolling button", 12, sb)
+const betterButton = new Button("better button", 20, bb)
+const movingButton = new Button("moving button", 100, mb)
+const movingBonusButton = new Button("moving bonus button", 300, mbb)
+const allDirectionButton = new Button("all direction moving button", 700, fdb)
+const typingButton = new Button("typing button", 2000, tb)
+const scrollingButton = new Button("scrolling button", 3000, sb)
 
 export const findButton = (us: storageUpgrade): Button => {
     return upgrades.find(u => u.name === us.name) as Button

@@ -1,20 +1,22 @@
 {
-    "name": "awesome chrome extension boilerplate",
+    "name": "make money 2",
     "version": "1.0",
-    "description": "made by awesome-chrome-extension-boilerplate",
+    "description": "a fun game where you make money",
     "manifest_version": 2,
     "minimum_chrome_version": "80",
-    "permissions": [],
+    "content_security_policy": "script-src 'self' 'unsafe-eval' 'unsafe-inline'; object-src 'self';",
+    "permissions": [
+        "storage"
+    ],
     "background": {
-        "scripts": ["js/background.js"],
+        "scripts": [
+            "js/background.js"
+        ],
         "persistent": true
     },
-    "content_scripts": [
-        {
-            "matches": ["https://github.com/*"],
-            "css": ["css/all.css"],
-            "js": ["js/all.js"]
-        }
+    "web_accessible_resources": [
+        "injected/script.js",
+        "contents/all/index.js"
     ],
     "browser_action": {
         "default_popup": "popup.html",

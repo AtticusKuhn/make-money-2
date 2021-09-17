@@ -15,6 +15,9 @@ export const MilestoneComponent: React.FC<{}> = () => {
         { v: 40, n: "you are as wealthy as one meal" },
         { v: 100, n: "you have one tv" },
         { v: 300, n: "you have one iphone" },
+        { v: 400, n: "you can buy one jacuzzi" },
+        { v: 500, n: "you can pay moving fees to move to a better place (can't but it though)" },
+        { v: 700, n: "you can buy one deck of magic: the gathering cards" },
         { v: 1000, n: " you are rich" },
         { v: 2500, n: "you can buy 100 cardano" },
     ].sort().reverse();
@@ -27,9 +30,9 @@ export class Appearence extends Equippable {
     }
 }
 
-export const darkMode = new Appearence("dark mode", 12, "darkTheme")
-export const hypeButtons = new Appearence("hype beast buttons", 12, "hypebuttons")
-export const economical = new Appearence("economical look", 12, "economical")
+export const darkMode = new Appearence("dark mode", 200, "darkTheme")
+export const hypeButtons = new Appearence("hype beast buttons", 1500, "hypebuttons")
+export const economical = new Appearence("economical look", 100, "economical")
 
 export const toCss = (equipped: storageUpgrade[]): string => {
     const c = equipped.map(usToU)

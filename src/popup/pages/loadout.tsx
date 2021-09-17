@@ -26,7 +26,9 @@ export default function LoadOut() {
 
     return (
         <>
-            <h1>hello I am LoadOut</h1>
+            <h1> LoadOut</h1>
+            <br />
+            <p>Here you equip and choose the different upgrades that you have bought</p>
             <br />
             <h2>Equip buttons</h2>
             {buttons.map(b => <ChooseButton button={b} />)}
