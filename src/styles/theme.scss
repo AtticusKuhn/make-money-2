@@ -61,12 +61,16 @@ $themes: (
   a:hover {
     color: #325dc2;
   }
-  *{
+  :not(button){
     transition: 100ms;
     display: flex;
     padding: 2%;
     flex-direction: column;
     flex:auto;
+  }
+  button {
+    display: inline-block !important;
+    width:fit-content !important;
   }
 }
 .hypebuttons {

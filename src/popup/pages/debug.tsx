@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { reset } from "../../redux/earn";
+import { prestige, reset } from "../../redux/earn";
 
 const Debug: React.FC<{}> = () => {
     // const money = useSelector<RootState>((state) => state)
@@ -19,6 +19,11 @@ const Debug: React.FC<{}> = () => {
         <br />
         <pre>{JSON.stringify(c, null, 4)}</pre> */}
         <button onClick={() => dispatch(reset())}>reset all</button>
+        <br />
+        <br />
+        <br />
+        <button onClick={() => dispatch(prestige())}>prestige</button>
+
     </>)
 }
 export default Debug;

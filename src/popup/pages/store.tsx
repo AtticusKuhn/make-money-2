@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { purchase, storageUpgrade } from "../../redux/earn"
 import { RootState } from "../../redux/store"
 import { Upgrade } from "../../upgrades/buttons"
-import { UTous } from "../../utils"
+import { isButton, UTous } from "../../utils"
 import upgrades, { findUpgrade } from "../../upgrades/index"
 
 export function findPossibleUpgrades() {
@@ -12,7 +12,7 @@ export function findPossibleUpgrades() {
     return getPossibleUpgrades(money, upgrades.all, allreadyPurchased)
 
 }
-function getPossibleUpgrades(money: number, upgrades: Array<Upgrade>, allreadyPurchased: Array<storageUpgrade>): Array<Upgrade> {
+function getPossibleUpgrades(money: number, upgrades: Array<Upgrade | storageUpgrade>, allreadyPurchased: Array<storageUpgrade>): Array<Upgrade> {
     return upgrades.filter(upgrade => upgrade.cost < money && !allreadyPurchased.some(u => u.name === upgrade.name))
 }
 
@@ -33,9 +33,9 @@ const store: React.FC<{}> = () => {
     return (<>
         <h1>welcome to the store</h1> <br />
         <h3>Buttons: </h3> <br />
-        {possibleUpgrads.length > 0 ? possibleUpgrads.filter(x => x.isButton).map((e, i) => <PossiblePurchase key={i} {...e} />) : "no buttons availbe for purchase"}
+        {possibleUpgrads.length > 0 ? possibleUpgrads.filter(isButton).map((e, i) => <PossiblePurchase key={i} {...e} />) : "no buttons availbe for purchase"}
         <h3>Upgrades: </h3> <br />
-        {possibleUpgrads.length > 0 ? possibleUpgrads.filter(x => !x.isButton).map((e, i) => <PossiblePurchase key={i} {...e} />) : "no upgrades availbe for purchase"}
+        {possibleUpgrads.length > 0 ? possibleUpgrads.filter(x => !isButton(x)).map((e, i) => <PossiblePurchase key={i} {...e} />) : "no upgrades availbe for purchase"}
 
     </>)
 }

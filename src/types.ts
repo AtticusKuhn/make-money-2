@@ -5,3 +5,8 @@ export interface myWindow {
 export type chromeStorage = {
     money: number;
 }
+export enum upgradeType {
+    item,
+    button,
+    upgrade,
+}

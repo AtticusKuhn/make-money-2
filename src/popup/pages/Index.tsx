@@ -7,6 +7,7 @@ import { milestone, MilestoneComponent } from '../../upgrades/upgrades';
 
 export default function Index() {
     const money = useSelector<RootState, number>((state) => state.money.value)
+    const income = useSelector<RootState, number>((state) => state.money.income)
     const equipped = useSelector<RootState, storageUpgrade[]>((state) => state.money.equippedUpgrades)
     const button = useSelector<RootState, storageUpgrade>((state) => state.money.equippedButton)
     const isMilestone = equipped.some(x => x.name === milestone.name)
@@ -14,10 +15,10 @@ export default function Index() {
     return (
         <>
             <h1>Make Money 2</h1>
-            {money}
+            Money: ${Math.floor(money)} <br />
+            Income: ${Math.floor(income)} <br />
             {findButton(button).component({})}
             {isMilestone && <MilestoneComponent />}
-            {/* <button onClick={() => dispatch(increment())}>Make Money</button> */}
         </>
     );
 }

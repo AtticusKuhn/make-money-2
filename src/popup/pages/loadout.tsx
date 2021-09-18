@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { equip, storageUpgrade, unequip } from '../../redux/earn';
 import { RootState } from '../../redux/store';
+import { isButton } from '../../utils';
 
 interface ChooseButtonProps {
     button: storageUpgrade;
@@ -21,8 +22,8 @@ const ChooseButton: React.FC<ChooseButtonProps> = ({ button }) => {
 
 export default function LoadOut() {
     const PurchasedUpgrades = useSelector<RootState, storageUpgrade[]>(state => state.money.purchasedUpgrades)
-    const buttons = PurchasedUpgrades.filter(x => x.isButton);
-    const notButton = PurchasedUpgrades.filter(x => !x.isButton)
+    const buttons = PurchasedUpgrades.filter(isButton);
+    const notButton = PurchasedUpgrades.filter(x => !isButton(x))
 
     return (
         <>
