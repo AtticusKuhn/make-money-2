@@ -4,12 +4,11 @@ import { findUpgrade } from '../upgrades'
 import { originalButton } from '../upgrades/buttons'
 import { UTous } from '../utils'
 import type { RootState } from './store'
-// Define a type for the slice state
+
 interface CounterState {
   value: number;
   income: number;
 }
-//eee
 interface UpgradeState {
   purchasedUpgrades: storageUpgrade[];
   purchasedItems: storageUpgrade[];
@@ -26,13 +25,7 @@ export type storageUpgrade = {
   type: upgradeType,
   cost: number;
 }
-// type ChromeStorage = {
-//   value: number,
-//   purchasedUpgrades: storageUpgrade[],
-//   purchasedItems: storageUpgrade[],
-//   equippedUpgrades: storageUpgrade[],
-// }
-// Define the initial state using that type
+
 const ob = { name: "original button", type: upgradeType.button, cost: 1 }
 
 export const initialState: InitalState = {
@@ -60,12 +53,6 @@ export const counterSlice = createSlice({
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
-    increment: (state) => {
-      console.log("increment called")
-      if (state.value) {
-        state.value += 1
-      }
-    },
     earn: (state, action?: PayloadAction<number>) => {
       const amount = action?.payload || 1
       state.value += amount * state.income
@@ -78,12 +65,15 @@ export const counterSlice = createSlice({
       state.equippedUpgrades = action.payload.equippedUpgrades
       state.purchasedUpgrades = action.payload.purchasedUpgrades;
     },
-    incrementByAmount: (state, action: PayloadAction<number>) => {
-      if (state.value)
-        state.value += action.payload
-    },
     purchase: (state, item: PayloadAction<storageUpgrade>) => {
       if (state.purchasedUpgrades.some(x => x.name === item.payload.name)) {
+        return;
+      }
+      console.log("in purchase, the item type is", item.payload.type)
+      if (item.payload.type === upgradeType.item) {
+        console.log("purchaseing an item.")
+        state.income += item.payload.cost * 0.1;
+        state.purchasedItems.push(item.payload);
         return;
       }
       const i = findUpgrade(item.payload.name)
@@ -104,6 +94,7 @@ export const counterSlice = createSlice({
       state.equippedUpgrades = [t]
       state.purchasedUpgrades = [t]
       state.equippedButton = t;
+      state.purchasedItems = []
       state.income = 1
     },
     equip: (state, e: PayloadAction<storageUpgrade>) => {
@@ -134,12 +125,13 @@ export const counterSlice = createSlice({
       state.value = 1;
       state.equippedUpgrades = [t]
       state.purchasedUpgrades = [t]
+      state.purchasedItems = []
       state.equippedButton = t;
     }
   },
 })
 
-export const { reset, increment, incrementByAmount, set, purchase, setAll, equip, unequip, earn, updateTs, prestige } = counterSlice.actions
+export const { reset, set, purchase, setAll, equip, unequip, earn, updateTs, prestige } = counterSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectCount = (state: RootState) => state.money.value
