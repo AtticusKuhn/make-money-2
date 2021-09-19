@@ -77,8 +77,7 @@ export const counterSlice = createSlice({
         return;
       }
       const i = findUpgrade(item.payload.name)
-      if (state.value)
-        state.value -= i.cost;
+      state.value -= i.cost;
       console.log("in purchase, using i", i)
       state.purchasedUpgrades.push({ name: item.payload.name, type: item.payload.type, cost: item.payload.cost })
       getS().then((b) => {
@@ -89,7 +88,7 @@ export const counterSlice = createSlice({
     },
     reset: (state) => {
       // state = initialState;
-      const t = UTous(originalButton)
+      const t = { name: "original button", type: upgradeType.button, cost: 1 }
       state.value = 1;
       state.equippedUpgrades = [t]
       state.purchasedUpgrades = [t]
@@ -99,11 +98,11 @@ export const counterSlice = createSlice({
     },
     equip: (state, e: PayloadAction<storageUpgrade>) => {
       const equpping = e.payload
-      console.log("equipping", e.payload.name)
+      console.log("equipping", equpping)
       if (state.equippedUpgrades.some(b => b.name === e.payload.name))
         return;
       if (equpping.type === upgradeType.button) {
-        state.equippedUpgrades = state.equippedUpgrades.filter(upgrades => upgrades.type === upgradeType.button)
+        state.equippedUpgrades = state.equippedUpgrades.filter(upgrades => upgrades.type !== upgradeType.button)
         state.equippedButton = equpping;
       }
       state.equippedUpgrades.push(equpping)
