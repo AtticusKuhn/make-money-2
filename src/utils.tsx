@@ -17,7 +17,7 @@ export const distance = (p1: v, p2: v): number => Math.sqrt(
     +
     (p1.up - p2.up) ** 2
 )
-export const toDirection = (key: React.KeyboardEvent<any>): "up" | "down" | "left" | "right" => {
+export const toDirection = (key: React.KeyboardEvent<any>): "up" | "down" | "left" | "right" | null => {
     if (key.key === "d" || key.key === "ArrowRight")
         return "right"
     if (key.key === "s" || key.key === "ArrowDown")
@@ -26,6 +26,6 @@ export const toDirection = (key: React.KeyboardEvent<any>): "up" | "down" | "lef
         return "left"
     if (key.key === "w" || key.key === "ArrowUp")
         return "up"
-    return "right"
+    return null
 }
 export const sleep = (time: number): Promise<void> => new Promise(resolve => setTimeout(resolve, time))

@@ -16,11 +16,19 @@ export const MilestoneComponent: React.FC<{}> = () => {
         { v: 100, n: "you have one tv" },
         { v: 300, n: "you have one iphone" },
         { v: 400, n: "you can buy one jacuzzi" },
-        { v: 500, n: "you can pay moving fees to move to a better place (can't but it though)" },
+        { v: 500, n: "you can pay moving fees to move to a better place (can't buy it though)" },
         { v: 700, n: "you can buy one deck of magic: the gathering cards" },
         { v: 1000, n: " you are rich" },
         { v: 2500, n: "you can buy 100 cardano" },
-    ].sort().reverse();
+        { v: 25295, n: "you can buy a toyota camry" },
+        { v: 31133, n: "you have more money than the average salary in the USA" },
+        { v: 746820, n: "you have more money than the average Amwerican household" },
+        { v: 1e6, n: "you can afford 1 house" },
+        { v: 11.1e6, n: "you are in the top 1%" },
+        { v: 207.1e9, n: "you are the richest man in the world" },
+        { v: 21.43e12, n: "you have more money than america" }
+
+    ].reverse();
     const msg = stones.find(x => money > x.v)?.n || "you are so rich you caused a bug in the fabric of the universe";
     return <div> milestone: {msg} </div>;
 }

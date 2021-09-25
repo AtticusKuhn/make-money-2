@@ -17,7 +17,7 @@ export default function Index() {
             <h1>Make Money 2</h1>
             Money: ${Math.floor(money)} <br />
             Income: ${Math.floor(income)} <br />
-            {findButton(button).component({})}
+            {findButton(button).component({})} <br /> <br />
             {isMilestone && <MilestoneComponent />}
         </>
     );

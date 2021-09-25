@@ -3,7 +3,8 @@
 
 .app {
     width: 380px;
-    height:240px;
+    height:100%;
+    overflow: scroll;
 
     .title {
         text-align: center;

@@ -241,7 +241,6 @@ const sdb: React.FC<{}> = () => {
     const [enemyPosition, setEnemyPosition] = useState<v>({ right: 0, up: 100 })
     const [bulletPosition, setBulletPosition] = useState<v>({ right: 0, up: 0 })
     const [isBulletVisible, setBulletVisible] = useState<boolean>(false)
-
     const [enemyDirection, setEnemyDirection] = useState<v>({ right: -10, up: -2 })
     const run = () => {
         setEnemyPosition({
@@ -264,7 +263,7 @@ const sdb: React.FC<{}> = () => {
                 right: bulletPosition.right
             })
         }
-        if (distance(bulletPosition, enemyPosition) <= 20) {
+        if (distance(bulletPosition, enemyPosition) <= 20 && isBulletVisible) {
             setEnemyPosition({ right: 0, up: 300 })
             setBulletPosition({ right: 0, up: 0 })
             setBulletVisible(false)
@@ -293,9 +292,12 @@ const sdb: React.FC<{}> = () => {
                     right: buttonPosition,
                 })
             }
+            click()
+
         } else {
-            r();
-            setBDirection("right")
+            click()
+            // r();
+            // setBDirection("right")
         }
         dispatch(earn(2));
     }
@@ -312,9 +314,11 @@ const sdb: React.FC<{}> = () => {
             setBDirection("right")
         if (buttonPosition >= 100)
             setBDirection("left")
-        if (Bdirection === "right")
+        if (Bdirection === "right") {
             return r()
-        l();
+        } else {
+            l();
+        }
     }
     useEffect(() => {
         const gameLoop = setInterval(run, 30)
@@ -322,21 +326,9 @@ const sdb: React.FC<{}> = () => {
     }, [enemyDirection, enemyPosition, bulletPosition])
     return (<>
         <div onKeyPress={keyPress} className="holder" style={{ height: "300px" }}>
-            {/* <div onKeyPress={keyPress}> */}
-
-            {/* button positition {buttonPosition} <br /> */}
-            {/* button direction {Bdirection} <br /> */}
-            {/* enemy position {JSON.stringify(enemyPosition)} <br />
-            enemeny direction {JSON.stringify(enemyDirection)} <br />
-            bullet pos {JSON.stringify(bulletPosition)} <br />
-            bullet visible {JSON.stringify(isBulletVisible)} <br />
-            Distance {distance(bulletPosition, enemyPosition)} <br /> */}
-
             <div className="enemey" style={{ marginTop: `${300 - enemyPosition.up}px`, position: "absolute", marginLeft: `${enemyPosition.right}px`, width: "10px", height: "10px", backgroundColor: "red" }} />
-            <div className="bullet" style={{ marginTop: `${300 - bulletPosition.up}px`, position: "absolute", marginLeft: `${bulletPosition.right}px`, width: "7px", height: "7px", backgroundColor: "orange" }} />
-
+            <div className="bullet" style={{ display: (!isBulletVisible ? "none" : "block"), marginTop: `${300 - bulletPosition.up}px`, position: "absolute", marginLeft: `${bulletPosition.right}px`, width: "7px", height: "7px", backgroundColor: "orange" }} />
             <button style={{ width: "45px", height: "20px", position: "relative", marginTop: "300px", marginLeft: `${buttonPosition}px` }} onClick={click}>shoot</button>
-            {/* </div> */}
         </div>
     </>)
 }

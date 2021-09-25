@@ -10,23 +10,7 @@ $themes: (
   )
 );
 
-@mixin theme() {
-  @each $theme, $map in $themes {
-    $theme-map: $map !global;
-    .#{$theme} & {
-      @content;
-    }
-  }
-  $theme-map: null !global;
-}
 
-@function theme-get($key) {
-  @return map-get($theme-map, $key);
-}
-
-// #app {
-//   text-align: center;
-// }
 @keyframes color-rotate {
   from {
       filter: hue-rotate(0deg);
@@ -35,9 +19,7 @@ $themes: (
       filter: hue-rotate(360deg);
   }
 }
-.content {
-  height: 100%;
-}
+
 .economical {
   *, body, html {
     color:#79e422;
@@ -49,6 +31,9 @@ $themes: (
   }
 }
 .suave {
+  * {
+    text-align: center;
+  }
   body {
     padding: 30px;
   }
@@ -82,21 +67,16 @@ $themes: (
     animation: color-rotate 1s;
     animation-iteration-count: infinite; 
     animation-direction: alternate;
-}
-}
-.content,  body {
-//   padding: 32px;
-  transition: 1000ms;
-//   font-size: 18px;
-  @include theme() {
-    color: theme-get('text-color');
-    background-color: theme-get('bg-color');
-    li, a {
-        color: theme-get('li-color');
-    }
   }
 }
+.darkTheme {
+  transition: 1000ms;
+  html, body, .content, * {
+    background-color: #424242;
+    color:white,
+  }
+  li, a {
+    color:#5588ff
+  }
 
-// button {
-//   margin: 16px;
-// }
+}
