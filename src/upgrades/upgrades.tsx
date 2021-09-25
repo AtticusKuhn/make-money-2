@@ -30,6 +30,7 @@ export class Appearence extends Equippable {
     }
 }
 
+
 export const darkMode = new Appearence("dark mode", 230, "darkTheme")
 export const hypeButtons = new Appearence("hype beast buttons", 1500, "hypebuttons")
 export const economical = new Appearence("economical look", 90, "economical")
@@ -39,9 +40,9 @@ export const toCss = (equipped: storageUpgrade[]): string => {
     const c = equipped.map(usToU)
     let s = "";
     for (const e of c) {
-        console.log("in toCss, e is", e)
+        // console.log("in toCss, e is", e)
         if (e instanceof Appearence) {
-            console.log("in toCss, this extends apperance")
+            // console.log("in toCss, this extends apperance")
             s += e.cls + " "
         }
     }

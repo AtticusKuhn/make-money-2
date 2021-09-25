@@ -61,7 +61,7 @@ $themes: (
   a:hover {
     color: #325dc2;
   }
-  :not(button){
+  .navbar{
     transition: 100ms;
     display: flex;
     padding: 2%;

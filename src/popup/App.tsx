@@ -19,18 +19,20 @@ const App = () => {
     const cssString = toCss(equipped)
     return <div id="app" className={`app ${cssString}`}>
         <div className="content">
-            <li>
-                <Link to="/">Home</Link>
-            </li>
-            <li>
-                <Link to="/LoadOut">LoadOut</Link>
-            </li>
-            <li>
-                <Link to="/store">store {msg}</Link>
-            </li>
-            <li>
-                <Link to="/debug">debug</Link>
-            </li>
+            <div className="navbar">
+                <li>
+                    <Link to="/">Home</Link>
+                </li>
+                <li>
+                    <Link to="/LoadOut">LoadOut</Link>
+                </li>
+                <li>
+                    <Link to="/store">store {msg}</Link>
+                </li>
+                <li>
+                    <Link to="/debug">debug</Link>
+                </li>
+            </div>
             <Route exact path="/" component={Index} />
             <Route path="/LoadOut" component={LoadOut} />
             <Route path="/debug" component={Debug} />

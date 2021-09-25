@@ -28,3 +28,4 @@ export const toDirection = (key: React.KeyboardEvent<any>): "up" | "down" | "lef
         return "up"
     return "right"
 }
+export const sleep = (time: number): Promise<void> => new Promise(resolve => setTimeout(resolve, time))
