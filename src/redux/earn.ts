@@ -1,8 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { upgradeType } from '../types'
 import { findUpgrade } from '../upgrades'
-import { originalButton } from '../upgrades/buttons'
-import { UTous } from '../utils'
 import type { RootState } from './store'
 
 interface CounterState {
@@ -119,7 +117,7 @@ export const counterSlice = createSlice({
       state.lastSaved = new Date().getTime();
     },
     prestige: (state) => {
-      const t = UTous(originalButton)
+      const t = { name: "original button", type: upgradeType.button, cost: 1 }
       state.income = state.value * 0.1
       state.value = 1;
       state.equippedUpgrades = [t]

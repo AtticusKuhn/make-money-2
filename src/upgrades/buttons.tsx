@@ -103,9 +103,10 @@ const mbb: React.FC<{}> = () => {
         </div>
     </div>
 }
+type v = { up: number, right: number }
+
 const fdb: React.FC<{}> = () => {
     const dispatch = useDispatch()
-    type v = { up: number, right: number }
     const [pos, setPos] = useState<v>({ up: 0, right: 0 })
     const r = () => Math.floor((Math.random() * 100));
     const [tPos, setTPos] = useState<v>({
@@ -233,6 +234,19 @@ const sb: React.FC<{}> = () => {
         </div>
     </>)
 }
+const sdb: React.FC<{}> = () => {
+    const [buttonPosition, setButtonPosition] = useState<number>(0)
+    const [enemyPosition, setEnemyPosition] = useState<v>({ right: 0, up: 100 })
+    const click = () => {
+
+    }
+    return (<>
+        <div className="holder">
+            <div style={{ marginTop: "100px", marginBottom: "20px", position: "absolute", marginLeft: `${enemyPosition.right}px`, width: "5px", height: "30px", backgroundColor: "red" }} />
+            <button style={{ width: "37px", height: "20px", position: "relative", marginLeft: `${buttonPosition}px` }} onClick={click}>shoot</button>
+        </div>
+    </>)
+}
 export const originalButton = new Button("original button", 0, ob,)
 const betterButton = new Button("better button", 20, bb)
 const movingButton = new Button("moving button", 150, mb)
@@ -240,8 +254,9 @@ const movingBonusButton = new Button("moving bonus button", 450, mbb)
 const allDirectionButton = new Button("cubechat button", 700, fdb)
 const typingButton = new Button("typing button", 2000, tb)
 const scrollingButton = new Button("scrolling button", 3000, sb)
+const spaceDefenderButton = new Button("space defender button", 100, sdb)
 
 export const findButton = (us: storageUpgrade): Button => {
     return upgrades.find(u => u.name === us.name) as Button
 }
-export const upgrades: Array<Button> = [originalButton, betterButton, movingButton, movingBonusButton, allDirectionButton, typingButton, scrollingButton]
+export const upgrades: Array<Button> = [originalButton, betterButton, movingButton, movingBonusButton, allDirectionButton, typingButton, scrollingButton, spaceDefenderButton]
