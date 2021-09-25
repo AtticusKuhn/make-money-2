@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 import { earn, storageUpgrade } from "../redux/earn"
 import { upgradeType } from "../types"
-import { inRange, randomInRange } from "../utils"
+import { distance, inRange, randomInRange, toDirection } from "../utils"
 
 
 export class Upgrade {
@@ -103,7 +103,7 @@ const mbb: React.FC<{}> = () => {
         </div>
     </div>
 }
-type v = { up: number, right: number }
+export type v = { up: number, right: number }
 
 const fdb: React.FC<{}> = () => {
     const dispatch = useDispatch()
@@ -235,15 +235,108 @@ const sb: React.FC<{}> = () => {
     </>)
 }
 const sdb: React.FC<{}> = () => {
+    const dispatch = useDispatch()
     const [buttonPosition, setButtonPosition] = useState<number>(0)
+    const [Bdirection, setBDirection] = useState<"left" | "right">("right")
     const [enemyPosition, setEnemyPosition] = useState<v>({ right: 0, up: 100 })
-    const click = () => {
+    const [bulletPosition, setBulletPosition] = useState<v>({ right: 0, up: 0 })
+    const [isBulletVisible, setBulletVisible] = useState<boolean>(false)
 
+    const [enemyDirection, setEnemyDirection] = useState<v>({ right: -10, up: -2 })
+    const run = () => {
+        setEnemyPosition({
+            right: enemyPosition.right + enemyDirection.right,
+            up: enemyPosition.up + enemyDirection.up
+        })
+        if (enemyPosition.right >= 100) {
+            setEnemyDirection({ right: -10, up: enemyDirection.up })
+        }
+        if (enemyPosition.right <= 0) {
+            setEnemyDirection({ right: 10, up: enemyDirection.up })
+        }
+        if (enemyPosition.up <= 0) {
+            dispatch(earn(-10))
+            setEnemyPosition({ right: 0, up: 300 })
+        }
+        if (isBulletVisible) {
+            setBulletPosition({
+                up: bulletPosition.up + 5,
+                right: bulletPosition.right
+            })
+        }
+        if (distance(bulletPosition, enemyPosition) <= 20) {
+            setEnemyPosition({ right: 0, up: 300 })
+            setBulletPosition({ right: 0, up: 0 })
+            setBulletVisible(false)
+            dispatch(earn(200));
+        }
+        if (bulletPosition.up >= 300) {
+            setBulletVisible(false)
+            setBulletPosition({ right: 0, up: 0 })
+        }
     }
+    const r = () => setButtonPosition(Math.min(buttonPosition + 5, 100))
+    const l = () => setButtonPosition(Math.max(buttonPosition - 5, 0))
+    const keyPress: React.KeyboardEventHandler<any> = (key) => {
+        // alert(key.key)
+        if (toDirection(key) === "right") {
+            r();
+            setBDirection("right")
+        } else if (toDirection(key) === "left") {
+            l();
+            setBDirection("left")
+        } else if (key.key === "w" || key.key === "Space" || key.key === "Enter") {
+            if (!isBulletVisible) {
+                setBulletVisible(true)
+                setBulletPosition({
+                    up: bulletPosition.up,
+                    right: buttonPosition,
+                })
+            }
+        } else {
+            r();
+            setBDirection("right")
+        }
+        dispatch(earn(2));
+    }
+    const click = () => {
+        if (!isBulletVisible) {
+            setBulletVisible(true)
+            setBulletPosition({
+                up: bulletPosition.up,
+                right: buttonPosition,
+            })
+        }
+        dispatch(earn(2));
+        if (buttonPosition <= 0)
+            setBDirection("right")
+        if (buttonPosition >= 100)
+            setBDirection("left")
+        if (Bdirection === "right")
+            return r()
+        l();
+    }
+    useEffect(() => {
+        const gameLoop = setInterval(run, 30)
+        return () => clearInterval(gameLoop);
+    }, [enemyDirection, enemyPosition, bulletPosition])
     return (<>
-        <div className="holder">
-            <div style={{ marginTop: "100px", marginBottom: "20px", position: "absolute", marginLeft: `${enemyPosition.right}px`, width: "5px", height: "30px", backgroundColor: "red" }} />
-            <button style={{ width: "37px", height: "20px", position: "relative", marginLeft: `${buttonPosition}px` }} onClick={click}>shoot</button>
+        <div onKeyPress={keyPress} className="holder" style={{ height: "300px" }}>
+            {/* <div onKeyPress={keyPress}> */}
+
+            {/* button positition {buttonPosition} <br /> */}
+            {/* button direction {Bdirection} <br /> */}
+            {/* enemy position {JSON.stringify(enemyPosition)} <br />
+            enemeny direction {JSON.stringify(enemyDirection)} <br />
+            bullet pos {JSON.stringify(bulletPosition)} <br />
+            bullet visible {JSON.stringify(isBulletVisible)} <br />
+            Distance {distance(bulletPosition, enemyPosition)} <br /> */}
+
+            <div className="enemey" style={{ marginTop: `${300 - enemyPosition.up}px`, position: "absolute", marginLeft: `${enemyPosition.right}px`, width: "10px", height: "10px", backgroundColor: "red" }} />
+            <div className="bullet" style={{ marginTop: `${300 - bulletPosition.up}px`, position: "absolute", marginLeft: `${bulletPosition.right}px`, width: "7px", height: "7px", backgroundColor: "orange" }} />
+
+            <button style={{ width: "45px", height: "20px", position: "relative", marginTop: "300px", marginLeft: `${buttonPosition}px` }} onClick={click}>shoot</button>
+            {/* </div> */}
         </div>
     </>)
 }
