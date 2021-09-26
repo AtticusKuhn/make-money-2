@@ -18,8 +18,8 @@ jobs:
           yarn && yarn run build
       - name: zip
         run: |
-        zip extension.zip ./extension/**
-      # - name: release code
+          zip extension.zip ./extension/**
+      # - name: release code werwerew wewewe
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
