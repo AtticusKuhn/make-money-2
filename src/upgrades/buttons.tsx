@@ -335,11 +335,11 @@ const sdb: React.FC<{}> = () => {
 export const originalButton = new Button("original button", 0, ob,)
 const betterButton = new Button("better button", 20, bb)
 const movingButton = new Button("moving button", 150, mb)
-const movingBonusButton = new Button("moving bonus button", 450, mbb)
-const allDirectionButton = new Button("cubechat button", 700, fdb)
-const typingButton = new Button("typing button", 2000, tb)
-const scrollingButton = new Button("scrolling button", 3000, sb)
-const spaceDefenderButton = new Button("space defender button", 100, sdb)
+const movingBonusButton = new Button("moving bonus button", 1450, mbb)
+const allDirectionButton = new Button("cubechat button", 6100, fdb)
+const typingButton = new Button("typing button", 15100, tb)
+const scrollingButton = new Button("scrolling button", 34000, sb)
+const spaceDefenderButton = new Button("space defender button", 100000, sdb)
 
 export const findButton = (us: storageUpgrade): Button => {
     return upgrades.find(u => u.name === us.name) as Button
