@@ -24,5 +24,4 @@ jobs:
           prerelease: true
           title: "Development Build 2"
           files: |
-            LICENSE.txt
             ./extension/**
