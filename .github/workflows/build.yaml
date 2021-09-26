@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v2
       - name: "Build & test"
         run: |
-          yarn run build
+          yarn && yarn run build
       # - name: release code
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
