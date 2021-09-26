@@ -16,7 +16,7 @@ jobs:
       - name: "Build & test"
         run: |
           yarn run build
-      - name: release code
+      # - name: release code
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
