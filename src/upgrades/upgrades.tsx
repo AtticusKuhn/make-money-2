@@ -37,6 +37,7 @@ export class Appearence extends Equippable {
         super(name, cost)
     }
 }
+export const casino = new Equippable("casino", 10)
 
 
 export const darkMode = new Appearence("dark mode", 230, "darkTheme")
@@ -56,4 +57,4 @@ export const toCss = (equipped: storageUpgrade[]): string => {
     }
     return s
 }
-export default [milestone, darkMode, hypeButtons, economical, suave]
+export default [milestone, darkMode, casino, hypeButtons, economical, suave]

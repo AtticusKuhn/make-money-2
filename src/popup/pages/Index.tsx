@@ -11,7 +11,7 @@ export default function Index() {
     const equipped = useSelector<RootState, storageUpgrade[]>((state) => state.money.equippedUpgrades)
     const button = useSelector<RootState, storageUpgrade>((state) => state.money.equippedButton)
     const isMilestone = equipped.some(x => x.name === milestone.name)
-    console.log("isMilestone", isMilestone)
+
     return (
         <>
             <h1>Make Money 2</h1>
