@@ -8,12 +8,17 @@ import { isButton } from "../../utils"
 
 export function findPossibleUpgrades() {
     const allreadyPurchased = useSelector<RootState, storageUpgrade[]>((state) => state.money.purchasedUpgrades)
+    const allreadyPurchasedItems = useSelector<RootState, storageUpgrade[]>((state) => state.money.purchasedItems)
+
     const money = useSelector<RootState, number>((state) => state.money.value)
-    return getPossibleUpgrades(money, upgrades.all, allreadyPurchased)
+    return getPossibleUpgrades(money, upgrades.all, allreadyPurchased, allreadyPurchasedItems)
 
 }
-function getPossibleUpgrades(money: number, upgrades: Array<storageUpgrade>, allreadyPurchased: Array<storageUpgrade>): Array<storageUpgrade> {
-    return upgrades.filter(upgrade => upgrade.cost < money && !allreadyPurchased.some(u => u.name === upgrade.name))
+function getPossibleUpgrades(money: number, upgrades: Array<storageUpgrade>, allreadyPurchased: Array<storageUpgrade>, allreadyPurchasedItems: storageUpgrade[]): Array<storageUpgrade> {
+    return upgrades
+        .filter(upgrade => upgrade.cost < money
+            && !allreadyPurchased.some(u => u.name === upgrade.name)
+            && !allreadyPurchasedItems.some(u => u.name === upgrade.name))
 }
 
 interface PossiblePurchaseProps {

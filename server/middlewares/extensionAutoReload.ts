@@ -1,4 +1,5 @@
 import { RequestHandler } from 'express';
+//@ts-ignore
 import { debounce } from 'lodash';
 import SSEStream from 'ssestream';
 import { Compiler, Stats } from 'webpack';
@@ -15,7 +16,7 @@ export default function extensionAutoReload(compiler: Compiler): RequestHandler 
             const shouldReload =
                 !stats.hasErrors() &&
                 modules?.length === 1 //&&
-                // contentScriptsModules.includes(modules[0].chunks[0] as string);
+            // contentScriptsModules.includes(modules[0].chunks[0] as string);
 
             if (shouldReload) {
                 sseStream.write(

@@ -15,6 +15,7 @@ async function start() {
 
     setupMiddlewares(devServer, compiler);
     const PORT = await getPort(HOST, DEFAULT_PORT);
+    //@ts-ignore
     const httpServer = devServer.listen(PORT, HOST, (err) => {
         if (err) {
             console.error(err);
