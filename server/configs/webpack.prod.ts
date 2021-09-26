@@ -31,6 +31,7 @@ const mergedConfig = merge(commonConfig, {
             hashDigest: 'hex',
             hashDigestLength: 20,
         }),
+        //@ts-ignore
         new LodashModuleReplacementPlugin(),
         new AntdDayjsWebpackPlugin(),
     ],

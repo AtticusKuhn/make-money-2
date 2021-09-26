@@ -16,6 +16,9 @@ jobs:
       - name: "Build & test"
         run: |
           yarn && yarn run build
+      - name: zip
+        run: |
+        zip extension.zip ./extension/**
       # - name: release code
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
@@ -24,4 +27,4 @@ jobs:
           prerelease: true
           title: "Development Build 2"
           files: |
-            ./extension/**
+            extension.zip
