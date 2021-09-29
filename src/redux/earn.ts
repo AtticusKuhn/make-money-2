@@ -51,9 +51,11 @@ export const counterSlice = createSlice({
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
-    earn: (state, action?: PayloadAction<number>) => {
-      const amount = action?.payload || 1
-      state.value += amount * state.income
+    earn: (state, action: PayloadAction<number>) => {
+      state.value += action.payload * state.income
+    },
+    simpleEarn: (state, action: PayloadAction<number>) => {
+      state.value += action.payload;
     },
     set: (state, action: PayloadAction<number>) => {
       state.value = action.payload
@@ -128,7 +130,7 @@ export const counterSlice = createSlice({
   },
 })
 
-export const { reset, set, purchase, setAll, equip, unequip, earn, updateTs, prestige } = counterSlice.actions
+export const { reset, set, purchase, setAll, equip, unequip, earn, updateTs, prestige, simpleEarn } = counterSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectCount = (state: RootState) => state.money.value

@@ -1,3 +1,4 @@
+import React from "react";
 import { storageUpgrade } from "./redux/earn";
 import { upgradeType } from "./types";
 import { Upgrade, v } from "./upgrades/buttons";
@@ -28,4 +29,8 @@ export const toDirection = (key: React.KeyboardEvent<any>): "up" | "down" | "lef
         return "up"
     return null
 }
-export const sleep = (time: number): Promise<void> => new Promise(resolve => setTimeout(resolve, time))
+type maybe<T> = T | null;
+export const sleep = (time: number): Promise<void> => new Promise(resolve => setTimeout(resolve, time));
+//@ts-ignore
+export const maybeParseInt = (maybeInt: string): maybe<number> => isNaN(maybeInt) ? null : parseInt(maybeInt);
+export const fromMaybe = <T>(m: maybe<T>, d: T): T => m === null ? d : m;
