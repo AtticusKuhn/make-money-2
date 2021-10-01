@@ -13,12 +13,14 @@ import LoadOut from './pages/loadout';
 import store, { findPossibleUpgrades } from './pages/store';
 import { casino } from '../upgrades/upgrades';
 import Casino from './pages/casino';
+import Club from './pages/club';
 const App = () => {
     const l = findPossibleUpgrades().length;
     const msg = l > 0 ? `(${l} upgade${l > 1 ? "s" : ""} available)` : ""
     const equipped = useSelector<RootState, storageUpgrade[]>(state => state.money.equippedUpgrades)
     const cssString = toCss(equipped)
     const isCasino = equipped.some(x => x.name === casino.name)
+    const isBillionaire = equipped.some(x => x.name === "billionaire club")
     return <div id="app" className={`app ${cssString}`}>
         <div className="content">
             <div className="navbar">
@@ -41,12 +43,20 @@ const App = () => {
                         <Link to="/casino">casino</Link>
                     </li>
                 }
+                {
+                    isBillionaire
+                    &&
+                    <li>
+                        <Link to="/club">billionare club</Link>
+                    </li>
+                }
             </div>
             <Route exact path="/" component={Index} />
             <Route path="/LoadOut" component={LoadOut} />
             <Route path="/debug" component={Debug} />
             <Route path="/store" component={store} />
             <Route path="/casino" component={Casino} />
+            <Route path="/club" component={Club} />
         </div>
     </div>;
 };
