@@ -23,7 +23,6 @@ const Debug: React.FC<{}> = () => {
         <br />
         <br />
         <button onClick={() => dispatch(prestige())}>prestige</button>
-
     </>)
 }
 export default Debug;

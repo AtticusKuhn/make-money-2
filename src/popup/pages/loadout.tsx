@@ -15,7 +15,7 @@ const ChooseButton: React.FC<ChooseButtonProps> = ({ button }) => {
     const isChecked = equipped.some(b => b.name === button.name)
     const check = () => isChecked ? dispatch(unequip(button)) : dispatch(equip(button))
     return (<>
-        <p>{button.name}</p>
+        <div>{button.name}</div>
         <input checked={isChecked} type="checkbox" onChange={check} />
     </>)
 }
@@ -24,6 +24,7 @@ export default function LoadOut() {
     const PurchasedUpgrades = useSelector<RootState, storageUpgrade[]>(state => state.money.purchasedUpgrades)
     const buttons = PurchasedUpgrades.filter(isButton);
     const notButton = PurchasedUpgrades.filter(x => !isButton(x))
+    const items = useSelector<RootState, storageUpgrade[]>(state => state.money.purchasedItems)
 
     return (
         <>
@@ -35,6 +36,11 @@ export default function LoadOut() {
             {buttons.map(b => <ChooseButton button={b} />)}
             <h2>Equip Upgrades</h2>
             {notButton.map(b => <ChooseButton button={b} />)}
+            <br />
+            <h1>Purchased Items</h1>
+            <ol>
+                {items.map(item => <li>{item.name}</li>)}
+            </ol>
         </>
     );
 }

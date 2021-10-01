@@ -146,14 +146,18 @@ const fdb: React.FC<{}> = () => {
         // })
     }
     const keyPress: React.KeyboardEventHandler<HTMLDivElement> = (key) => {
-        if (key.key === "ArrowRight")
+        const dir = toDirection(key)
+        if (dir === "right") {
             setD({ up: 0, right: 10 })
-        if (key.key === "ArrowLeft")
+        } else if (dir === "left") {
             setD({ up: 0, right: -10 })
-        if (key.key === "ArrowDown")
+        } else if (dir === "down") {
             setD({ right: 0, up: -10 })
-        if (key.key === "ArrowUp")
+        } else if (dir === "up") {
             setD({ right: 0, up: 10 })
+        } else {
+            click()
+        }
         earnM()
     }
     const click = () => {
@@ -171,7 +175,7 @@ const fdb: React.FC<{}> = () => {
         <div onKeyPress={keyPress} style={{ height: "200px" }}>
             {/* {JSON.stringify(direction)} */}
             <div style={{ position: "absolute", marginLeft: `${tPos.right - 5}px`, marginTop: `${100 - tPos.up + 5}px`, width: "10px", height: "10px", backgroundColor: "black" }} />
-            <button style={{ width: "57px", height: "57px", marginLeft: `${pos.right}px`, marginTop: `${100 - pos.up}px`, marginBottom: `${pos.up}px` }} onClick={click}>money moves anywhere</button>
+            <button style={{ width: "57px", height: "content", marginLeft: `${pos.right}px`, marginTop: `${100 - pos.up}px`, marginBottom: `${pos.up}px` }} onClick={click}>cubechat</button>
         </div>
     </div>
 }
