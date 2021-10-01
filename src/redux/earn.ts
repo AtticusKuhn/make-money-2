@@ -46,9 +46,9 @@ export const setS = async (x: Partial<InitalState>) => {
 export const getS = (): Promise<InitalState> => new Promise(resolve => chrome.storage.sync.get("data", (x) => {
   resolve(x.data as InitalState)
 }))
+
 export const counterSlice = createSlice({
   name: 'counter',
-  // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
     earn: (state, action: PayloadAction<number>) => {
@@ -87,12 +87,10 @@ export const counterSlice = createSlice({
       })
     },
     reset: (state) => {
-      // state = initialState;
-      const t = { name: "original button", type: upgradeType.button, cost: 1 }
       state.value = 1;
-      state.equippedUpgrades = [t]
-      state.purchasedUpgrades = [t]
-      state.equippedButton = t;
+      state.equippedUpgrades = [ob]
+      state.purchasedUpgrades = [ob]
+      state.equippedButton = ob;
       state.purchasedItems = []
       state.income = 1
     },
@@ -119,13 +117,12 @@ export const counterSlice = createSlice({
       state.lastSaved = new Date().getTime();
     },
     prestige: (state) => {
-      const t = { name: "original button", type: upgradeType.button, cost: 1 }
       state.income = state.value * 0.1
       state.value = 1;
-      state.equippedUpgrades = [t]
-      state.purchasedUpgrades = [t]
+      state.equippedUpgrades = [ob]
+      state.purchasedUpgrades = [ob]
       state.purchasedItems = []
-      state.equippedButton = t;
+      state.equippedButton = ob;
     }
   },
 })

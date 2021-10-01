@@ -18,7 +18,7 @@ jobs:
           yarn && yarn run build
       - name: zip
         run: |
-          zip extension.zip ./extension/**
+          zip -r extension.zip ./extension
       # - name: release code werwerew wewewe
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:

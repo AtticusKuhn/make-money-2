@@ -8,6 +8,7 @@ import { upgradeType } from '../types';
 import App from './App';
 import './App.scss';
 
+
 getS().then(s => {
     const ob = { name: "original button", type: upgradeType.button, cost: 1 }
     const defaultState: InitalState = {
