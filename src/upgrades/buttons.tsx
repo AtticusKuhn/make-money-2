@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 import { earn, storageUpgrade } from "../redux/earn"
 import { upgradeType } from "../types"
-import { distance, inRange, randomInRange, toDirection } from "../utils"
+import { distance, inRange, randomInRange, sleep, toDirection } from "../utils"
 
 
 export class Upgrade {
@@ -342,6 +342,44 @@ const sdb: React.FC<{}> = () => {
         </div>
     </>)
 }
+const ghb: React.FC<{}> = () => {
+    const speed = 3
+    const height = 300
+    const interval = 50
+    const width = 200
+    const randomPos = (): v => ({ up: height, right: Math.floor(Math.random() * (width / interval)) * interval })
+    const [enemyPositions, setEnemyPositions] = useState<v[]>(new Array(5).fill(0).map((_e, i) => ({ right: randomPos().right, up: i * 60 + 100 })))
+    const [playerPosititon, setPlayPosition] = useState<number>(0)
+    const dispatch = useDispatch();
+    const click = () => {
+        setPlayPosition((playerPosititon + interval) % width)
+        dispatch(earn(10))
+    }
+    const moveEnemy = (pos: v): v => {
+        pos.up -= speed
+        if (pos.up <= 0) {
+            if (playerPosititon !== pos.right) {
+                dispatch(earn(-10))
+            } else {
+                dispatch(earn(10))
+            }
+            pos = randomPos()
+        }
+        return pos;
+    }
+    useEffect(() => {
+        (async () => {
+            await sleep(50)
+            setEnemyPositions(enemyPositions.map(moveEnemy))
+        })()
+    }, [enemyPositions])
+    return <>
+        <div style={{ height: `${height + 30}px`, overflow: "hidden" }}>
+            {enemyPositions.map(enemyPosition => <div className="enemey" style={{ marginTop: `${height - enemyPosition.up}px`, position: "absolute", marginLeft: `${enemyPosition.right}px`, width: `${interval}px`, height: "10px", backgroundColor: "red" }} />)}
+            <button onClick={click} style={{ position: "relative", marginTop: `${height}px`, marginLeft: `${playerPosititon}px`, width: `${interval}px` }}>move</button>
+        </div>
+    </>
+}
 export const originalButton = new Button("original button", 0, ob,)
 const betterButton = new Button("better button", 20, bb)
 const movingButton = new Button("moving button", 150, mb)
@@ -349,9 +387,10 @@ const movingBonusButton = new Button("moving bonus button", 1450, mbb)
 const allDirectionButton = new Button("cubechat button", 6100, fdb)
 const typingButton = new Button("typing button", 15100, tb)
 const scrollingButton = new Button("scrolling button", 34000, sb)
+const guitarHeroButton = new Button("guitar hero button", 70000, ghb)
 const spaceDefenderButton = new Button("space defender button", 100000, sdb)
 
 export const findButton = (us: storageUpgrade): Button => {
     return upgrades.find(u => u.name === us.name) as Button
 }
-export const upgrades: Array<Button> = [originalButton, betterButton, movingButton, movingBonusButton, allDirectionButton, typingButton, scrollingButton, spaceDefenderButton]
+export const upgrades: Array<Button> = [originalButton, betterButton, movingButton, movingBonusButton, allDirectionButton, typingButton, scrollingButton, guitarHeroButton, spaceDefenderButton]
