@@ -34,3 +34,7 @@ export const sleep = (time: number): Promise<void> => new Promise(resolve => set
 //@ts-ignore
 export const maybeParseInt = (maybeInt: string): maybe<number> => isNaN(maybeInt) ? null : parseInt(maybeInt);
 export const fromMaybe = <T>(m: maybe<T>, d: T): T => m === null ? d : m;
+export const formatNumber = (num: number): string => numberWithCommas(parseFloat(num.toFixed(2)))
+function numberWithCommas(x: number): string {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}

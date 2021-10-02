@@ -25,7 +25,13 @@ const ob: React.FC<{}> = () => {
 }
 const bb: React.FC<{}> = () => {
     const dispatch = useDispatch()
-    return <button onClick={() => dispatch(earn(2))}>Make More Money</button>
+    return <div className="betterButton"><button onClick={() => dispatch(earn(2))}>Make More Money</button>
+        <style>{`
+    .betterButton {
+        margin-left: 40%;
+    }
+    `}</style>
+    </div>
 }
 const mb: React.FC<{}> = () => {
     const dispatch = useDispatch()

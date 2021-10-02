@@ -31,6 +31,16 @@ $themes: (
   }
 }
 .suave {
+  .moneyDisplay {
+    display: flex;
+    flex-direction: row;
+    * {
+     padding: 0px 10px;
+    }
+  }
+  a {
+    text-decoration: none;
+  }
   .content {
     padding: 0px 30px 30px 30px;
   }
@@ -39,7 +49,7 @@ $themes: (
   }
   li {
     list-style-type: none;
-    padding: 10px;
+    // padding: 10px;
   }
   body {
     padding: 30px;
@@ -55,9 +65,15 @@ $themes: (
     color: #325dc2;
   }
   .navbar{
+    li {
+      padding: 0px 5px;
+      width: 100%;
+      overflow: hidden;
+    }
+    width: 100%;
     transition: 100ms;
     display: flex;
-    padding: 2%;
+    padding: auto;
     flex-direction: row;
     flex:auto;
   }
