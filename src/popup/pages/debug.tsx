@@ -1,9 +1,10 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { prestige, reset } from "../../redux/earn";
+import { RootState } from "../../redux/store";
 
 const Debug: React.FC<{}> = () => {
-    // const _money = useSelector<RootState>((state) => state)
+    const money = useSelector<RootState, number>((state) => state.money.value)
     // const [_c, sc] = useState<chromeStorage | null>(null)
     // //@ts-ignore
     // chrome.storage.sync.get("data", sc)
@@ -22,7 +23,7 @@ const Debug: React.FC<{}> = () => {
         <br />
         <br />
         <br />
-        <button onClick={() => dispatch(prestige())}>prestige</button>
+        <button disabled={money < 1e6} onClick={() => dispatch(prestige())}>prestige</button>
     </>)
 }
 export default Debug;

@@ -16,8 +16,8 @@ export default function Index() {
         <>
             <h1>Make Money 2</h1>
             <div className="moneyDisplay">
-                <div>Money: ${formatNumber(money)}</div>
-                <div>Income: ${formatNumber(income)} </div>
+                <div className="big">Money: ${formatNumber(money)}</div>
+                <div className="big">Income: ${formatNumber(income)} </div>
             </div>
             <br /><br />
             {findButton(button).component({})} <br /> <br />

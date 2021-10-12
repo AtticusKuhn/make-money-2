@@ -6,7 +6,9 @@
     "minimum_chrome_version": "80",
     "content_security_policy": "script-src 'self' 'unsafe-eval' 'unsafe-inline'; object-src 'self';",
     "permissions": [
-        "storage"
+        "storage",
+        "https://en.wikipedia.org/*",
+        "http://en.wikipedia.org/*"
     ],
     "background": {
         "scripts": [

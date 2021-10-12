@@ -117,7 +117,7 @@ export const counterSlice = createSlice({
       state.lastSaved = new Date().getTime();
     },
     prestige: (state) => {
-      state.income = state.value * 0.1
+      state.income += Math.sqrt(state.value) * 0.0001;
       state.value = 1;
       state.equippedUpgrades = [ob]
       state.purchasedUpgrades = [ob]
