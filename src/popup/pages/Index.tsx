@@ -14,7 +14,9 @@ export default function Index() {
     const isMilestone = equipped.some(x => x.name === milestone.name)
     return (
         <>
+            <br /><br />
             <h1>Make Money 2</h1>
+            <br /><br />
             <div className="moneyDisplay">
                 <div className="big">Money: ${formatNumber(money)}</div>
                 <div className="big">Income: ${formatNumber(income)} </div>
