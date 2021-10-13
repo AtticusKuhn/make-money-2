@@ -187,50 +187,35 @@ const fdb: React.FC<{}> = () => {
 const tb: React.FC<{}> = () => {
     const dispatch = useDispatch()
     const getSentence = async (): Promise<string> => {
-        // return new Promise((resolve) => {
-
         const req1 = await fetch("https://en.wikipedia.org/wiki/Special:Random/", {
             mode: "no-cors",
-            // headers: {
-            //     redirect: "follow", // manual, error
-            // }
         })
-        console.log(req1)
-        const { url } = req1
-        console.log("url is", url)
-        const req = await fetch(url, {
-            method: "GET",
-            mode: "no-cors",
-            headers: {
-                redirect: "follow", // manual, error
-            }
-        })
-        const data = await req.text()
-        console.log("data", data)
+        const data = await req1.text()
         const document = new DOMParser().parseFromString(data, "text/html")
         const paras = [...document.querySelectorAll("p")]
-        console.log("paras", paras)
-        const text = paras.map(x => x.innerText).join(" ")
+        const text = paras.map(x => x.innerText).join(" ").substring(0, 100)
         console.log("text is", text)
-        return text;
-        // resolve(text)
-        // });
+        return text.trim();
     }
     const [currentSentence, setCurrentSentence] = useState<string>("I like apple pie")
     const keyPress: React.KeyboardEventHandler<HTMLDivElement> = async (key) => {
+        console.log("recieved", key.key, "expecting", currentSentence[0])
+        if (currentSentence.length === 0)
+            return;
         if (key.key === currentSentence[0]) {
             dispatch(earn(16))
             setCurrentSentence(currentSentence.slice(1))
+            if (currentSentence.length <= 1)
+                setCurrentSentence(await getSentence())
         } else {
             dispatch(earn(1))
         }
-        if (currentSentence.length === 0)
-            setCurrentSentence(await getSentence())
     }
     return <div onKeyDown={keyPress} style={{ height: "200px" }}>
         <div onKeyPress={keyPress} style={{ height: "200px" }}>
             <button onClick={() => dispatch(earn(1))}>What is the "type" of money?</button>
-            <br />{currentSentence}
+            <br />
+            <pre>{currentSentence}</pre>
         </div>
     </div>
 }

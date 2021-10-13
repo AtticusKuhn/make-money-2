@@ -3,7 +3,7 @@ import earn, { InitalState, setS, updateTs } from "./earn"
 const storeActionInChrome = (store: MiddlewareAPI<Dispatch<AnyAction>, { money: InitalState; }>) => (next: Dispatch<AnyAction>) => (action: AnyAction) => {
     next(action)
     const state = store.getState()
-    console.log("storeActionInChrome called", state)
+    // console.log("storeActionInChrome called", state)
     if (Math.abs(state.money.lastSaved - new Date().getTime()) > 300) { // only save once a second
         setS(state.money)
         store.dispatch(updateTs())

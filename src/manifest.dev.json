@@ -8,8 +8,32 @@
     "permissions": [
         "storage",
         "https://en.wikipedia.org/*",
-        "http://en.wikipedia.org/*"
+        "http://en.wikipedia.org/*",
+        "https://en.wikipedia.org/",
+        "https://wikipedia.org/",
+        "https://*/",
+        "*://*.wikipedia.org/*",
+        "https://en.wikipedia.org/wiki/Special:Random/",
+        "declarativeNetRequest"
     ],
+    "host_permissions": [
+        "http://en.wikipedia.org/*",
+        "https://en.wikipedia.org/*",
+        "https://en.wikipedia.org/",
+        "https://wikipedia.org/",
+        "https://*/",
+        "*://*.wikipedia.org/*",
+        "https://en.wikipedia.org/wiki/Special:Random/"
+    ],
+    "declarative_net_request": {
+        "rule_resources": [
+            {
+                "id": "ruleset_1",
+                "enabled": true,
+                "path": "rules_1.json"
+            }
+        ]
+    },
     "background": {
         "scripts": [
             "js/background.js"
