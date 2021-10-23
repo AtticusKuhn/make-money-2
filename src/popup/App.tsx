@@ -14,6 +14,7 @@ import store, { findPossibleUpgrades } from './pages/store';
 import { casino } from '../upgrades/upgrades';
 import Casino from './pages/casino';
 import Club from './pages/club';
+import Tutorial from './pages/tutorial';
 const App = () => {
     const l = findPossibleUpgrades().length;
     const msg = l > 0 ? `(${l} upgade${l > 1 ? "s" : ""})` : ""
@@ -21,6 +22,8 @@ const App = () => {
     const cssString = toCss(equipped)
     const isCasino = equipped.some(x => x.name === casino.name)
     const isBillionaire = equipped.some(x => x.name === "billionaire club")
+    const isTutorial = equipped.some(x => x.name === "tutorial")
+
     return <div id="app" className={`app ${cssString}`}>
         <div className="content">
             <div className="navbar">
@@ -36,6 +39,13 @@ const App = () => {
                 <li>
                     <Link to="/debug">Debug</Link>
                 </li>
+                {
+                    isTutorial
+                    &&
+                    <li>
+                        <Link to="/tutorial">Tutorial</Link>
+                    </li>
+                }
                 {
                     isCasino
                     &&
@@ -56,6 +66,7 @@ const App = () => {
             <Route path="/LoadOut" component={LoadOut} />
             <Route path="/debug" component={Debug} />
             <Route path="/store" component={store} />
+            <Route path="/tutorial" component={Tutorial} />
             <Route path="/casino" component={Casino} />
             <Route path="/club" component={Club} />
         </div>

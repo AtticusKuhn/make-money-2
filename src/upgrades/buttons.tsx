@@ -17,14 +17,24 @@ export class Button extends Upgrade {
         super(name, cost, upgradeType.button)
     }
 }
+const maxPrice = 100e15;
+const numOfButtons = 9;
+const getPrice = (index: number): number => Math.floor(Math.exp(index / (numOfButtons / Math.log(maxPrice))) - 1);
+const timePerButton = (num: number): number => 2 * num + 1;
+
+
 const ob: React.FC<{}> = () => {
     const dispatch = useDispatch()
-    return <button onClick={() => dispatch(earn(1))}>Make Money</button>
+    const obcps = 507;
+    const obearn = getPrice(1) / (timePerButton(0) * obcps);
+    return <button onClick={() => dispatch(earn(obearn))}>Make Money</button>
 
 }
 const bb: React.FC<{}> = () => {
     const dispatch = useDispatch()
-    return <div className="betterButton"><button onClick={() => dispatch(earn(2))}>Make More Money</button>
+    const bbcps = 507;
+    const bbearn = getPrice(2) / (timePerButton(1) * bbcps);
+    return <div className="betterButton"><button onClick={() => dispatch(earn(bbearn))}>Make More Money</button>
         <style>{`
     .betterButton {
         margin-left: 40%;
@@ -38,6 +48,8 @@ const mb: React.FC<{}> = () => {
     const [direction, setD] = useState<"left" | "right">("left")
     const r = () => setLeft(Math.min(left + 5, 100))
     const l = () => setLeft(Math.max(left - 5, 0))
+    const mbcps = 507;
+    const mbearn = getPrice(3) / (timePerButton(2) * mbcps);
     const keyPress: React.KeyboardEventHandler<HTMLDivElement> = (key) => {
         if (key.key === "ArrowRight") {
             r();
@@ -47,7 +59,7 @@ const mb: React.FC<{}> = () => {
             l();
             setD("left")
         }
-        dispatch(earn(7));
+        dispatch(earn(mbearn));
     }
     const click = () => {
         dispatch(earn(2));
@@ -393,15 +405,16 @@ const ghb: React.FC<{}> = () => {
         </div>
     </>
 }
-export const originalButton = new Button("original button", 0, ob,)
-const betterButton = new Button("better button", 20, bb)
-const movingButton = new Button("moving button", 150, mb)
-const movingBonusButton = new Button("moving bonus button", 1450, mbb)
-const allDirectionButton = new Button("cubechat button", 6100, fdb)
-const typingButton = new Button("typing button", 15100, tb)
-const scrollingButton = new Button("scrolling button", 34000, sb)
-const guitarHeroButton = new Button("guitar hero button", 70000, ghb)
-const spaceDefenderButton = new Button("space defender button", 100000, sdb)
+
+export const originalButton = new Button("original button", getPrice(0), ob,)
+const betterButton = new Button("better button", getPrice(1), bb)
+const movingButton = new Button("moving button", getPrice(2), mb)
+const movingBonusButton = new Button("moving bonus button", getPrice(3), mbb)
+const allDirectionButton = new Button("cubechat button", getPrice(4), fdb)
+const typingButton = new Button("typing button", getPrice(5), tb)
+const scrollingButton = new Button("scrolling button", getPrice(6), sb)
+const guitarHeroButton = new Button("guitar hero button", getPrice(7), ghb)
+const spaceDefenderButton = new Button("space defender button", getPrice(8), sdb)
 
 export const findButton = (us: storageUpgrade): Button => {
     return upgrades.find(u => u.name === us.name) as Button

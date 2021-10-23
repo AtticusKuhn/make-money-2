@@ -5,7 +5,6 @@ import { RootState } from "../redux/store";
 import { usToU } from "../utils";
 import { Equippable } from "./buttons";
 
-export const milestone = new Equippable("money milestone", 10)
 export const MilestoneComponent: React.FC<{}> = () => {
     const money = useSelector<RootState, number>(state => state.money.value);
     const stones = [
@@ -38,13 +37,17 @@ export class Appearence extends Equippable {
     }
 }
 //"billionaire club"
-export const casino = new Equippable("casino", 7000)
-const billionaire = new Equippable("billionaire club", 1e9)
-
-export const darkMode = new Appearence("dark mode", 230, "darkTheme")
-export const hypeButtons = new Appearence("hype beast buttons", 1500, "hypebuttons")
-export const economical = new Appearence("economical look", 90, "economical")
-export const suave = new Appearence("suave look", 405, "suave")
+const maxPrice = 200e12;
+const num = 7;
+const getPrice = (index: number): number => Math.floor(Math.exp(index / (num / Math.log(maxPrice))) - 1);
+export const tutorial = new Equippable("tutorial", getPrice(0))
+export const milestone = new Equippable("money milestone", getPrice(1))
+export const darkMode = new Appearence("dark mode", getPrice(2), "darkTheme")
+export const economical = new Appearence("economical look", getPrice(3), "economical")
+export const suave = new Appearence("suave look", getPrice(4), "suave")
+export const hypeButtons = new Appearence("hype beast buttons", getPrice(5), "hypebuttons")
+export const casino = new Equippable("casino", getPrice(6))
+const billionaire = new Equippable("billionaire club", getPrice(7))
 
 export const toCss = (equipped: storageUpgrade[]): string => {
     const c = equipped.map(usToU)
@@ -58,4 +61,4 @@ export const toCss = (equipped: storageUpgrade[]): string => {
     }
     return s
 }
-export default [milestone, darkMode, casino, hypeButtons, economical, suave, billionaire]
+export default [tutorial, milestone, darkMode, casino, hypeButtons, economical, suave, billionaire]
