@@ -41,6 +41,10 @@ const Tutorial: React.FC<{}> = () => {
                 <td>{u.name}</td>
                 <td>${formatNumber(u.cost)}</td></tr>))}
         </table>
+        <h2>Need Help with Game?</h2>
+        <p>If you need help with this game, DM MrEconomical#4400 on Discord. You can also join the
+            official support server at <a href="https://discord.gg/aapA7sB">https://discord.gg/aapA7sB</a>
+        </p>
     </>
 }
 export default Tutorial

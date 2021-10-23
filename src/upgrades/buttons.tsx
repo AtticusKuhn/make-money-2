@@ -25,15 +25,15 @@ const timePerButton = (num: number): number => 2 * num + 1;
 
 const ob: React.FC<{}> = () => {
     const dispatch = useDispatch()
-    const obcps = 507;
-    const obearn = getPrice(1) / (timePerButton(0) * obcps);
+    const obcpm = 1014;
+    const obearn = getPrice(1) / (timePerButton(0) * obcpm);
     return <button onClick={() => dispatch(earn(obearn))}>Make Money</button>
 
 }
 const bb: React.FC<{}> = () => {
     const dispatch = useDispatch()
-    const bbcps = 507;
-    const bbearn = getPrice(2) / (timePerButton(1) * bbcps);
+    const bbcpm = 1014;
+    const bbearn = getPrice(2) / (timePerButton(1) * bbcpm);
     return <div className="betterButton"><button onClick={() => dispatch(earn(bbearn))}>Make More Money</button>
         <style>{`
     .betterButton {
@@ -48,8 +48,8 @@ const mb: React.FC<{}> = () => {
     const [direction, setD] = useState<"left" | "right">("left")
     const r = () => setLeft(Math.min(left + 5, 100))
     const l = () => setLeft(Math.max(left - 5, 0))
-    const mbcps = 507;
-    const mbearn = getPrice(3) / (timePerButton(2) * mbcps);
+    const mbcpm = 1014;
+    const mbearn = getPrice(3) / (timePerButton(2) * mbcpm);
     const keyPress: React.KeyboardEventHandler<HTMLDivElement> = (key) => {
         if (key.key === "ArrowRight") {
             r();
@@ -78,6 +78,8 @@ const mb: React.FC<{}> = () => {
     </div>
 }
 const mbb: React.FC<{}> = () => {
+    const mbbcpm = 3036;
+    const mbbearn = (1 / 3) * (getPrice(4) / (timePerButton(3) * mbbcpm));
     const dispatch = useDispatch()
     const [left, setLeft] = useState(0)
     const [tLeft, setTLeft] = useState(50)
@@ -86,10 +88,10 @@ const mbb: React.FC<{}> = () => {
     const l = () => setLeft(Math.max(left - 5, 0))
     const earnM = () => {
         if (Math.abs(left - tLeft) < 5) {
-            dispatch(earn(5));
+            dispatch(earn(2 * mbbearn));
             setTLeft(Math.floor((Math.random() * 100)))
         } else {
-            dispatch(earn(2));
+            dispatch(earn(mbbearn));
         }
     }
     const keyPress: React.KeyboardEventHandler<HTMLDivElement> = (key) => {
@@ -130,7 +132,7 @@ const fdb: React.FC<{}> = () => {
         right: r(),
         up: r(),
     })
-    const [direction, setD] = useState<v>({ up: 0, right: 0 })
+    // const [direction, setD] = useState<v>({ up: 0, right: 0 })
     const earnM = () => {
         let a = tPos.right - pos.right
         let b = pos.up - tPos.up;
@@ -153,10 +155,10 @@ const fdb: React.FC<{}> = () => {
         } else {
             dispatch(earn(1));
         }
-        setPos({
-            up: inRange(100, 0, pos.up + direction.up),
-            right: inRange(100, 0, pos.right + direction.right),
-        })
+        // setPos({
+        //     up: inRange(100, 0, pos.up + direction.up),
+        //     right: inRange(100, 0, pos.right + direction.right),
+        // })
         // setD({
         //     right: 0,
         //     up: 0,
@@ -165,34 +167,42 @@ const fdb: React.FC<{}> = () => {
     const keyPress: React.KeyboardEventHandler<HTMLDivElement> = (key) => {
         const dir = toDirection(key)
         if (dir === "right") {
-            setD({ up: 0, right: 10 })
+            setPos({ up: pos.up, right: inRange(100, 0, pos.right + 10) })
         } else if (dir === "left") {
-            setD({ up: 0, right: -10 })
+            setPos({ up: pos.up, right: inRange(100, 0, pos.right - 10) })
         } else if (dir === "down") {
-            setD({ right: 0, up: -10 })
+            setPos({ right: pos.right, up: inRange(100, 0, pos.up - 10) })
         } else if (dir === "up") {
-            setD({ right: 0, up: 10 })
+            setPos({ right: pos.right, up: inRange(100, 0, pos.up + 10) })
         } else {
             click()
         }
         earnM()
     }
     const click = () => {
-        if (pos.right <= 0)
-            setD({ ...direction, right: 10, })
-        if (pos.right >= 100)
-            setD({ ...direction, right: -10 })
-        if (pos.up <= 0)
-            setD({ ...direction, up: 10 })
-        if (pos.up >= 100)
-            setD({ ...direction, up: -10 })
+        if (pos.right <= 0) {
+            setPos({ ...pos, right: inRange(100, 0, pos.right + 10) })
+        } else if (pos.right >= 100) {
+            setPos({ ...pos, right: inRange(100, 0, pos.right - 10) })
+        } else if (pos.up <= 0) {
+            setPos({ ...pos, up: inRange(100, 0, pos.up + 10) })
+        } else if (pos.up >= 100) {
+            setPos({ ...pos, up: inRange(100, 0, pos.up - 10) })
+        } else {
+            setPos({ right: inRange(100, 0, pos.right + 10), up: inRange(100, 0, pos.up + 10) })
+        }
         earnM()
     }
     return <div onKeyDown={keyPress} style={{ height: "200px" }}>
         <div onKeyPress={keyPress} style={{ height: "200px" }}>
-            {/* {JSON.stringify(direction)} */}
+            <p>right off: {tPos.right - pos.right}</p>
+            <p>up off: {tPos.up - pos.up}</p>
+            <p>post: {JSON.stringify(pos)}</p>
+
             <div style={{ position: "absolute", marginLeft: `${tPos.right - 5}px`, marginTop: `${100 - tPos.up + 5}px`, width: "10px", height: "10px", backgroundColor: "black" }} />
             <button style={{ width: "57px", height: "content", marginLeft: `${pos.right}px`, marginTop: `${100 - pos.up}px`, marginBottom: `${pos.up}px` }} onClick={click}>cubechat</button>
+            {/* <div style={{ position: "absolute",  backgroundColor: "red", width: "57px", height: "57px", marginLeft: `${pos.right}px`, marginTop: `${100 - pos.up}px`, marginBottom: `${pos.up}px` }} /> */}
+
         </div>
     </div>
 }

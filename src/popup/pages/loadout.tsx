@@ -30,7 +30,10 @@ export default function LoadOut() {
         <>
             <h1> LoadOut</h1>
             <br />
-            <p>Here you equip and choose the different upgrades that you have bought</p>
+            <p>Here you equip and choose the different upgrades that you have bought.
+                You may must equip exactly 1 button at a time, but you may equip or unequip any number
+                of upgrades.
+            </p>
             <br />
             <h2>Equip buttons</h2>
             {buttons.map(b => <ChooseButton button={b} />)}
