@@ -42,7 +42,7 @@ export default function LoadOut() {
             <br />
             <h1>Purchased Items</h1>
             <ol>
-                {items.map(item => <li>{item.name}</li>)}
+                {items.map(item => <li>{item.name} (+{Math.floor(Math.sqrt(item.cost) * 0.1)} income)</li>)}
             </ol>
         </>
     );

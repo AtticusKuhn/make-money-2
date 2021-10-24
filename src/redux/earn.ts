@@ -72,7 +72,7 @@ export const counterSlice = createSlice({
       console.log("in purchase, the item type is", item.payload.type)
       if (item.payload.type === upgradeType.item) {
         console.log("purchaseing an item.")
-        state.income += item.payload.cost * 0.05;
+        state.income += Math.sqrt(item.payload.cost) * 0.1;
         state.purchasedItems.push(item.payload);
         return;
       }

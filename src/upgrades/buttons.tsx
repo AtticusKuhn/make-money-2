@@ -132,6 +132,9 @@ const fdb: React.FC<{}> = () => {
         right: r(),
         up: r(),
     })
+    const fdbcpm = 15542;
+    const fdbearn = (1 / 301) * (getPrice(5) / (timePerButton(4) * fdbcpm));
+
     // const [direction, setD] = useState<v>({ up: 0, right: 0 })
     const earnM = () => {
         let a = tPos.right - pos.right
@@ -147,13 +150,13 @@ const fdb: React.FC<{}> = () => {
             &&
             (b > 0 && b < 30)
         ) {
-            dispatch(earn(300));
+            dispatch(earn(300 * fdbearn));
             setTPos({
                 right: r(),
                 up: r(),
             })
         } else {
-            dispatch(earn(1));
+            dispatch(earn(fdbearn));
         }
         // setPos({
         //     up: inRange(100, 0, pos.up + direction.up),
@@ -195,10 +198,9 @@ const fdb: React.FC<{}> = () => {
     }
     return <div onKeyDown={keyPress} style={{ height: "200px" }}>
         <div onKeyPress={keyPress} style={{ height: "200px" }}>
-            <p>right off: {tPos.right - pos.right}</p>
+            {/* <p>right off: {tPos.right - pos.right}</p>
             <p>up off: {tPos.up - pos.up}</p>
-            <p>post: {JSON.stringify(pos)}</p>
-
+            <p>post: {JSON.stringify(pos)}</p> */}
             <div style={{ position: "absolute", marginLeft: `${tPos.right - 5}px`, marginTop: `${100 - tPos.up + 5}px`, width: "10px", height: "10px", backgroundColor: "black" }} />
             <button style={{ width: "57px", height: "content", marginLeft: `${pos.right}px`, marginTop: `${100 - pos.up}px`, marginBottom: `${pos.up}px` }} onClick={click}>cubechat</button>
             {/* <div style={{ position: "absolute",  backgroundColor: "red", width: "57px", height: "57px", marginLeft: `${pos.right}px`, marginTop: `${100 - pos.up}px`, marginBottom: `${pos.up}px` }} /> */}
@@ -208,6 +210,8 @@ const fdb: React.FC<{}> = () => {
 }
 const tb: React.FC<{}> = () => {
     const dispatch = useDispatch()
+    const tbcpm = 2502
+    const tbearn = (1 / 10) * (getPrice(6) / (timePerButton(5) * tbcpm));
     const getSentence = async (): Promise<string> => {
         const req1 = await fetch("https://en.wikipedia.org/wiki/Special:Random/", {
             mode: "no-cors",
@@ -217,31 +221,37 @@ const tb: React.FC<{}> = () => {
         const paras = [...document.querySelectorAll("p")]
         const text = paras.map(x => x.innerText).join(" ").substring(0, 100)
         console.log("text is", text)
-        return text.trim();
+        return text.trim().replace(/[^A-Za-z1-9`~!@#$%^&*\(\)\-\+\=1-9\[\]\{\}A-Za-z,.;'\?\"\s]/g, "");
     }
-    const [currentSentence, setCurrentSentence] = useState<string>("I like apple pie")
+    useEffect(() => {
+        getSentence().then(s => {
+            setCurrentSentence(s)
+        })
+    }, [])
+    const [currentSentence, setCurrentSentence] = useState<string>("")
     const keyPress: React.KeyboardEventHandler<HTMLDivElement> = async (key) => {
         console.log("recieved", key.key, "expecting", currentSentence[0])
-        if (currentSentence.length === 0)
+        if (currentSentence.length === 0) {
             return;
+        }
         if (key.key === currentSentence[0]) {
-            dispatch(earn(16))
+            dispatch(earn(10 * tbearn))
             setCurrentSentence(currentSentence.slice(1))
             if (currentSentence.length <= 1)
                 setCurrentSentence(await getSentence())
-        } else {
-            dispatch(earn(1))
         }
     }
     return <div onKeyDown={keyPress} style={{ height: "200px" }}>
-        <div onKeyPress={keyPress} style={{ height: "200px" }}>
-            <button onClick={() => dispatch(earn(1))}>What is the "type" of money?</button>
+        <div style={{ height: "200px" }}>
+            <button onClick={() => dispatch(earn(tbearn))}>What is the "type" of money?</button>
             <br />
-            <pre>{currentSentence}</pre>
+            <pre>{currentSentence.length > 0 ? currentSentence : "loading..."}</pre>
         </div>
     </div>
 }
 const sb: React.FC<{}> = () => {
+    const sbcpm = 4760;
+    const sbearn = (1 / 100) * (getPrice(7) / (timePerButton(6) * sbcpm));
     const dispatch = useDispatch()
     const [left, setLeft] = useState<number>(300)
     const [height, setHeight] = useState<number>(200)
@@ -258,13 +268,13 @@ const sb: React.FC<{}> = () => {
             setob(randomInRange(5, 9))
         }
         if (left <= 40 && height <= 10) {
-            dispatch(earn(-10))
+            dispatch(earn(-10 * sbearn))
         }
     }
     const click = () => {
         if (height === 0) {
             setV(10)
-            dispatch(earn(100))
+            dispatch(earn(sbearn * 100))
         }
     }
     useEffect(() => {
@@ -280,6 +290,9 @@ const sb: React.FC<{}> = () => {
     </>)
 }
 const sdb: React.FC<{}> = () => {
+    const sdcpm = 6520;
+    const sdearn = (1 / 192) * (getPrice(8) / (timePerButton(7) * sdcpm));
+
     const dispatch = useDispatch()
     const [buttonPosition, setButtonPosition] = useState<number>(0)
     const [Bdirection, setBDirection] = useState<"left" | "right">("right")
@@ -299,7 +312,7 @@ const sdb: React.FC<{}> = () => {
             setEnemyDirection({ right: 10, up: enemyDirection.up })
         }
         if (enemyPosition.up <= 0) {
-            dispatch(earn(-10))
+            dispatch(earn(-10 * sdearn))
             setEnemyPosition({ right: 0, up: 300 })
         }
         if (isBulletVisible) {
@@ -312,7 +325,7 @@ const sdb: React.FC<{}> = () => {
             setEnemyPosition({ right: 0, up: 300 })
             setBulletPosition({ right: 0, up: 0 })
             setBulletVisible(false)
-            dispatch(earn(200));
+            dispatch(earn(200 * sdearn));
         }
         if (bulletPosition.up >= 300) {
             setBulletVisible(false)
@@ -344,7 +357,7 @@ const sdb: React.FC<{}> = () => {
             // r();
             // setBDirection("right")
         }
-        dispatch(earn(2));
+        dispatch(earn(2 * sdearn));
     }
     const click = () => {
         if (!isBulletVisible) {
@@ -378,6 +391,8 @@ const sdb: React.FC<{}> = () => {
     </>)
 }
 const ghb: React.FC<{}> = () => {
+    const ghcpm = 1300;
+    const ghearn = (1 / 10) * (getPrice(8) / (timePerButton(7) * ghcpm));
     const speed = 3
     const height = 300
     const interval = 50
@@ -388,15 +403,15 @@ const ghb: React.FC<{}> = () => {
     const dispatch = useDispatch();
     const click = () => {
         setPlayPosition((playerPosititon + interval) % width)
-        dispatch(earn(10))
+        dispatch(earn(10 * ghearn))
     }
     const moveEnemy = (pos: v): v => {
         pos.up -= speed
         if (pos.up <= 0) {
             if (playerPosititon !== pos.right) {
-                dispatch(earn(-10))
+                dispatch(earn(-10 * ghearn))
             } else {
-                dispatch(earn(10))
+                dispatch(earn(10 * ghearn))
             }
             pos = randomPos()
         }
