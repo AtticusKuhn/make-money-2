@@ -42,9 +42,9 @@ const num = 8;
 const getPrice = (index: number): number => Math.floor(Math.exp(index / (num / Math.log(maxPrice))) - 1);
 export const tutorial = new Equippable("tutorial", getPrice(0))
 export const milestone = new Equippable("money milestone", getPrice(1))
-export const darkMode = new Appearence("dark mode", getPrice(2), "darkTheme")
-export const economical = new Appearence("economical look", getPrice(3), "economical")
-export const suave = new Appearence("suave look", getPrice(4), "suave")
+export const suave = new Appearence("suave look", getPrice(2), "suave")
+export const darkMode = new Appearence("dark mode", getPrice(3), "darkTheme")
+export const economical = new Appearence("economical look", getPrice(4), "economical")
 export const hypeButtons = new Appearence("hype beast buttons", getPrice(5), "hypebuttons")
 export const casino = new Equippable("casino", getPrice(6))
 const billionaire = new Equippable("billionaire club", getPrice(7))

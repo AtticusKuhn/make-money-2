@@ -33,12 +33,14 @@ $themes: (
 .suave {
   a {
     color:black;
-    font-size: 80%;
+    // font-size: ;
   }
   .navbutton {
     // box-sizing: content-box;
     height: 30px;
     color:black !important;
+    flex: 1;
+    flex-grow: inherit;
     // background-color: #c2b8c2;
     // border: 1px solid black;
     // border-radius: 10px 10px 0px 0px;
@@ -92,17 +94,48 @@ $themes: (
       padding: 0px 5px;
       width: 100%;
       overflow: hidden;
+      // flex: 1;  /* 1 and it will fill whole space left if no flex value are set to other children*/
+      // background: #ffd700;
+      // overflow: auto;
+      // flex:auto;
+      // background-color:yellow;
+      // overflow-y:scroll;
+      
+      flex: 1;
+      flex-shrink: 0;
+      width: 100%;
+      float: none;
+      overflow: hidden;
+      flex: 1;
+      flex-grow: inherit;
+
     }
+    align-items:flex-end;
+  align-items:flex-end;
+  flex-shrink: 0;
+
     width: 100%;
     transition: 100ms;
+    // display: flex;
     display: flex;
-    padding: auto;
-    flex-direction: row;
-    flex:auto;
+    flex: 1;
+
+
+    // display: grid;
+    // align-items: normal;
+    // height: 300px;
+    // grid-template-columns:  auto;
+    // flex-flow: column;
+  
+    // padding: auto;
+    // flex: 1;  /* 1 and it will fill whole space left if no flex value are set to other children*/
+
+    // flex-direction: row;
+    // flex:auto;
   }
   button {
-    display: inline-block !important;
-    width:fit-content !important; 
+    // display: inline-block !important;
+    // width:fit-content !important; 
   }
 }
 .hypebuttons {
