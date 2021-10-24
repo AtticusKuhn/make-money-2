@@ -12,13 +12,11 @@ const Debug: React.FC<{}> = () => {
 
     return (<>
         <h1>Developer Debugger</h1>
-        {/* redux state is:
-        <br />
-        <pre>{JSON.stringify(money, null, 4)}</pre>
-        <br />
-        Chrome state is
-        <br />
-        <pre>{JSON.stringify(c, null, 4)}</pre> */}
+        <p>Do you want to experience the joy of Make Money again? If you reset, all your items
+            will go away and you will go to the beginning of the story. If you prestige, you
+            lose your items but your income increases. Prestiging can be a good way to get
+            past a rough spot where you are stuck.
+        </p>
         <button onClick={() => dispatch(reset())}>reset all</button>
         <br />
         <br />
