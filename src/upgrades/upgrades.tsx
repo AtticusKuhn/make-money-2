@@ -38,7 +38,7 @@ export class Appearence extends Equippable {
 }
 //"billionaire club"
 const maxPrice = 200e12;
-const num = 7;
+const num = 8;
 const getPrice = (index: number): number => Math.floor(Math.exp(index / (num / Math.log(maxPrice))) - 1);
 export const tutorial = new Equippable("tutorial", getPrice(0))
 export const milestone = new Equippable("money milestone", getPrice(1))

@@ -23,7 +23,7 @@ $themes: (
 .economical {
   *, body, html {
     color:#79e422;
-    background-color: #2f5411;
+    background-color: #2f5411 !important;
     // transition: 500ms;
   }
   button, li:hover {
@@ -31,18 +31,27 @@ $themes: (
   }
 }
 .suave {
+  a {
+    color:black;
+    font-size: 80%;
+  }
   .navbutton {
     // box-sizing: content-box;
     height: 30px;
-    background-color: #c2b8c2;
-    border: 2px solid black;
+    color:black !important;
+    // background-color: #c2b8c2;
+    // border: 1px solid black;
+    // border-radius: 10px 10px 0px 0px;
 }
 .active {
-    background-color: hsl(300, 33%, 95%);
+    // background-color: hsl(300, 33%, 95%);
+    border: 1px solid hsl(0, 0%, 10%);
     border-bottom: none !important;
 }
 .inactive {
-    background-color: #c2b8c2;
+  border: 1px solid hsl(0, 0%, 60%);
+  border-bottom:1px solid hsl(0, 0%, 10%);
+    background-color: hsl(0, 0%, 90%);
 }
   .moneyDisplay {
     display: flex;
@@ -56,7 +65,7 @@ $themes: (
   }
   .body {
     padding: 0px 30px 30px 30px;
-    margin: 0px 30px 30px 30px;
+    // margin: 0px 30px 30px 30px;
   }
   h1, a, h2, h3{
     text-align: center;
