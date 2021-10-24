@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { upgradeType } from '../types'
 import { findUpgrade } from '../upgrades'
+import { itemToIncome } from '../utils'
 import type { RootState } from './store'
 
 interface CounterState {
@@ -72,7 +73,7 @@ export const counterSlice = createSlice({
       console.log("in purchase, the item type is", item.payload.type)
       if (item.payload.type === upgradeType.item) {
         console.log("purchaseing an item.")
-        state.income += Math.sqrt(item.payload.cost) * 0.1;
+        state.income += itemToIncome(item.payload.cost)
         state.value -= item.payload.cost;
         state.purchasedItems.push(item.payload);
         return;

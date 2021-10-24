@@ -18,7 +18,7 @@ export class Button extends Upgrade {
     }
 }
 const maxPrice = 100e15;
-const numOfButtons = 9;
+const numOfButtons = 10;
 const getPrice = (index: number): number => Math.floor(Math.exp(index / (numOfButtons / Math.log(maxPrice))) - 1);
 const timePerButton = (num: number): number => 2 * num + 1;
 
@@ -42,6 +42,17 @@ const bb: React.FC<{}> = () => {
     `}</style>
     </div>
 }
+const spb: React.FC<{}> = () => {
+    const [deg, setDeg] = useState(0)
+    const dispatch = useDispatch()
+    const spbcpm = 1014;
+    const spbearn = getPrice(3) / (timePerButton(2) * spbcpm);
+    const click = () => {
+        dispatch(earn(spbearn))
+        setDeg(deg + 1)
+    }
+    return <button style={{ transform: `rotate(${deg}deg)` }} onClick={click}>Money has a good spin to it.</button>
+}
 const mb: React.FC<{}> = () => {
     const dispatch = useDispatch()
     const [left, setLeft] = useState(0)
@@ -49,7 +60,7 @@ const mb: React.FC<{}> = () => {
     const r = () => setLeft(Math.min(left + 5, 100))
     const l = () => setLeft(Math.max(left - 5, 0))
     const mbcpm = 1014;
-    const mbearn = getPrice(3) / (timePerButton(2) * mbcpm);
+    const mbearn = getPrice(4) / (timePerButton(3) * mbcpm);
     const keyPress: React.KeyboardEventHandler<HTMLDivElement> = (key) => {
         if (key.key === "ArrowRight") {
             r();
@@ -79,7 +90,7 @@ const mb: React.FC<{}> = () => {
 }
 const mbb: React.FC<{}> = () => {
     const mbbcpm = 3036;
-    const mbbearn = (1 / 3) * (getPrice(4) / (timePerButton(3) * mbbcpm));
+    const mbbearn = (1 / 3) * (getPrice(5) / (timePerButton(4) * mbbcpm));
     const dispatch = useDispatch()
     const [left, setLeft] = useState(0)
     const [tLeft, setTLeft] = useState(50)
@@ -133,7 +144,7 @@ const fdb: React.FC<{}> = () => {
         up: r(),
     })
     const fdbcpm = 15542;
-    const fdbearn = (1 / 301) * (getPrice(5) / (timePerButton(4) * fdbcpm));
+    const fdbearn = (1 / 301) * (getPrice(6) / (timePerButton(5) * fdbcpm));
 
     // const [direction, setD] = useState<v>({ up: 0, right: 0 })
     const earnM = () => {
@@ -211,7 +222,7 @@ const fdb: React.FC<{}> = () => {
 const tb: React.FC<{}> = () => {
     const dispatch = useDispatch()
     const tbcpm = 2502
-    const tbearn = (1 / 10) * (getPrice(6) / (timePerButton(5) * tbcpm));
+    const tbearn = (1 / 10) * (getPrice(7) / (timePerButton(6) * tbcpm));
     const getSentence = async (): Promise<string> => {
         const req1 = await fetch("https://en.wikipedia.org/wiki/Special:Random/", {
             mode: "no-cors",
@@ -251,7 +262,7 @@ const tb: React.FC<{}> = () => {
 }
 const sb: React.FC<{}> = () => {
     const sbcpm = 4760;
-    const sbearn = (1 / 100) * (getPrice(7) / (timePerButton(6) * sbcpm));
+    const sbearn = (1 / 100) * (getPrice(8) / (timePerButton(7) * sbcpm));
     const dispatch = useDispatch()
     const [left, setLeft] = useState<number>(300)
     const [height, setHeight] = useState<number>(200)
@@ -291,7 +302,7 @@ const sb: React.FC<{}> = () => {
 }
 const sdb: React.FC<{}> = () => {
     const sdcpm = 6520;
-    const sdearn = (1 / 192) * (getPrice(8) / (timePerButton(7) * sdcpm));
+    const sdearn = (1 / 192) * (getPrice(10) / (timePerButton(9) * sdcpm));
 
     const dispatch = useDispatch()
     const [buttonPosition, setButtonPosition] = useState<number>(0)
@@ -392,7 +403,7 @@ const sdb: React.FC<{}> = () => {
 }
 const ghb: React.FC<{}> = () => {
     const ghcpm = 1300;
-    const ghearn = (1 / 10) * (getPrice(8) / (timePerButton(7) * ghcpm));
+    const ghearn = (1 / 10) * (getPrice(9) / (timePerButton(8) * ghcpm));
     const speed = 3
     const height = 300
     const interval = 50
@@ -433,15 +444,16 @@ const ghb: React.FC<{}> = () => {
 
 export const originalButton = new Button("original button", getPrice(0), ob,)
 const betterButton = new Button("better button", getPrice(1), bb)
-const movingButton = new Button("moving button", getPrice(2), mb)
-const movingBonusButton = new Button("moving bonus button", getPrice(3), mbb)
-const allDirectionButton = new Button("cubechat button", getPrice(4), fdb)
-const typingButton = new Button("typing button", getPrice(5), tb)
-const scrollingButton = new Button("scrolling button", getPrice(6), sb)
-const guitarHeroButton = new Button("guitar hero button", getPrice(7), ghb)
-const spaceDefenderButton = new Button("space defender button", getPrice(8), sdb)
+const spinningButton = new Button("spinning button", getPrice(2), spb)
+const movingButton = new Button("moving button", getPrice(3), mb)
+const movingBonusButton = new Button("moving bonus button", getPrice(4), mbb)
+const allDirectionButton = new Button("cubechat button", getPrice(5), fdb)
+const typingButton = new Button("typing button", getPrice(6), tb)
+const scrollingButton = new Button("scrolling button", getPrice(7), sb)
+const guitarHeroButton = new Button("guitar hero button", getPrice(8), ghb)
+const spaceDefenderButton = new Button("space defender button", getPrice(9), sdb)
 
 export const findButton = (us: storageUpgrade): Button => {
     return upgrades.find(u => u.name === us.name) as Button
 }
-export const upgrades: Array<Button> = [originalButton, betterButton, movingButton, movingBonusButton, allDirectionButton, typingButton, scrollingButton, guitarHeroButton, spaceDefenderButton]
+export const upgrades: Array<Button> = [originalButton, betterButton, spinningButton, movingButton, movingBonusButton, allDirectionButton, typingButton, scrollingButton, guitarHeroButton, spaceDefenderButton]

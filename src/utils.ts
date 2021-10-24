@@ -38,3 +38,4 @@ export const formatNumber = (num: number): string => numberWithCommas(parseFloat
 function numberWithCommas(x: number): string {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+export const itemToIncome = (item: number): number => Math.sqrt(item) * 0.1

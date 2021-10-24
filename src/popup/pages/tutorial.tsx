@@ -1,6 +1,6 @@
 import React from "react"
 import upgrades from "../../upgrades"
-import { formatNumber } from "../../utils";
+import { formatNumber, itemToIncome } from "../../utils";
 const Tutorial: React.FC<{}> = () => {
     const { buttons, items } = upgrades;
     const u = upgrades.upgrades;
@@ -26,10 +26,15 @@ const Tutorial: React.FC<{}> = () => {
             <tr>
                 <th>Items Name</th>
                 <th>Cost</th>
+                <th>Income Boost</th>
             </tr>
             {items.map(i => (<tr>
                 <td>{i.name}</td>
-                <td>${formatNumber(i.cost)}</td></tr>))}
+                <td>${formatNumber(i.cost)}</td>
+                <td>+ ${Math.floor(itemToIncome(i.cost))}</td>
+
+            </tr>
+            ))}
         </table>
         <h3>Upgrades</h3>
         <table>
