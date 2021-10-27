@@ -1,0 +1,4 @@
+- [ ] fix spelling
+- [ ] consisten capitlazation
+- [ ] hotkeys upgrade
+- [ ] make harder (make it so players have to presiege)
