@@ -7,7 +7,7 @@ const Tutorial: React.FC<{}> = () => {
     return <>
         <h1>Make Money Tutorial</h1>
         <p>Make money is a fun game where you click buttons to earn money. Purchase new upgrades in
-            the store and then equip them in loadout
+            the store and then equip them in load out.
         </p>
         <h2>Possible Upgrades</h2>
         Here are all the possible upgrades you can purchase.

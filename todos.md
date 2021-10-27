@@ -1,4 +1,4 @@
 - [ ] fix spelling
-- [ ] consisten capitlazation
+- [ ] consistent capitalization
 - [ ] hotkeys upgrade
-- [ ] make harder (make it so players have to presiege)
+- [ ] make harder (make it so players have to prestige.

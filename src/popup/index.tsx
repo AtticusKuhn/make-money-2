@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { HashRouter } from 'react-router-dom';
-import { getS, InitalState, setS } from '../redux/earn';
+import { getS, InitialState, setS } from '../redux/earn';
 import { makeStore } from '../redux/store';
 import { upgradeType } from '../types';
 import App from './App';
@@ -11,7 +11,7 @@ import './App.scss';
 
 getS().then(s => {
     const ob = { name: "original button", type: upgradeType.button, cost: 1 }
-    const defaultState: InitalState = {
+    const defaultState: InitialState = {
         value: 1,
         income: 1,
         equippedUpgrades: [ob],

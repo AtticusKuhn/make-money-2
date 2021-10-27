@@ -395,7 +395,7 @@ const sdb: React.FC<{}> = () => {
     }, [enemyDirection, enemyPosition, bulletPosition])
     return (<>
         <div onKeyPress={keyPress} className="holder" style={{ height: "300px" }}>
-            <div className="enemey" style={{ marginTop: `${300 - enemyPosition.up}px`, position: "absolute", marginLeft: `${enemyPosition.right}px`, width: "10px", height: "10px", backgroundColor: "red" }} />
+            <div className="enemy" style={{ marginTop: `${300 - enemyPosition.up}px`, position: "absolute", marginLeft: `${enemyPosition.right}px`, width: "10px", height: "10px", backgroundColor: "red" }} />
             <div className="bullet" style={{ display: (!isBulletVisible ? "none" : "block"), marginTop: `${300 - bulletPosition.up}px`, position: "absolute", marginLeft: `${bulletPosition.right}px`, width: "7px", height: "7px", backgroundColor: "orange" }} />
             <button style={{ width: "45px", height: "20px", position: "relative", marginTop: "300px", marginLeft: `${buttonPosition}px` }} onClick={click}>shoot</button>
         </div>
@@ -410,16 +410,16 @@ const ghb: React.FC<{}> = () => {
     const width = 200
     const randomPos = (): v => ({ up: height, right: Math.floor(Math.random() * (width / interval)) * interval })
     const [enemyPositions, setEnemyPositions] = useState<v[]>(new Array(5).fill(0).map((_e, i) => ({ right: randomPos().right, up: i * 60 + 100 })))
-    const [playerPosititon, setPlayPosition] = useState<number>(0)
+    const [playerPosition, setPlayPosition] = useState<number>(0)
     const dispatch = useDispatch();
     const click = () => {
-        setPlayPosition((playerPosititon + interval) % width)
+        setPlayPosition((playerPosition + interval) % width)
         dispatch(earn(10 * ghearn))
     }
     const moveEnemy = (pos: v): v => {
         pos.up -= speed
         if (pos.up <= 0) {
-            if (playerPosititon !== pos.right) {
+            if (playerPosition !== pos.right) {
                 dispatch(earn(-10 * ghearn))
             } else {
                 dispatch(earn(10 * ghearn))
@@ -436,8 +436,8 @@ const ghb: React.FC<{}> = () => {
     }, [enemyPositions])
     return <>
         <div style={{ height: `${height + 30}px`, overflow: "hidden" }}>
-            {enemyPositions.map(enemyPosition => <div className="enemey" style={{ marginTop: `${height - enemyPosition.up}px`, position: "absolute", marginLeft: `${enemyPosition.right}px`, width: `${interval}px`, height: "10px", backgroundColor: "red" }} />)}
-            <button onClick={click} style={{ position: "relative", marginTop: `${height}px`, marginLeft: `${playerPosititon}px`, width: `${interval}px` }}>move</button>
+            {enemyPositions.map(enemyPosition => <div className="enemy" style={{ marginTop: `${height - enemyPosition.up}px`, position: "absolute", marginLeft: `${enemyPosition.right}px`, width: `${interval}px`, height: "10px", backgroundColor: "red" }} />)}
+            <button onClick={click} style={{ position: "relative", marginTop: `${height}px`, marginLeft: `${playerPosition}px`, width: `${interval}px` }}>move</button>
         </div>
     </>
 }

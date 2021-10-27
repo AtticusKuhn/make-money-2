@@ -87,7 +87,7 @@ const RouletteWheel: React.FC<{}> = () => {
         var spinTimeTotal = 0;
         var ctx: CanvasRenderingContext2D;
         document.getElementById("spin")!.addEventListener("click", spin);
-        const getColor = (item: number, maxitem: number): string => `hsl(${item * 360 / maxitem},70%, 50%)`;
+        const getColor = (item: number, maxItem: number): string => `hsl(${item * 360 / maxItem},70%, 50%)`;
         function drawRouletteWheel() {
             var canvas = document.getElementById("canvas") as HTMLCanvasElement;
             if (canvas.getContext) {
@@ -142,8 +142,8 @@ const RouletteWheel: React.FC<{}> = () => {
         function stopRotateWheel() {
             clearTimeout(spinTimeout);
             var degrees = startAngle * 180 / Math.PI + 90;
-            var arcd = arc * 180 / Math.PI;
-            var index = Math.floor((360 - degrees % 360) / arcd);
+            var arcDegrees = arc * 180 / Math.PI;
+            var index = Math.floor((360 - degrees % 360) / arcDegrees);
             ctx.save();
             var text = options[index]
             ctx.font = 'bold 15px Helvetica, Arial';

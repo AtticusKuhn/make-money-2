@@ -1,6 +1,6 @@
 import { AnyAction, configureStore, Dispatch, MiddlewareAPI } from '@reduxjs/toolkit'
-import earn, { InitalState, setS, updateTs } from "./earn"
-const storeActionInChrome = (store: MiddlewareAPI<Dispatch<AnyAction>, { money: InitalState; }>) => (next: Dispatch<AnyAction>) => (action: AnyAction) => {
+import earn, { InitialState, setS, updateTs } from "./earn"
+const storeActionInChrome = (store: MiddlewareAPI<Dispatch<AnyAction>, { money: InitialState; }>) => (next: Dispatch<AnyAction>) => (action: AnyAction) => {
     next(action)
     const state = store.getState()
     // console.log("storeActionInChrome called", state)
@@ -12,7 +12,7 @@ const storeActionInChrome = (store: MiddlewareAPI<Dispatch<AnyAction>, { money: 
 }
 
 export const makeStore = (preloadedState?: {
-    money: InitalState
+    money: InitialState
 }) => configureStore({
     reducer: {
         money: earn,

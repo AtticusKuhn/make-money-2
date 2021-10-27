@@ -17,7 +17,7 @@ interface UpgradeState {
 interface Misc {
   lastSaved: number;
 }
-export type InitalState = CounterState & UpgradeState & Misc
+export type InitialState = CounterState & UpgradeState & Misc
 
 export type storageUpgrade = {
   name: string,
@@ -27,7 +27,7 @@ export type storageUpgrade = {
 
 const ob = { name: "original button", type: upgradeType.button, cost: 1 }
 
-export const initialState: InitalState = {
+export const initialState: InitialState = {
   value: 1,
   income: 1,
   purchasedUpgrades: [ob],
@@ -36,7 +36,7 @@ export const initialState: InitalState = {
   equippedButton: ob,
   lastSaved: new Date().getTime(),
 }
-export const setS = async (x: Partial<InitalState>) => {
+export const setS = async (x: Partial<InitialState>) => {
   let a = await getS()
   if (!a) {
     chrome.storage.sync.set({ data: x }, console.log)
@@ -44,8 +44,8 @@ export const setS = async (x: Partial<InitalState>) => {
   }
   chrome.storage.sync.set({ data: Object.assign(a, x) }, console.log)
 }
-export const getS = (): Promise<InitalState> => new Promise(resolve => chrome.storage.sync.get("data", (x) => {
-  resolve(x.data as InitalState)
+export const getS = (): Promise<InitialState> => new Promise(resolve => chrome.storage.sync.get("data", (x) => {
+  resolve(x.data as InitialState)
 }))
 
 export const counterSlice = createSlice({
@@ -61,7 +61,7 @@ export const counterSlice = createSlice({
     set: (state, action: PayloadAction<number>) => {
       state.value = action.payload
     },
-    setAll: (state, action: PayloadAction<InitalState>) => {
+    setAll: (state, action: PayloadAction<InitialState>) => {
       state.value = action.payload.value
       state.equippedUpgrades = action.payload.equippedUpgrades
       state.purchasedUpgrades = action.payload.purchasedUpgrades;
@@ -72,7 +72,6 @@ export const counterSlice = createSlice({
       }
       console.log("in purchase, the item type is", item.payload.type)
       if (item.payload.type === upgradeType.item) {
-        console.log("purchaseing an item.")
         state.income += itemToIncome(item.payload.cost)
         state.value -= item.payload.cost;
         state.purchasedItems.push(item.payload);
@@ -97,23 +96,22 @@ export const counterSlice = createSlice({
       state.income = 1
     },
     equip: (state, e: PayloadAction<storageUpgrade>) => {
-      const equpping = e.payload
-      console.log("equipping", equpping)
+      const equipping = e.payload
+      console.log("equipping", equipping)
       if (state.equippedUpgrades.some(b => b.name === e.payload.name))
         return;
-      if (equpping.type === upgradeType.button) {
+      if (equipping.type === upgradeType.button) {
         state.equippedUpgrades = state.equippedUpgrades.filter(upgrades => upgrades.type !== upgradeType.button)
-        state.equippedButton = equpping;
+        state.equippedButton = equipping;
       }
-      state.equippedUpgrades.push(equpping)
-      console.log("in equip, after equpping, the equipped upgrades are", state.equippedUpgrades)
+      state.equippedUpgrades.push(equipping)
+      console.log("in equip, after equipping, the equipped upgrades are", state.equippedUpgrades)
     },
     unequip: (state, e: PayloadAction<storageUpgrade>) => {
-      console.log("unequipping", e.payload.name)
-      const equpping = e.payload
-      if (equpping.type === upgradeType.button)
+      const equipping = e.payload
+      if (equipping.type === upgradeType.button)
         return;
-      state.equippedUpgrades = state.equippedUpgrades.filter(x => x.name !== equpping.name)
+      state.equippedUpgrades = state.equippedUpgrades.filter(x => x.name !== equipping.name)
     },
     updateTs: (state) => {
       state.lastSaved = new Date().getTime();

@@ -21,7 +21,7 @@ export const MilestoneComponent: React.FC<{}> = () => {
         { v: 2500, n: "you can buy 100 cardano" },
         { v: 25295, n: "you can buy a toyota camry" },
         { v: 31133, n: "you have more money than the average salary in the USA" },
-        { v: 746820, n: "you have more money than the average Amwerican household" },
+        { v: 746820, n: "you have more money than the average American household" },
         { v: 1e6, n: "you can afford 1 house" },
         { v: 11.1e6, n: "you are in the top 1%" },
         { v: 207.1e9, n: "you are the richest man in the world" },
@@ -31,7 +31,7 @@ export const MilestoneComponent: React.FC<{}> = () => {
     const msg = stones.find(x => money > x.v)?.n || "you are so rich you caused a bug in the fabric of the universe";
     return <div> milestone: {msg} </div>;
 }
-export class Appearence extends Equippable {
+export class Appearance extends Equippable {
     constructor(public name: string, public cost: number, public cls: string) {
         super(name, cost)
     }
@@ -42,10 +42,10 @@ const num = 8;
 const getPrice = (index: number): number => Math.floor(Math.exp(index / (num / Math.log(maxPrice))) - 1);
 export const tutorial = new Equippable("tutorial", getPrice(0))
 export const milestone = new Equippable("money milestone", getPrice(1))
-export const suave = new Appearence("suave look", getPrice(2), "suave")
-export const darkMode = new Appearence("dark mode", getPrice(3), "darkTheme")
-export const economical = new Appearence("economical look", getPrice(4), "economical")
-export const hypeButtons = new Appearence("hype beast buttons", getPrice(5), "hypebuttons")
+export const suave = new Appearance("suave look", getPrice(2), "suave")
+export const darkMode = new Appearance("dark mode", getPrice(3), "darkTheme")
+export const economical = new Appearance("economical look", getPrice(4), "economical")
+export const hypeButtons = new Appearance("hype beast buttons", getPrice(5), "hypebuttons")
 export const casino = new Equippable("casino", getPrice(6))
 const billionaire = new Equippable("billionaire club", getPrice(7))
 
@@ -54,8 +54,7 @@ export const toCss = (equipped: storageUpgrade[]): string => {
     let s = "";
     for (const e of c) {
         // console.log("in toCss, e is", e)
-        if (e instanceof Appearence) {
-            // console.log("in toCss, this extends apperance")
+        if (e instanceof Appearance) {
             s += e.cls + " "
         }
     }
