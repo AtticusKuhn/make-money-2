@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { hot } from 'react-hot-loader/root';
 import { useSelector } from 'react-redux';
-import { Route } from 'react-router';
+import { Route, useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import { storageUpgrade } from '../redux/earn';
 import { RootState } from '../redux/store';
@@ -17,6 +17,34 @@ import { casino } from '../upgrades/upgrades';
 import Casino from './pages/casino';
 import Club from './pages/club';
 import Tutorial from './pages/tutorial';
+function useShortcut(isHotKeys: boolean) {
+    let history = useHistory();
+    useEffect(() => {
+        let keys: Record<string, boolean> = {}
+        document.onkeydown = (e: KeyboardEvent) => {
+            keys[e.key.toLowerCase()] = true;
+            // console.log(e.target.tagName)
+            //@ts-ignore
+            if (e.target.tagName !== "BODY") {
+
+            }
+            // console.log("keyup")
+            // console.log(keys)
+            if (isHotKeys) {
+                if (keys["h"] && keys["shift"]) history.push("/")
+                if (keys["l"] && keys["shift"]) history.push("LoadOut")
+                if (keys["d"] && keys["shift"]) history.push("/debug")
+                if (keys["s"] && keys["shift"]) history.push("/store")
+                if (keys["t"] && keys["shift"]) history.push("/tutorial")
+                if (keys["c"] && keys["shift"]) history.push("/casino")
+                if (keys["b"] && keys["shift"]) history.push("/club")
+            }
+        }
+        document.onkeyup = (e) => {
+            keys[e.key.toLowerCase()] = false;
+        };
+    }, [isHotKeys])
+};
 interface NavButtonProps {
     text: string;
     link: string;
@@ -29,20 +57,23 @@ const NavButton: React.FC<NavButtonProps> = ({ text, link }) => {
 }
 const App: React.FC<{}> = () => {
     const l = findPossibleUpgrades().length;
-    const msg = l > 0 ? `(${l} upgade${l > 1 ? "s" : ""})` : ""
+    const msg = l > 0 ? `(${l} upgrade${l > 1 ? "s" : ""})` : ""
     const equipped = useSelector<RootState, storageUpgrade[]>(state => state.money.equippedUpgrades)
     const cssString = toCss(equipped)
     const isCasino = equipped.some(x => x.name === casino.name)
     const isBillionaire = equipped.some(x => x.name === "billionaire club")
     const isTutorial = equipped.some(x => x.name === "tutorial")
-
+    const isHotKeys = equipped.some(x => x.name === "hot keys")
+    // if (isHotKeys) {
+    useShortcut(isHotKeys)
+    // }
     return <div id="app" className={`app ${cssString}`}>
         <div className="content">
             <div className="navbar">
                 <NavButton link="/" text="Home" />
                 <NavButton link="/LoadOut" text="Load Out" />
                 <NavButton link="/store" text={`Store ${msg}`} />
-                <NavButton link="/debug" text="debug" />
+                <NavButton link="/debug" text="Debug" />
                 {isTutorial && <NavButton link="/tutorial" text="Tutorial" />}
                 {isCasino && <NavButton link="/casino" text="Casino" />}
                 {isBillionaire && <NavButton link="club" text="Billionaire Club" />}

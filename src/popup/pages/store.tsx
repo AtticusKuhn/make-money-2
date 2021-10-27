@@ -39,7 +39,7 @@ const store: React.FC<{}> = () => {
     const purchasedItems = useSelector<RootState, storageUpgrade[]>((state) => state.money.purchasedItems)
 
     return (<>
-        <h1>welcome to the store</h1> <br />
+        <h1>Welcome to the Store</h1> <br />
         {/* <pre>{JSON.stringify(upgrades, null, 4)}</pre> */}
         <h3>Buttons: </h3> <br />
         {possibleUpgrades.length > 0 ? possibleUpgrades.filter(isButton).map((e, i) => <PossiblePurchase key={i} {...e} />) : "no buttons available for purchase"}

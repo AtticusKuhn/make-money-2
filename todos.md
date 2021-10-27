@@ -1,4 +1,4 @@
-- [ ] fix spelling
+- [x] fix spelling
 - [ ] consistent capitalization
 - [ ] hotkeys upgrade
 - [ ] make harder (make it so players have to prestige.

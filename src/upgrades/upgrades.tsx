@@ -38,16 +38,17 @@ export class Appearance extends Equippable {
 }
 //"billionaire club"
 const maxPrice = 200e12;
-const num = 8;
+const num = 9;
 const getPrice = (index: number): number => Math.floor(Math.exp(index / (num / Math.log(maxPrice))) - 1);
 export const tutorial = new Equippable("tutorial", getPrice(0))
 export const milestone = new Equippable("money milestone", getPrice(1))
 export const suave = new Appearance("suave look", getPrice(2), "suave")
 export const darkMode = new Appearance("dark mode", getPrice(3), "darkTheme")
 export const economical = new Appearance("economical look", getPrice(4), "economical")
-export const hypeButtons = new Appearance("hype beast buttons", getPrice(5), "hypebuttons")
-export const casino = new Equippable("casino", getPrice(6))
-const billionaire = new Equippable("billionaire club", getPrice(7))
+const hotKeys = new Equippable("hot keys", getPrice(5))
+export const hypeButtons = new Appearance("hype beast buttons", getPrice(6), "hypebuttons")
+export const casino = new Equippable("casino", getPrice(7))
+const billionaire = new Equippable("billionaire club", getPrice(8))
 
 export const toCss = (equipped: storageUpgrade[]): string => {
     const c = equipped.map(usToU)
@@ -60,4 +61,4 @@ export const toCss = (equipped: storageUpgrade[]): string => {
     }
     return s
 }
-export default [tutorial, milestone, darkMode, casino, hypeButtons, economical, suave, billionaire]
+export default [tutorial, milestone, darkMode, casino, hypeButtons, hotKeys, economical, suave, billionaire]
