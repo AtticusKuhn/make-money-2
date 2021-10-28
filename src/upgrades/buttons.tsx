@@ -20,7 +20,7 @@ export class Button extends Upgrade {
 const maxPrice = 100e15;
 const numOfButtons = 10;
 const getPrice = (index: number): number => Math.floor(Math.exp(index / (numOfButtons / Math.log(maxPrice))) - 1);
-const timePerButton = (num: number): number => 2 * num + 1;
+const timePerButton = (num: number): number => 5 * num + 1;
 
 
 const ob: React.FC<{}> = () => {

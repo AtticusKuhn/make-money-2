@@ -1,4 +1,5 @@
 - [x] fix spelling
-- [ ] consistent capitalization
-- [ ] hotkeys upgrade
-- [ ] make harder (make it so players have to prestige.
+- [x] consistent capitalization
+- [x] hotkeys upgrade
+- [x] make harder (make it so players have to prestige.
+- [x] money and income on 2 lines

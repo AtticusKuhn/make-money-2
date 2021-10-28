@@ -55,9 +55,9 @@ $themes: (
   border-bottom:1px solid hsl(0, 0%, 10%);
     background-color: hsl(0, 0%, 90%);
 }
-  .moneyDisplay {
+  .moneyDisplay * {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     * {
      padding: 0px 10px;
     }

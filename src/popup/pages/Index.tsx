@@ -18,7 +18,7 @@ export default function Index() {
             <h1>Make Money 2</h1>
             <br /><br />
             <div className="moneyDisplay">
-                <div className="big">Money: ${formatNumber(money)}</div>
+                <div style={{ fontSize: "17px" }}>Money: ${formatNumber(money)}</div>
                 <div className="big">Income: ${formatNumber(income)} </div>
             </div>
             <br /><br />
