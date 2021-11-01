@@ -10,16 +10,12 @@ interface ChooseButtonProps {
 
 const CustomCheckBox: React.FC<React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>> = (props) => {
     return <>
-
         <input type="checkbox" {...props} />
         <style>{`
         input[type='checkbox']{
             width: 14px !important;
             height: 14px !important;
-            margin: 5px;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            -o-appearance: none;
+            margin: 10px;
             appearance: none;
             outline: 2px solid var(--c4);
             box-shadow: none;

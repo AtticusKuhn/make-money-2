@@ -33,51 +33,23 @@
   }
 }
 
-// .economical {
-//   body, html {
-//     color:var(--c2);
-//     background-color: #2f5411 var(--c1);
-//     // transition: 500ms;
-//   }
-//   // :root {
-//   //   --c1: hsl(93, 73%, 29%);
-//   //   --c2: hsl(93, 73%, 39%);
-//   //   --c3: hsl(93, 73%, 49%);
-//   //   --c4: hsl(93, 12%, 48%);
-//   //   --c5: hsl(93, 73%, 69%);
-//   // }
-//   button, li:hover {
-//     background-color: var;
-//   }
-// }
-// @include theme(){
-//   color:red;
-// };
 .suave {
-  
-
   .navbutton * {
     height: 30px;
     color:var(--c5) !important;
     flex: 1;
     flex-grow: inherit;
-    // background-color: #c2b8c2;
-    // border: 1px solid black;
-    // border-radius: 10px 10px 0px 0px;
 }
 .active {
-    // background-color: hsl(300, 33%, 95%);
     border: 1px solid var(--c1);
     border-bottom: none !important;
 }
-// @include theme(){
-  // color:red;
+
 .inactive {
   border: var(--c4);
   border-bottom:1px solid var(--c1);
   background-color: var(--c3);
 }
-// }
   .moneyDisplay * {
     display: flex;
     flex-direction: column;
@@ -90,19 +62,13 @@
   }
   .body {
     padding: 0px 30px 30px 30px;
-    // margin: 0px 30px 30px 30px;
   }
   h1, a, h2, h3{
     text-align: center;
   }
   li {
     list-style-type: none;
-    // padding: 10px;
   }
-  // body {
-  //   padding: 30px;
-  //   margin:30px;
-  // }
   button:hover {
     background-color: var(--c3);
   }
@@ -117,19 +83,11 @@
       padding: 0px 5px;
       width: 100%;
       overflow: hidden;
-      // flex: 1;  /* 1 and it will fill whole space left if no flex value are set to other children*/
-      // background: #ffd700;
-      // overflow: auto;
-      // flex:auto;
-      // background-color:yellow;
-      // overflow-y:scroll;
-      
       flex: 1;
       flex-shrink: 0;
       width: 100%;
       float: none;
       overflow: hidden;
-      flex: 1;
       flex-grow: inherit;
 
     }
@@ -139,22 +97,8 @@
 
     width: 100%;
     transition: 100ms;
-    // display: flex;
     display: flex;
     flex: 1;
-
-
-    // display: grid;
-    // align-items: normal;
-    // height: 300px;
-    // grid-template-columns:  auto;
-    // flex-flow: column;
-  
-    // padding: auto;
-    // flex: 1;  /* 1 and it will fill whole space left if no flex value are set to other children*/
-
-    // flex-direction: row;
-    // flex:auto;
   }
 }
 .hypebuttons {
@@ -173,11 +117,6 @@
   }
 }
 .darkTheme {
-  // transition: 1000ms;
-  // html, body, .content, * {
-  //   background-color: #424242;
-  //   color:white,
-  // }
   li, a {
     color:#5588ff
   }
@@ -200,31 +139,3 @@
     color:var(--c5)
   }
 }
-// :root {
-//     --c1: black;
-
-  
-//   }
-  // * {
-  //   background-color: var(--c1) !important;
-  // }
-// .content {
-//   @each $theme, $map in $themes {
-//     @each $key, $value in $map{
-//     $theme-map: $map !global;
-//     .#{$theme} {
-//       #{$key}: #{$value};
-//     }
-//   }
-// }
-// @include theme() {
-
-//   --c1:theme-get("--c1");
-//   --c2: theme-get("--c2");
-//   --c3: theme-get("--c3");
-//   --c4: theme-get("--c4");
-//   --c5: theme-get("--c5");
-//   // background-color: theme-get("--c1");
-
-// }
-// }
