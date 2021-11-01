@@ -1,14 +1,27 @@
-$themes: (
-  darkTheme: (
-    'text-color': white,
-    'bg-color': #424242,
-    'li-color':#5588ff,
-  ),
-  lightTheme: (
-    'text-color': black,
-    'bg-color': #f5f5f5,
-  )
-);
+.app {
+  --c1: hsl(0,0,100%);
+  --c2: hsl(0,0,75%);
+  --c3: hsl(0,0,50%);
+  --c4: hsl(0,0,25%);
+  --c5: hsl(0,0,0%);
+}
+
+.economical {
+  --c1: hsl(93, 73%, 29%);
+  --c2: hsl(93, 73%, 39%);
+  --c3: hsl(93, 73%, 49%);   
+  --c4: hsl(93, 73%, 48%);
+  --c5: hsl(93, 73%, 69%);
+}
+.darkTheme {
+  --c1:hsl(0, 0%, 10%);
+  --c2:hsl(0, 0%, 40%);
+  --c3:hsl(0, 0%, 60%);
+  --c4:hsl(0, 0%, 80%);
+  --c5:hsl(0, 0%, 100%);
+}
+
+
 
 
 @keyframes color-rotate {
@@ -20,25 +33,32 @@ $themes: (
   }
 }
 
-.economical {
-  *, body, html {
-    color:#79e422;
-    background-color: #2f5411 !important;
-    // transition: 500ms;
-  }
-  button, li:hover {
-    background-color: #3f7116;
-  }
-}
+// .economical {
+//   body, html {
+//     color:var(--c2);
+//     background-color: #2f5411 var(--c1);
+//     // transition: 500ms;
+//   }
+//   // :root {
+//   //   --c1: hsl(93, 73%, 29%);
+//   //   --c2: hsl(93, 73%, 39%);
+//   //   --c3: hsl(93, 73%, 49%);
+//   //   --c4: hsl(93, 12%, 48%);
+//   //   --c5: hsl(93, 73%, 69%);
+//   // }
+//   button, li:hover {
+//     background-color: var;
+//   }
+// }
+// @include theme(){
+//   color:red;
+// };
 .suave {
-  a {
-    color:black;
-    // font-size: ;
-  }
-  .navbutton {
-    // box-sizing: content-box;
+  
+
+  .navbutton * {
     height: 30px;
-    color:black !important;
+    color:var(--c5) !important;
     flex: 1;
     flex-grow: inherit;
     // background-color: #c2b8c2;
@@ -47,14 +67,17 @@ $themes: (
 }
 .active {
     // background-color: hsl(300, 33%, 95%);
-    border: 1px solid hsl(0, 0%, 10%);
+    border: 1px solid var(--c1);
     border-bottom: none !important;
 }
+// @include theme(){
+  // color:red;
 .inactive {
-  border: 1px solid hsl(0, 0%, 60%);
-  border-bottom:1px solid hsl(0, 0%, 10%);
-    background-color: hsl(0, 0%, 90%);
+  border: var(--c4);
+  border-bottom:1px solid var(--c1);
+  background-color: var(--c3);
 }
+// }
   .moneyDisplay * {
     display: flex;
     flex-direction: column;
@@ -81,7 +104,7 @@ $themes: (
   //   margin:30px;
   // }
   button:hover {
-    background-color: #f5f5f584;
+    background-color: var(--c3);
   }
   a {
     flex-direction: row;
@@ -133,7 +156,6 @@ $themes: (
     // flex-direction: row;
     // flex:auto;
   }
-  
 }
 .hypebuttons {
   button:not(:disabled) {
@@ -151,13 +173,58 @@ $themes: (
   }
 }
 .darkTheme {
-  transition: 1000ms;
-  html, body, .content, * {
-    background-color: #424242;
-    color:white,
-  }
+  // transition: 1000ms;
+  // html, body, .content, * {
+  //   background-color: #424242;
+  //   color:white,
+  // }
   li, a {
     color:#5588ff
   }
 
 }
+.content, body, html {
+  background-color: var(--c1);
+  color:var(--c5);
+  input {
+    background-color: var(--c2);
+  }
+  input:checked, .checkbox {
+    background-color: var(--c1);
+  }
+    input:not(:checked), .checkbox {
+    background-color: var(--c5);
+  }
+  button {
+    background-color: var(--c2);
+    color:var(--c5)
+  }
+}
+// :root {
+//     --c1: black;
+
+  
+//   }
+  // * {
+  //   background-color: var(--c1) !important;
+  // }
+// .content {
+//   @each $theme, $map in $themes {
+//     @each $key, $value in $map{
+//     $theme-map: $map !global;
+//     .#{$theme} {
+//       #{$key}: #{$value};
+//     }
+//   }
+// }
+// @include theme() {
+
+//   --c1:theme-get("--c1");
+//   --c2: theme-get("--c2");
+//   --c3: theme-get("--c3");
+//   --c4: theme-get("--c4");
+//   --c5: theme-get("--c5");
+//   // background-color: theme-get("--c1");
+
+// }
+// }

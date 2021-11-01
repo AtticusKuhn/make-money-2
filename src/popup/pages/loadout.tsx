@@ -8,6 +8,34 @@ interface ChooseButtonProps {
     button: storageUpgrade;
 }
 
+const CustomCheckBox: React.FC<React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>> = (props) => {
+    return <>
+
+        <input type="checkbox" {...props} />
+        <style>{`
+        input[type='checkbox']{
+            width: 14px !important;
+            height: 14px !important;
+            margin: 5px;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            -o-appearance: none;
+            appearance: none;
+            outline: 2px solid var(--c4);
+            box-shadow: none;
+            font-size: 0.8em;
+            text-align: center;
+            line-height: 1em;
+            background: var(--c2);
+          }
+          
+          input[type='checkbox']:checked:after {
+            content: '✔';
+            color: var(--c4);
+          }
+        `}</style>
+    </>;
+}
 
 const ChooseButton: React.FC<ChooseButtonProps> = ({ button }) => {
     const dispatch = useDispatch()
@@ -15,8 +43,25 @@ const ChooseButton: React.FC<ChooseButtonProps> = ({ button }) => {
     const isChecked = equipped.some(b => b.name === button.name)
     const check = () => isChecked ? dispatch(unequip(button)) : dispatch(equip(button))
     return (<>
-        <div>{button.name}</div>
-        <input checked={isChecked} type="checkbox" onChange={check} />
+        <CustomCheckBox style={{ boxSizing: "border-box", margin: "2%" }} checked={isChecked} onChange={check} />
+        <div style={{ display: "inline-block", boxSizing: "border-box" }}>{button.name}</div>
+        <br />
+        <style>{`
+        .checkbox {
+            height: 25px;
+            width: 25px;
+        }
+            .checkbox:checked {
+                color: var(--c2);
+
+                background-color: var(--c1);
+            }
+            .checkbox:checked:after {
+            	color: var(--c3);
+
+              background-color: var(--c1);
+          }
+        `}</style>
     </>)
 }
 
