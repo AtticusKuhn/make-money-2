@@ -29,7 +29,7 @@ export const MilestoneComponent: React.FC<{}> = () => {
 
     ].reverse();
     const msg = stones.find(x => money > x.v)?.n || "you are so rich you caused a bug in the fabric of the universe";
-    return <div> milestone: {msg} </div>;
+    return <div> Milestone: {msg} </div>;
 }
 export class Appearance extends Equippable {
     constructor(public name: string, public cost: number, public cls: string) {
@@ -38,17 +38,18 @@ export class Appearance extends Equippable {
 }
 //"billionaire club"
 const maxPrice = 200e12;
-const num = 9;
+const num = 10;
 const getPrice = (index: number): number => Math.floor(Math.exp(index / (num / Math.log(maxPrice))) - 1);
 export const tutorial = new Equippable("tutorial", getPrice(0))
 export const milestone = new Equippable("money milestone", getPrice(1))
-export const suave = new Appearance("suave look", getPrice(2), "suave")
-export const darkMode = new Appearance("dark mode", getPrice(3), "darkTheme")
-export const economical = new Appearance("economical look", getPrice(4), "economical")
-const hotKeys = new Equippable("hot keys", getPrice(5))
-export const hypeButtons = new Appearance("hype beast buttons", getPrice(6), "hypebuttons")
-export const casino = new Equippable("casino", getPrice(7))
-const billionaire = new Equippable("billionaire club", getPrice(8))
+export const wordMoney = new Equippable("word money", getPrice(2))
+export const suave = new Appearance("suave look", getPrice(3), "suave")
+export const darkMode = new Appearance("dark mode", getPrice(4), "darkTheme")
+export const economical = new Appearance("economical look", getPrice(5), "economical")
+const hotKeys = new Equippable("hot keys", getPrice(6))
+export const hypeButtons = new Appearance("hype beast buttons", getPrice(7), "hypebuttons")
+export const casino = new Equippable("casino", getPrice(8))
+const billionaire = new Equippable("billionaire club", getPrice(9))
 
 export const toCss = (equipped: storageUpgrade[]): string => {
     const c = equipped.map(usToU)
@@ -61,4 +62,4 @@ export const toCss = (equipped: storageUpgrade[]): string => {
     }
     return s
 }
-export default [tutorial, milestone, darkMode, casino, hypeButtons, hotKeys, economical, suave, billionaire]
+export default [tutorial, milestone, wordMoney, darkMode, casino, hypeButtons, hotKeys, economical, suave, billionaire]
