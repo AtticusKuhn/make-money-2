@@ -98,7 +98,9 @@ export const counterSlice = createSlice({
       state.purchasedUpgrades = [ob]
       state.equippedButton = ob;
       state.purchasedItems = []
-      state.income = 1
+      state.income = 1;
+      state.bonusClicks = 0;
+
     },
     equip: (state, e: PayloadAction<storageUpgrade>) => {
       const equipping = e.payload
@@ -128,11 +130,15 @@ export const counterSlice = createSlice({
       state.purchasedUpgrades = [ob]
       state.purchasedItems = []
       state.equippedButton = ob;
-    }
+      state.bonusClicks = 0;
+    },
+    useBonusClicks: (state) => {
+      state.bonusClicks = 0;
+    },
   },
 })
 
-export const { reset, set, purchase, setAll, equip, unequip, earn, updateTs, prestige, simpleEarn } = counterSlice.actions
+export const { reset, set, purchase, setAll, equip, unequip, earn, updateTs, prestige, simpleEarn, useBonusClicks } = counterSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectCount = (state: RootState) => state.money.value

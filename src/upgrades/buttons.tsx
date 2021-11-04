@@ -27,7 +27,7 @@ const ob: React.FC<{}> = () => {
     const dispatch = useDisp()
     const obcpm = 1014;
     const obearn = getPrice(1) / (timePerButton(0) * obcpm);
-    return <button onClick={() => dispatch(earn(obearn))}>Make Money</button>
+    return <button onClick={() => dispatch(earn(obearn))}>Make Money</button>;
 
 }
 const bb: React.FC<{}> = () => {
