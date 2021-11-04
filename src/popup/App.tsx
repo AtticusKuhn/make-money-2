@@ -51,6 +51,15 @@ const NavButton: React.FC<NavButtonProps> = ({ text, link }) => {
         <Link to={link}>{text}</Link>
     </li></div>;
 }
+const Header: React.FC<{}> = () => {
+    const eq = new Array(60).fill("=")
+    const money = useSel(state => state.money.value)
+    return <div style={{ width: "70%" }}>
+        {eq}
+        <div style={{ transition: "300ms", fontSize: "30px", marginLeft: `${money % 100}%` }}>$</div>
+        {eq}
+    </div>
+}
 const App: React.FC<{}> = () => {
     const l = findPossibleUpgrades().length;
     const msg = l > 0 ? `(${l} upgrade${l > 1 ? "s" : ""})` : ""
@@ -59,12 +68,14 @@ const App: React.FC<{}> = () => {
     const isCasino = equipped.some(x => x.name === casino.name)
     const isBillionaire = equipped.some(x => x.name === "billionaire club")
     const isTutorial = equipped.some(x => x.name === "tutorial")
+    const isHeader = equipped.some(x => x.name === "header")
     const isHotKeys = equipped.some(x => x.name === "hot keys")
     // if (isHotKeys) {
     useShortcut(isHotKeys)
     // }
     return <div id="app" className={`app default ${cssString}`}>
         <div className="content">
+            {isHeader && <Header />}
             <div className="navbar">
                 <NavButton link="/" text="Home" />
                 <NavButton link="/LoadOut" text="Load Out" />

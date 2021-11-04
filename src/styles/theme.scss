@@ -79,6 +79,7 @@
     color: #325dc2;
   }
   .navbar{
+    align-items: center;
     li {
       padding: 0px 5px;
       width: 100%;
@@ -91,7 +92,10 @@
       flex-grow: inherit;
 
     }
-    align-items:flex-end;
+    // align-items:flex-end;
+    justify-content: space-evenly;
+
+
   // align-items:flex-end;
   flex-shrink: 0;
 

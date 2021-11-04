@@ -91,4 +91,4 @@ export function wordNumber(n: number): string {
         return f;
     }
 }
-export const itemToIncome = (item: number): number => Math.sqrt(item) * 0.1
+export const itemToIncome = (item: number): number => Math.sqrt(item) * 0.01
