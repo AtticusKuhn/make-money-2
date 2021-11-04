@@ -6,6 +6,7 @@ import { formatNumber, wordNumber } from '../../utils';
 
 export default function Index() {
     const money = useSel((state) => state.money.value)
+    const bonusClicks = useSel((state) => state.money.bonusClicks)
     const income = useSel((state) => state.money.income)
     const equipped = useSel((state) => state.money.equippedUpgrades)
     const button = useSel((state) => state.money.equippedButton)
@@ -27,7 +28,7 @@ export default function Index() {
             <br /><br /><br /> <br />
             {findButton(button).component({})} <br /> <br /><br /> <br />
             {isMilestone && <MilestoneComponent />}
-            {isBonusClicks && "you have bonus clicks"}
+            {isBonusClicks && "you have bonus clicks:\n" + bonusClicks.toString()}
         </>
     );
 }

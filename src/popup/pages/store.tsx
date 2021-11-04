@@ -1,7 +1,6 @@
 import React from "react"
-import { useDispatch, useSelector } from "react-redux"
 import { purchase, storageUpgrade } from "../../redux/earn"
-import { RootState } from "../../redux/store"
+import { useDisp, useSel } from "../../redux/store"
 import { upgradeType } from "../../types"
 import upgrades from "../../upgrades/index"
 import { isButton } from "../../utils"

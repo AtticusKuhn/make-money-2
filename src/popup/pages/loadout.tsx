@@ -1,7 +1,6 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { equip, storageUpgrade, unequip } from '../../redux/earn';
-import { RootState } from '../../redux/store';
+import { useDisp, useSel } from '../../redux/store';
 import { isButton } from '../../utils';
 
 interface ChooseButtonProps {
