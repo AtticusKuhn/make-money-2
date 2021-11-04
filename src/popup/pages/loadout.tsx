@@ -34,8 +34,8 @@ const CustomCheckBox: React.FC<React.DetailedHTMLProps<React.InputHTMLAttributes
 }
 
 const ChooseButton: React.FC<ChooseButtonProps> = ({ button }) => {
-    const dispatch = useDispatch()
-    const equipped = useSelector<RootState, storageUpgrade[]>((state) => state.money.equippedUpgrades)
+    const dispatch = useDisp()
+    const equipped = useSel((state) => state.money.equippedUpgrades)
     const isChecked = equipped.some(b => b.name === button.name)
     const check = () => isChecked ? dispatch(unequip(button)) : dispatch(equip(button))
     return (<>
@@ -62,10 +62,10 @@ const ChooseButton: React.FC<ChooseButtonProps> = ({ button }) => {
 }
 
 export default function LoadOut() {
-    const PurchasedUpgrades = useSelector<RootState, storageUpgrade[]>(state => state.money.purchasedUpgrades)
+    const PurchasedUpgrades = useSel(state => state.money.purchasedUpgrades)
     const buttons = PurchasedUpgrades.filter(isButton);
     const notButton = PurchasedUpgrades.filter(x => !isButton(x))
-    const items = useSelector<RootState, storageUpgrade[]>(state => state.money.purchasedItems)
+    const items = useSel(state => state.money.purchasedItems)
 
     return (
         <>

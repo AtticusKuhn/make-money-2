@@ -1,4 +1,5 @@
 import { AnyAction, configureStore, Dispatch, MiddlewareAPI } from '@reduxjs/toolkit'
+import { useDispatch, TypedUseSelectorHook, useSelector } from 'react-redux'
 import earn, { InitialState, setS, updateTs } from "./earn"
 const storeActionInChrome = (store: MiddlewareAPI<Dispatch<AnyAction>, { money: InitialState; }>) => (next: Dispatch<AnyAction>) => (action: AnyAction) => {
     next(action)
@@ -25,3 +26,5 @@ const store = makeStore()
 // export default store
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
+export const useDisp = () => useDispatch<AppDispatch>()
+export const useSel: TypedUseSelectorHook<RootState> = useSelector

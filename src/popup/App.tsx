@@ -1,22 +1,18 @@
 import React, { useEffect } from 'react';
 import { hot } from 'react-hot-loader/root';
-import { useSelector } from 'react-redux';
 import { Route, useHistory } from 'react-router';
-import { Link } from 'react-router-dom';
-import { storageUpgrade } from '../redux/earn';
-import { RootState } from '../redux/store';
-import { toCss } from '../upgrades/upgrades';
-import { useLocation } from 'react-router-dom'
-
+import { Link, useLocation } from 'react-router-dom';
+import { useSel } from '../redux/store';
+import { casino, toCss } from '../upgrades/upgrades';
 import './App.scss';
+import Casino from './pages/casino';
+import Club from './pages/club';
 import Debug from './pages/debug';
 import Index from './pages/Index';
 import LoadOut from './pages/loadout';
 import store, { findPossibleUpgrades } from './pages/store';
-import { casino } from '../upgrades/upgrades';
-import Casino from './pages/casino';
-import Club from './pages/club';
 import Tutorial from './pages/tutorial';
+
 function useShortcut(isHotKeys: boolean) {
     let history = useHistory();
     useEffect(() => {
@@ -58,7 +54,7 @@ const NavButton: React.FC<NavButtonProps> = ({ text, link }) => {
 const App: React.FC<{}> = () => {
     const l = findPossibleUpgrades().length;
     const msg = l > 0 ? `(${l} upgrade${l > 1 ? "s" : ""})` : ""
-    const equipped = useSelector<RootState, storageUpgrade[]>(state => state.money.equippedUpgrades)
+    const equipped = useSel(state => state.money.equippedUpgrades)
     const cssString = toCss(equipped)
     const isCasino = equipped.some(x => x.name === casino.name)
     const isBillionaire = equipped.some(x => x.name === "billionaire club")
@@ -67,7 +63,7 @@ const App: React.FC<{}> = () => {
     // if (isHotKeys) {
     useShortcut(isHotKeys)
     // }
-    return <div id="app" className={`app ${cssString}`}>
+    return <div id="app" className={`app default ${cssString}`}>
         <div className="content">
             <div className="navbar">
                 <NavButton link="/" text="Home" />
@@ -76,7 +72,7 @@ const App: React.FC<{}> = () => {
                 <NavButton link="/debug" text="Debug" />
                 {isTutorial && <NavButton link="/tutorial" text="Tutorial" />}
                 {isCasino && <NavButton link="/casino" text="Casino" />}
-                {isBillionaire && <NavButton link="club" text="Billionaire Club" />}
+                {isBillionaire && <NavButton link="/club" text="Billionaire Club" />}
             </div>
             <br />
             <div className="body">

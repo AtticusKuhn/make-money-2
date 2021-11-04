@@ -1,12 +1,11 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { storageUpgrade } from "../redux/earn";
-import { RootState } from "../redux/store";
+import { useSel } from "../redux/store";
 import { usToU } from "../utils";
 import { Equippable } from "./buttons";
 
 export const MilestoneComponent: React.FC<{}> = () => {
-    const money = useSelector<RootState, number>(state => state.money.value);
+    const money = useSel(state => state.money.value);
     const stones = [
         { v: 0, n: "you very poor" },
         { v: 1, n: "you are poor" },
@@ -37,19 +36,22 @@ export class Appearance extends Equippable {
     }
 }
 //"billionaire club"
-const maxPrice = 200e12;
-const num = 10;
+const maxPrice = 100e15;
+const num = 13;
 const getPrice = (index: number): number => Math.floor(Math.exp(index / (num / Math.log(maxPrice))) - 1);
 export const tutorial = new Equippable("tutorial", getPrice(0))
 export const milestone = new Equippable("money milestone", getPrice(1))
 export const wordMoney = new Equippable("word money", getPrice(2))
 export const suave = new Appearance("suave look", getPrice(3), "suave")
 export const darkMode = new Appearance("dark mode", getPrice(4), "darkTheme")
-export const economical = new Appearance("economical look", getPrice(5), "economical")
-const hotKeys = new Equippable("hot keys", getPrice(6))
-export const hypeButtons = new Appearance("hype beast buttons", getPrice(7), "hypebuttons")
-export const casino = new Equippable("casino", getPrice(8))
-const billionaire = new Equippable("billionaire club", getPrice(9))
+export const economical = new Appearance("economical look", getPrice(5), "economical");
+export const header = new Equippable("header", getPrice(6));
+export const bonusClicks = new Equippable("bonus clicks", getPrice(7));
+export const autoClicker = new Equippable("auto clicker", getPrice(8));
+const hotKeys = new Equippable("hot keys", getPrice(9))
+export const hypeButtons = new Appearance("hype beast buttons", getPrice(10), "hypebuttons")
+export const casino = new Equippable("casino", getPrice(11))
+const billionaire = new Equippable("billionaire club", getPrice(12))
 
 export const toCss = (equipped: storageUpgrade[]): string => {
     const c = equipped.map(usToU)
@@ -62,4 +64,4 @@ export const toCss = (equipped: storageUpgrade[]): string => {
     }
     return s
 }
-export default [tutorial, milestone, wordMoney, darkMode, casino, hypeButtons, hotKeys, economical, suave, billionaire]
+export default [tutorial, milestone, wordMoney, darkMode, header, autoClicker, bonusClicks, casino, hypeButtons, hotKeys, economical, suave, billionaire]

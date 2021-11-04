@@ -7,10 +7,10 @@ import upgrades from "../../upgrades/index"
 import { isButton } from "../../utils"
 
 export function findPossibleUpgrades() {
-    const alreadyPurchased = useSelector<RootState, storageUpgrade[]>((state) => state.money.purchasedUpgrades)
-    const alreadyPurchasedItems = useSelector<RootState, storageUpgrade[]>((state) => state.money.purchasedItems)
+    const alreadyPurchased = useSel((state) => state.money.purchasedUpgrades)
+    const alreadyPurchasedItems = useSel((state) => state.money.purchasedItems)
 
-    const money = useSelector<RootState, number>((state) => state.money.value)
+    const money = useSel((state) => state.money.value)
     return getPossibleUpgrades(money, upgrades.all, alreadyPurchased, alreadyPurchasedItems)
 
 }
@@ -27,7 +27,7 @@ interface PossiblePurchaseProps {
     type: upgradeType;
 }
 const PossiblePurchase: React.FC<PossiblePurchaseProps> = (props) => {
-    const dispatch = useDispatch()
+    const dispatch = useDisp()
     return (<>
         <h1>{props.name}</h1>
         <button onClick={() => dispatch(purchase(props))}>buy for {props.cost}</button>
@@ -36,7 +36,7 @@ const PossiblePurchase: React.FC<PossiblePurchaseProps> = (props) => {
 
 const store: React.FC<{}> = () => {
     const possibleUpgrades = findPossibleUpgrades()
-    const purchasedItems = useSelector<RootState, storageUpgrade[]>((state) => state.money.purchasedItems)
+    const purchasedItems = useSel((state) => state.money.purchasedItems)
 
     return (<>
         <h1>Welcome to the Store</h1> <br />

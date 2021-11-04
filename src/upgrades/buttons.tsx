@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
-import { useDispatch } from "react-redux"
 import { earn, storageUpgrade } from "../redux/earn"
+import { useDisp } from "../redux/store"
 import { upgradeType } from "../types"
 import { distance, inRange, randomInRange, sleep, toDirection } from "../utils"
 
@@ -24,14 +24,14 @@ const timePerButton = (num: number): number => 5 * num + 1;
 
 
 const ob: React.FC<{}> = () => {
-    const dispatch = useDispatch()
+    const dispatch = useDisp()
     const obcpm = 1014;
     const obearn = getPrice(1) / (timePerButton(0) * obcpm);
     return <button onClick={() => dispatch(earn(obearn))}>Make Money</button>
 
 }
 const bb: React.FC<{}> = () => {
-    const dispatch = useDispatch()
+    const dispatch = useDisp()
     const bbcpm = 1014;
     const bbearn = getPrice(2) / (timePerButton(1) * bbcpm);
     return <div className="betterButton"><button onClick={() => dispatch(earn(bbearn))}>Make More Money</button>
@@ -44,7 +44,7 @@ const bb: React.FC<{}> = () => {
 }
 const spb: React.FC<{}> = () => {
     const [deg, setDeg] = useState(0)
-    const dispatch = useDispatch()
+    const dispatch = useDisp()
     const spbcpm = 1014;
     const spbearn = getPrice(3) / (timePerButton(2) * spbcpm);
     const click = () => {
@@ -54,7 +54,7 @@ const spb: React.FC<{}> = () => {
     return <button style={{ transform: `rotate(${deg}deg)` }} onClick={click}>Money has a good spin to it.</button>
 }
 const mb: React.FC<{}> = () => {
-    const dispatch = useDispatch()
+    const dispatch = useDisp()
     const [left, setLeft] = useState(0)
     const [direction, setD] = useState<"left" | "right">("left")
     const r = () => setLeft(Math.min(left + 5, 100))
@@ -91,7 +91,7 @@ const mb: React.FC<{}> = () => {
 const mbb: React.FC<{}> = () => {
     const mbbcpm = 3036;
     const mbbearn = (1 / 3) * (getPrice(5) / (timePerButton(4) * mbbcpm));
-    const dispatch = useDispatch()
+    const dispatch = useDisp()
     const [left, setLeft] = useState(0)
     const [tLeft, setTLeft] = useState(50)
     const [direction, setD] = useState<"left" | "right">("left")
@@ -136,7 +136,7 @@ const mbb: React.FC<{}> = () => {
 export type v = { up: number, right: number }
 
 const fdb: React.FC<{}> = () => {
-    const dispatch = useDispatch()
+    const dispatch = useDisp()
     const [pos, setPos] = useState<v>({ up: 0, right: 0 })
     const r = () => Math.floor((Math.random() * 100));
     const [tPos, setTPos] = useState<v>({
@@ -220,7 +220,7 @@ const fdb: React.FC<{}> = () => {
     </div>
 }
 const tb: React.FC<{}> = () => {
-    const dispatch = useDispatch()
+    const dispatch = useDisp()
     const tbcpm = 2502
     const tbearn = (1 / 10) * (getPrice(7) / (timePerButton(6) * tbcpm));
     const getSentence = async (): Promise<string> => {
@@ -263,7 +263,7 @@ const tb: React.FC<{}> = () => {
 const sb: React.FC<{}> = () => {
     const sbcpm = 4760;
     const sbearn = (1 / 100) * (getPrice(8) / (timePerButton(7) * sbcpm));
-    const dispatch = useDispatch()
+    const dispatch = useDisp()
     const [left, setLeft] = useState<number>(300)
     const [height, setHeight] = useState<number>(200)
     const [v, setV] = useState<number>(0)
@@ -304,7 +304,7 @@ const sdb: React.FC<{}> = () => {
     const sdcpm = 6520;
     const sdearn = (1 / 192) * (getPrice(10) / (timePerButton(9) * sdcpm));
 
-    const dispatch = useDispatch()
+    const dispatch = useDisp()
     const [buttonPosition, setButtonPosition] = useState<number>(0)
     const [Bdirection, setBDirection] = useState<"left" | "right">("right")
     const [enemyPosition, setEnemyPosition] = useState<v>({ right: 0, up: 100 })
@@ -411,7 +411,7 @@ const ghb: React.FC<{}> = () => {
     const randomPos = (): v => ({ up: height, right: Math.floor(Math.random() * (width / interval)) * interval })
     const [enemyPositions, setEnemyPositions] = useState<v[]>(new Array(5).fill(0).map((_e, i) => ({ right: randomPos().right, up: i * 60 + 100 })))
     const [playerPosition, setPlayPosition] = useState<number>(0)
-    const dispatch = useDispatch();
+    const dispatch = useDisp();
     const click = () => {
         setPlayPosition((playerPosition + interval) % width)
         dispatch(earn(10 * ghearn))

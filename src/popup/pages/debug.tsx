@@ -1,15 +1,14 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { prestige, reset } from "../../redux/earn";
-import { RootState } from "../../redux/store";
+import { useDisp, useSel } from "../../redux/store";
 
 const Debug: React.FC<{}> = () => {
-    const money = useSelector<RootState, number>((state) => state.money.value)
-    const income = useSelector<RootState, number>((state) => state.money.income)
+    const money = useSel((state) => state.money.value)
+    const income = useSel((state) => state.money.income)
     // const [_c, sc] = useState<chromeStorage | null>(null)
     // //@ts-ignore
     // chrome.storage.sync.get("data", sc)
-    const dispatch = useDispatch()
+    const dispatch = useDisp()
 
     return (<>
         <h1>Developer Debugger</h1>

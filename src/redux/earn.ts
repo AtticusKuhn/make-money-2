@@ -7,6 +7,7 @@ import type { RootState } from './store'
 interface CounterState {
   value: number;
   income: number;
+  bonusClicks: number;
 }
 interface UpgradeState {
   purchasedUpgrades: storageUpgrade[];
@@ -35,6 +36,7 @@ export const initialState: InitialState = {
   equippedUpgrades: [ob],
   equippedButton: ob,
   lastSaved: new Date().getTime(),
+  bonusClicks: 0,
 }
 export const setS = async (x: Partial<InitialState>) => {
   let a = await getS()
@@ -53,7 +55,10 @@ export const counterSlice = createSlice({
   initialState,
   reducers: {
     earn: (state, action: PayloadAction<number>) => {
-      state.value += action.payload * state.income
+      state.value += action.payload * state.income;
+      if (state.equippedUpgrades.some(x => x.name === "bonus clicks")) {
+        state.bonusClicks += 0.01;
+      }
     },
     simpleEarn: (state, action: PayloadAction<number>) => {
       state.value += action.payload;

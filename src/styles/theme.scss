@@ -1,19 +1,19 @@
-.app {
-  --c1: hsl(0,0,100%);
-  --c2: hsl(0,0,75%);
-  --c3: hsl(0,0,50%);
-  --c4: hsl(0,0,25%);
-  --c5: hsl(0,0,0%);
+.app, .app  * {
+  --c1: hsl(0,0%,100%);
+  --c2: hsl(0,0%,75%);
+  --c3: hsl(0,0%,50%);
+  --c4: hsl(0,0%,25%);
+  --c5: hsl(0,0%,0%);
 }
 
-.economical {
+.economical  *{
   --c1: hsl(93, 73%, 29%);
   --c2: hsl(93, 73%, 39%);
   --c3: hsl(93, 73%, 49%);   
   --c4: hsl(93, 73%, 48%);
   --c5: hsl(93, 73%, 69%);
 }
-.darkTheme {
+.darkTheme *  {
   --c1:hsl(0, 0%, 10%);
   --c2:hsl(0, 0%, 40%);
   --c3:hsl(0, 0%, 60%);
@@ -34,21 +34,21 @@
 }
 
 .suave {
-  .navbutton * {
+  .navbutton *  {
     height: 30px;
     color:var(--c5) !important;
     flex: 1;
     flex-grow: inherit;
 }
 .active {
-    border: 1px solid var(--c1);
+    border: 1px solid var(--c5);
     border-bottom: none !important;
 }
 
 .inactive {
-  border: var(--c4);
-  border-bottom:1px solid var(--c1);
-  background-color: var(--c3);
+  border: 1px solid var(--c5);
+  border-bottom: 1px solid var(--c4);
+  background-color: var(--c2);
 }
   .moneyDisplay * {
     display: flex;
@@ -129,10 +129,10 @@
     background-color: var(--c2);
   }
   input:checked, .checkbox {
-    background-color: var(--c1);
+    background-color: var(--c4);
   }
     input:not(:checked), .checkbox {
-    background-color: var(--c5);
+    background-color: var(--c2);
   }
   button {
     background-color: var(--c2);

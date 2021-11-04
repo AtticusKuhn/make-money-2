@@ -18,7 +18,8 @@ getS().then(s => {
         purchasedUpgrades: [ob],
         purchasedItems: [],
         equippedButton: ob,
-        lastSaved: new Date().getTime()
+        lastSaved: new Date().getTime(),
+        bonusClicks: 0
     };
     const combined = Object.assign(defaultState, s)
     const st = makeStore({ money: combined });

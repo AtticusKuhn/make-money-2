@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
 import { simpleEarn } from "../../redux/earn"
-import { RootState } from "../../redux/store"
+import { useDisp, useSel } from "../../redux/store"
 import { fromMaybe, inRange, maybeParseInt, randomInRange, sleep } from "../../utils"
 
 const SlotNumber: React.FC<{ number: number }> = ({ number }) => {
@@ -39,9 +38,9 @@ const slotMachineResult = (result: s): { msg: string, multiplier: number } => {
     }
 };
 const SlotMachine: React.FC<{}> = () => {
-    const money = useSelector<RootState, number>(state => state.money.value)
+    const money = useSel(state => state.money.value)
     const ref = useRef<HTMLInputElement>(null)
-    const dispatch = useDispatch()
+    const dispatch = useDisp()
     const [val, setVal] = useState<s>([0, 0, 0])
     const [msg, setMsg] = useState<string>("")
     const [spinning, setSpinning] = useState(false)
@@ -76,8 +75,8 @@ const SlotMachine: React.FC<{}> = () => {
     </>
 }
 const RouletteWheel: React.FC<{}> = () => {
-    const money = useSelector<RootState, number>(state => state.money.value)
-    const dispatch = useDispatch()
+    const money = useSel(state => state.money.value)
+    const dispatch = useDisp()
     useEffect(() => {
         var options: number[] = new Array(10).fill(0).map((_e, i) => Math.floor((i - 5) * (money / 1000)));
         var startAngle = 0;
@@ -164,7 +163,7 @@ const RouletteWheel: React.FC<{}> = () => {
     </>
 }
 const Casino: React.FC<{}> = () => {
-    const money = useSelector<RootState, number>(state => state.money.value)
+    const money = useSel(state => state.money.value)
     return (<>
         <h1>Casino</h1>  <br />
         get ready to gamble (${money}) <br />
