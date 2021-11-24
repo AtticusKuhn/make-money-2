@@ -47,9 +47,11 @@ interface NavButtonProps {
 }
 const NavButton: React.FC<NavButtonProps> = ({ text, link }) => {
     const location = useLocation()
-    return <div className={`navbutton ${location.pathname === link ? "active" : "inactive"}`}><li>
-        <Link to={link}>{text}</Link>
-    </li></div>;
+    return <div className={`navbutton ${location.pathname === link ? "active" : "inactive"}`}>
+        <Link className="nav-button" to={link}>
+            {text}
+        </Link>
+    </div>;
 }
 const Header: React.FC<{}> = () => {
     const eq = new Array(60).fill("=")
@@ -76,7 +78,7 @@ const App: React.FC<{}> = () => {
     return <div id="app" className={`app default ${cssString}`}>
         <div className="content">
             {isHeader && <Header />}
-            <div className="navbar">
+            <div className="navbar" style={{ marginTop: "12px", width: "100%", display: "flex", flexDirection: "row", justifyContent: "flex-start", alignItems: "center", padding: "0 12px" }}>
                 <NavButton link="/" text="Home" />
                 <NavButton link="/LoadOut" text="Load Out" />
                 <NavButton link="/store" text={`Store ${msg}`} />

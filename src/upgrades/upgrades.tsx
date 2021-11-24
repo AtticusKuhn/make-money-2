@@ -28,7 +28,7 @@ export const MilestoneComponent: React.FC<{}> = () => {
 
     ].reverse();
     const msg = stones.find(x => money > x.v)?.n || "you are so rich you caused a bug in the fabric of the universe";
-    return <div> Milestone: {msg} </div>;
+    return <div style={{ width: "100%", padding: "0 calc(50% - 100px)", fontSize: "14px", marginBottom: "50px", fontStyle: "italic", textAlign: "center" }}>{msg}</div>;
 }
 export class Appearance extends Equippable {
     constructor(public name: string, public cost: number, public cls: string) {
