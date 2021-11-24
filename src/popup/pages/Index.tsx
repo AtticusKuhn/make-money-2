@@ -61,8 +61,8 @@ export default function Index() {
             <h1 id="make-money-title">Make Money 2</h1>
             <br /><br />
             <MoneyDisplay />
-            <br /><br /><br /> <br />
-            <div id="make-money-button-container">{findButton(button).component({})}</div> <br /> <br /><br /> <br />
+            <br /><br /><br />
+            <div id="make-money-button-container">{findButton(button).component({})}</div> <br /> <br />
             {isMilestone && <MilestoneComponent />}
             {isBonusClicks && <BonusClicks />}
         </>
