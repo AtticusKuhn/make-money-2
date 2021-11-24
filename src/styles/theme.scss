@@ -23,6 +23,21 @@
     background-color: #F5F5F5 !important;
 }
 
+.nav-button {
+    color: #000000;
+    text-decoration: none !important;
+    font-size: 13px;
+    margin: 0 6px;
+}
+
+.active > a {
+    font-weight: bold;
+}
+
+.nav-button:hover {
+    text-decoration: underline !important;
+}
+
 .app, .app  * {
   --c1: hsl(0,0%,100%);
   --c2: hsl(0,0%,75%);
