@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from "react"
 import { simpleEarn } from "../../redux/earn"
 import { useDisp, useSel } from "../../redux/store"
-import { fromMaybe, inRange, maybeParseInt, randomInRange, sleep } from "../../utils"
+import { fromMaybe, inRange, maybeParseInt, randomInRange, sleep, wordNumber } from "../../utils"
 
 const SlotNumber: React.FC<{ number: number }> = ({ number }) => {
-    return <div style={{ border: "1px solid black", padding: "2px", display: "inline-block", width: "15px" }}>
+    return <div style={{ margin: "0px", border: "1px solid black", fontSize: "40px", display: "inline-block", width: "40px", height: "50px" }}>
         {number}
     </div>
 }
@@ -66,13 +66,13 @@ const SlotMachine: React.FC<{}> = () => {
         dispatch(simpleEarn(bet * res.multiplier))
         setMsg(res.msg)
     }
-    return <>
-        <h2>Slot Machine</h2> <br />
-        {val.map((v, i) => <SlotNumber key={i} number={v} />)} <br />
-        <input ref={ref} placeholder="amount to gamble" /> <br />
-        {msg} <br />
-        <button disabled={money === 0 || spinning} onClick={click}>Gamble Slot Machine</button>
-    </>
+    return <div style={{ alignItems: "center", alignContent: "center" }}>
+        <h2>Slot Machine</h2> <br /> <br /><br /><br /><br />
+        {val.map((v, i) => <SlotNumber key={i} number={v} />)} <br /><br /><br /><br />
+        <input ref={ref} placeholder="amount to gamble" /> <br /><br /><br /><br />
+        {msg} <br /><br /><br />
+        <button disabled={money === 0 || spinning} onClick={click}>Gamble Slot Machine</button><br /><br /><br /><br />
+    </div>
 }
 const RouletteWheel: React.FC<{}> = () => {
     const money = useSel(state => state.money.value)
@@ -114,7 +114,7 @@ const RouletteWheel: React.FC<{}> = () => {
                         190 + Math.sin(angle + arc / 2) * textRadius);
                     ctx.rotate(angle + arc / 2 + Math.PI / 2);
                     var text = options[i];
-                    ctx.fillText(text.toString(), -ctx.measureText(text.toString()).width / 2, 0);
+                    ctx.fillText(wordNumber(text), -ctx.measureText(text.toString()).width / 2, 0);
                     ctx.restore();
                 }
             }
@@ -146,7 +146,7 @@ const RouletteWheel: React.FC<{}> = () => {
             ctx.save();
             var text = options[index]
             ctx.font = 'bold 15px Helvetica, Arial';
-            ctx.fillText(text.toString(), 190 - ctx.measureText(text.toString()).width / 2, 190 + 10);
+            ctx.fillText(wordNumber(text), 190 - ctx.measureText(text.toString()).width / 2, 190 + 10);
             dispatch(simpleEarn(text))
             ctx.restore();
         }
@@ -158,6 +158,8 @@ const RouletteWheel: React.FC<{}> = () => {
         drawRouletteWheel();
     }, [])
     return <>
+        <h1>Roulette Wheel</h1>
+
         <canvas id="canvas" width="380" height="380" />
         <input type="button" value="spin the wheel" style={{ float: "left" }} id='spin' />
     </>

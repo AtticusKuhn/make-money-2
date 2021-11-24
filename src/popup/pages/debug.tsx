@@ -1,5 +1,5 @@
-import React from "react";
-import { prestige, reset } from "../../redux/earn";
+import React, { useState } from "react";
+import { prestige, reset, set } from "../../redux/earn";
 import { useDisp, useSel } from "../../redux/store";
 
 const Debug: React.FC<{}> = () => {
@@ -9,7 +9,8 @@ const Debug: React.FC<{}> = () => {
     // //@ts-ignore
     // chrome.storage.sync.get("data", sc)
     const dispatch = useDisp()
-
+    // let r = useRef<HTMLInputElement>(null)
+    const [v, setV] = useState<number>(100)
     return (<>
         <h1>Developer Debugger</h1>
         <p>Do you want to experience the joy of Make Money again? If you reset, all your items
@@ -24,6 +25,9 @@ const Debug: React.FC<{}> = () => {
         <br />
         <button disabled={money < 1e6} onClick={() => dispatch(prestige())}>prestige</button>
         (your income will be ${Math.floor(income + Math.sqrt(money) * 0.0001)} )
+        <input value={v} onChange={(e) => isNaN(Number(e.target.value)) || setV(Number(e.target.value))} />
+        {v}
+        <button onClick={() => dispatch(set(Number(v)))}>set your money to ${v}</button>
     </>)
 }
 export default Debug;

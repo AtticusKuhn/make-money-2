@@ -64,4 +64,4 @@ export const toCss = (equipped: storageUpgrade[]): string => {
     }
     return s
 }
-export default [tutorial, milestone, wordMoney, darkMode, header, autoClicker, bonusClicks, casino, hypeButtons, hotKeys, economical, suave, billionaire]
+export default [tutorial, milestone, wordMoney, darkMode, header, autoClicker, bonusClicks, casino, hypeButtons, hotKeys, economical, suave, billionaire].sort((a, b) => a.cost - b.cost)

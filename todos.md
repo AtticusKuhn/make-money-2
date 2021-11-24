@@ -3,5 +3,7 @@
 - [x] hotkeys upgrade
 - [x] make harder (make it so players have to prestige.
 - [x] money and income on 2 lines
-- [ ] autoclicker upgrade
-- [ ] bonus clicks upgrade
+- [x] autoclicker upgrade
+- [x] bonus clicks upgrade
+- [ ] make all pages like main page with margin, spacing
+- [ ] make checkboxes aligned.

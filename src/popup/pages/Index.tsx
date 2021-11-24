@@ -58,7 +58,7 @@ export default function Index() {
     return (
         <>
             <br /><br />
-            <h1 id="make-money-title">Make Money 2</h1>
+            <h1 className="centered">Make Money 2</h1>
             <br /><br />
             <MoneyDisplay />
             <br /><br /><br />

@@ -28,8 +28,27 @@ interface PossiblePurchaseProps {
 const PossiblePurchase: React.FC<PossiblePurchaseProps> = (props) => {
     const dispatch = useDisp()
     return (<>
-        <h1>{props.name}</h1>
-        <button onClick={() => dispatch(purchase(props))}>buy for {props.cost}</button>
+        <div style={{ width: "100%", margin: "5% 0%" }}>
+            <div style={{
+                boxSizing: "border-box", display: "inline-block"
+            }}>{props.name}</div>
+            <button style={{
+                backgroundColor: "#FFFFFF",
+                fontSize: "14px",
+                // padding: "12px 16px",
+                border: "2px solid #000000",
+                cursor: "pointer",
+                marginRight: "10%",
+                marginLeft: "auto",
+                alignSelf: "right",
+                alignItems: "right",
+                alignContent: "right",
+
+                float: "right"
+            }} onClick={() => dispatch(purchase(props))}>buy for {props.cost}</button>
+
+        </div>
+
     </>)
 }
 
