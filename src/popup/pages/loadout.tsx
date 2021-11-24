@@ -23,11 +23,21 @@ const CustomCheckBox: React.FC<React.DetailedHTMLProps<React.InputHTMLAttributes
             line-height: 1em;
             background: var(--c2);
           }
-          
           input[type='checkbox']:checked:after {
             content: '✔';
+            //background-color: var(--c1);
             color: var(--c4);
           }
+          input[type='checkbox']:checked {
+            color: var(--c2);
+
+            background-color: var(--c1);
+        }
+        input[type='checkbox']:checked:after {
+            color: var(--c3);
+
+          background-color: var(--c1);
+      }
         `}</style>
     </>;
 }
@@ -41,22 +51,6 @@ const ChooseButton: React.FC<ChooseButtonProps> = ({ button }) => {
         <CustomCheckBox style={{ boxSizing: "border-box", margin: "2%" }} checked={isChecked} onChange={check} />
         <div style={{ display: "inline-block", boxSizing: "border-box" }}>{button.name}</div>
         <br />
-        <style>{`
-        .checkbox {
-            height: 25px;
-            width: 25px;
-        }
-            .checkbox:checked {
-                color: var(--c2);
-
-                background-color: var(--c1);
-            }
-            .checkbox:checked:after {
-            	color: var(--c3);
-
-              background-color: var(--c1);
-          }
-        `}</style>
     </>)
 }
 

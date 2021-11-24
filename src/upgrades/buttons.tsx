@@ -138,7 +138,7 @@ export type v = { up: number, right: number }
 const fdb: React.FC<{}> = () => {
     const dispatch = useDisp()
     const [pos, setPos] = useState<v>({ up: 0, right: 0 })
-    const r = () => Math.floor((Math.random() * 100));
+    const r = () => Math.floor((Math.random() * 90));
     const [tPos, setTPos] = useState<v>({
         right: r(),
         up: r(),
@@ -212,7 +212,7 @@ const fdb: React.FC<{}> = () => {
             {/* <p>right off: {tPos.right - pos.right}</p>
             <p>up off: {tPos.up - pos.up}</p>
             <p>post: {JSON.stringify(pos)}</p> */}
-            <div style={{ position: "absolute", marginLeft: `${tPos.right - 5}px`, marginTop: `${100 - tPos.up + 5}px`, width: "10px", height: "10px", backgroundColor: "black" }} />
+            <div style={{ position: "absolute", marginLeft: `${tPos.right + 5}px`, marginTop: `${100 - tPos.up + 5}px`, width: "10px", height: "10px", backgroundColor: "black" }} />
             <button style={{ width: "57px", height: "content", marginLeft: `${pos.right}px`, marginTop: `${100 - pos.up}px`, marginBottom: `${pos.up}px` }} onClick={click}>cubechat</button>
             {/* <div style={{ position: "absolute",  backgroundColor: "red", width: "57px", height: "57px", marginLeft: `${pos.right}px`, marginTop: `${100 - pos.up}px`, marginBottom: `${pos.up}px` }} /> */}
 
