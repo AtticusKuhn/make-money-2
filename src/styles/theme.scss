@@ -1,3 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;700&display=swap');
+
+* {
+    font-family: "IBM Plex Sans", sans-serif;
+    box-sizing: border-box;
+}
+
+#app {
+    overflow: auto;
+}
+
+#make-money-title {
+    width: 100%;
+    text-align: center;
+}
+
 .app, .app  * {
   --c1: hsl(0,0%,100%);
   --c2: hsl(0,0%,75%);

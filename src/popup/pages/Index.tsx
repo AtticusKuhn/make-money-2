@@ -14,9 +14,9 @@ const MoneyDisplay: React.FC<{}> = () => {
     const f = isWordNumber ? wordNumber : formatNumber;
     return (
         <div className="moneyDisplay">
-            <div style={{ fontSize: "21px" }}> ${f(money)}</div>
-            <br /> <br /> <br />
-            <div className="big">Income: ${f(income)} </div>
+            <div style={{ fontSize: "30px", textAlign: "center" }}> ${f(money)}</div>
+            <br />
+            <div className="big" style={{ fontSize: "16px", textAlign: "center" }}>Income: ${f(income)} </div>
         </div>
     )
 }
@@ -58,7 +58,7 @@ export default function Index() {
     return (
         <>
             <br /><br />
-            <h1>Make Money 2</h1>
+            <h1 id="make-money-title">Make Money 2</h1>
             <br /><br />
             <MoneyDisplay />
             <br /><br /><br /> <br />
