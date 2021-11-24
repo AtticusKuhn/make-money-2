@@ -62,7 +62,7 @@ export default function Index() {
             <br /><br />
             <MoneyDisplay />
             <br /><br /><br /> <br />
-            {findButton(button).component({})} <br /> <br /><br /> <br />
+            <div id="make-money-button-container">{findButton(button).component({})}</div> <br /> <br /><br /> <br />
             {isMilestone && <MilestoneComponent />}
             {isBonusClicks && <BonusClicks />}
         </>
