@@ -19,14 +19,21 @@ const Debug: React.FC<{}> = () => {
                 past a rough spot where you are stuck.</b>
         </p>
         <p>If you prestiege your income increases by your the square root of your money times 0.0001</p>
-        <button onClick={() => dispatch(reset())}>reset all</button> (lose everything and start from beginning)
+        <br />
+        <br />
+        <br />
+        <div className="btn-center"><button className="btn" style={{ backgroundColor: "red", }} onClick={() => dispatch(reset())}>reset all</button>
+        </div>
+        (lose everything and start from beginning)
         <br />
         <br />
         <br />
         <button disabled={money < 1e6} onClick={() => dispatch(prestige())}>prestige</button>
         (your income will be ${Math.floor(income + Math.sqrt(money) * 0.0001)} )
+        <br />
+        <br />
+        <br />
         <input value={v} onChange={(e) => isNaN(Number(e.target.value)) || setV(Number(e.target.value))} />
-        {v}
         <button onClick={() => dispatch(set(Number(v)))}>set your money to ${v}</button>
     </>)
 }

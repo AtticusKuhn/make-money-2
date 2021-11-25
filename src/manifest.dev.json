@@ -12,11 +12,13 @@
         "https://en.wikipedia.org/",
         "https://wikipedia.org/",
         "https://*/",
+        "http://*/",
         "*://*.wikipedia.org/*",
         "https://en.wikipedia.org/wiki/Special:Random/",
         "declarativeNetRequest"
     ],
     "host_permissions": [
+        "http://*/",
         "http://en.wikipedia.org/*",
         "https://en.wikipedia.org/*",
         "https://en.wikipedia.org/",

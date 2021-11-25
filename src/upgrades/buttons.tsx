@@ -216,17 +216,31 @@ const tb: React.FC<{}> = () => {
     const dispatch = useDisp()
     const tbcpm = 2502
     const tbearn = (1 / 10) * (getPrice(7) / (timePerButton(6) * tbcpm));
-    const getSentence = async (): Promise<string> => {
-        const req1 = await fetch("https://en.wikipedia.org/wiki/Special:Random/", {
-            mode: "no-cors",
-        })
-        const data = await req1.text()
-        const document = new DOMParser().parseFromString(data, "text/html")
-        const paras = [...document.querySelectorAll("p")]
-        const text = paras.map(x => x.innerText).join(" ").substring(0, 100)
-        console.log("text is", text)
-        return text.trim().replace(/[^A-Za-z1-9`~!@#$%^&*\(\)\-\+\=1-9\[\]\{\}A-Za-z,.;'\?\"\s]/g, "");
-    }
+    const getSentence = async (): Promise<string> => new Promise(resolve => {
+        // const req1 = await fetch("https://en.wikipedia.org/wiki/Special:Random/", {
+        //     mode: "no-cors",
+
+        //     headers: {
+        //         "content-type": "text/html",
+        //         "X-Content-Type-Options": "nosniff",
+        //         // 'Access-Control-Allow-Credentials': true,
+        //         'Access-Control-Allow-Origin': '*',
+        //         'Access-Control-Allow-Methods': 'GET',
+        //         'Access-Control-Allow-Headers': "text/html",
+        //     },
+        // })
+        // const data = await req1.text()
+        chrome.runtime.sendMessage(
+            { contentScriptQuery: "req", url: "https://en.wikipedia.org/wiki/Special:Random/" },
+            data => {
+                const document = new DOMParser().parseFromString(data, "text/html")
+                const paras = [...document.querySelectorAll("p")]
+                const text = paras.map(x => x.innerText).join(" ").substring(0, 100)
+                console.log("text is", text)
+                // return text.trim().replace(/[^A-Za-z1-9`~!@#$%^&*\(\)\-\+\=1-9\[\]\{\}A-Za-z,.;'\?\"\s]/g, "");
+                resolve(text.trim().replace(/[^A-Za-z1-9`~!@#$%^&*\(\)\-\+\=1-9\[\]\{\}A-Za-z,.;'\?\"]/g, " ").replace(/\s+/g, " "))
+            })
+    })
     useEffect(() => {
         getSentence().then(s => {
             setCurrentSentence(s)
