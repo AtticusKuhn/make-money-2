@@ -54,7 +54,7 @@ const NavButton: React.FC<NavButtonProps> = ({ text, link }) => {
     </div>;
 }
 const Header: React.FC<{}> = () => {
-    const eq = new Array(60).fill("=")
+    const eq = new Array(46).fill("=")
     const money = useSel(state => state.money.value)
     return <div style={{ width: "70%" }}>
         {eq}

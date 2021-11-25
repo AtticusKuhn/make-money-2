@@ -4,9 +4,10 @@
 .app {
     width: 380px;
     height:100%;
-    overflow: scroll;
+    // overflow: scroll;
     font-family: "Trebuchet MS";
-
+    overflow-x: hidden;
+    overflow-y: scroll;
     .title {
         text-align: center;
     }

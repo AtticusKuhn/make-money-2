@@ -6,7 +6,9 @@
 }
 
 #app {
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+
 }
 
 #make-money-title {
