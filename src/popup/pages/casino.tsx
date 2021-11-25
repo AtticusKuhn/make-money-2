@@ -76,27 +76,29 @@ const SlotMachine: React.FC<{}> = () => {
 }
 const RouletteWheel: React.FC<{}> = () => {
     // const money = useSel(state => state.money.value)
+    const money = useSel(state => state.money.value)
+    const [isSpinning, setIsSpinning] = useState<boolean>(false)
     const dispatch = useDisp()
     const radius = 120;
-    var options: number[] = new Array(10).fill(0).map((_e, i) => Math.floor((i - 5)));
-    var startAngle = 0;
-    var arc = Math.PI / (options.length / 2);
-    var spinTimeout: number = 0;
-    var spinTime = 0;
-    var spinTimeTotal = 0;
-    var ctx: CanvasRenderingContext2D;
+    let options: number[] = new Array(10).fill(0).map((_e, i) => Math.floor((i - 5)));
+    let startAngle = 0;
+    let arc = Math.PI / (options.length / 2);
+    let spinTimeout: number = 0;
+    let spinTime = 0;
+    let spinTimeTotal = 0;
+    let ctx: CanvasRenderingContext2D;
     const getColor = (item: number, maxItem: number): string => `hsl(${item * 360 / maxItem},70%, 50%)`;
     function drawRouletteWheel() {
-        var canvas = document.getElementById("canvas") as HTMLCanvasElement;
+        let canvas = document.getElementById("canvas") as HTMLCanvasElement;
         if (canvas.getContext) {
-            var outsideRadius = radius + 10;
-            var textRadius = radius - 30;
-            var insideRadius = radius / 2;
+            let outsideRadius = radius + 10;
+            let textRadius = radius - 3;
+            let insideRadius = radius / 2;
             ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
             ctx.clearRect(0, 0, 2 * radius, 2 * radius);
             ctx.strokeStyle = "black";
-            for (var i = 0; i < options.length; i++) {
-                var angle = startAngle + i * arc;
+            for (let i = 0; i < options.length; i++) {
+                let angle = startAngle + i * arc;
                 ctx.fillStyle = getColor(i, options.length);
                 ctx.beginPath();
                 ctx.arc(radius + 10, radius + 10, outsideRadius, angle, angle + arc, false);
@@ -112,15 +114,16 @@ const RouletteWheel: React.FC<{}> = () => {
                 ctx.translate(radius + Math.cos(angle + arc / 2) * textRadius,
                     radius + Math.sin(angle + arc / 2) * textRadius);
                 ctx.rotate(angle + arc / 2 + Math.PI / 2);
-                var text = options[i];
+                let text = options[i];
                 ctx.font = 'bold 15px Helvetica, Arial';
-                ctx.fillText(`${text}%`, -ctx.measureText(text.toString()).width / 2, 0);
+                ctx.fillText(`${text}%`, -ctx.measureText(text.toString()).width / 2 + 10, 20);
                 ctx.restore();
             }
         }
     }
     let spinAngleStart = 0;
     function spin() {
+        setIsSpinning(true)
         spinAngleStart = Math.random() * 10 + 10;
         spinTime = 0;
         spinTimeTotal = Math.random() * 3 + 4 * 1000;
@@ -132,7 +135,7 @@ const RouletteWheel: React.FC<{}> = () => {
             stopRotateWheel();
             return;
         }
-        var spinAngle = spinAngleStart - easeOut(spinTime, 0, spinAngleStart, spinTimeTotal);
+        let spinAngle = spinAngleStart - easeOut(spinTime, 0, spinAngleStart, spinTimeTotal);
         startAngle += (spinAngle * Math.PI / 180);
         drawRouletteWheel();
         //@ts-ignore
@@ -140,19 +143,20 @@ const RouletteWheel: React.FC<{}> = () => {
     }
     function stopRotateWheel() {
         clearTimeout(spinTimeout);
-        var degrees = startAngle * 180 / Math.PI + 90;
-        var arcDegrees = arc * 180 / Math.PI;
-        var index = Math.floor((360 - degrees % 360) / arcDegrees);
+        let degrees = startAngle * 180 / Math.PI + 90;
+        let arcDegrees = arc * 180 / Math.PI;
+        let index = Math.floor((360 - degrees % 360) / arcDegrees);
         ctx.save();
-        var text = options[index]
+        let text = options[index]
         ctx.font = 'bold 15px Helvetica, Arial';
         ctx.fillText(`${text}%`, radius - ctx.measureText(text.toString()).width / 2, radius + 10);
         dispatch(simpleEarn(text))
         ctx.restore();
+        setIsSpinning(false)
     }
     function easeOut(t: number, b: number, c: number, d: number): number {
-        var ts = (t /= d) * t;
-        var tc = ts * t;
+        let ts = (t /= d) * t;
+        let tc = ts * t;
         return b + c * (tc + -3 * ts + 3 * t);
     }
     useEffect(() => {
@@ -162,7 +166,7 @@ const RouletteWheel: React.FC<{}> = () => {
         <h1>Roulette Wheel</h1>
         <canvas id="canvas" width={(2 * radius + 20).toString()} height={(2 * radius + 20).toString()} />
         <br /> <br />
-        <button onClick={spin} className="btn" type="button" value="spin the wheel" style={{ float: "left" }} id='spin'>Spin the Wheel!</button>
+        <button onClick={spin} disabled={money === 0 || isSpinning} className="btn" type="button" value="spin the wheel" style={{ float: "left" }} id='spin'>Spin the Wheel!</button>
     </div>
 }
 const Casino: React.FC<{}> = () => {

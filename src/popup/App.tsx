@@ -82,7 +82,7 @@ const App: React.FC<{}> = () => {
                 <NavButton link="/" text="Home" />
                 <NavButton link="/LoadOut" text="Load Out" />
                 <NavButton link="/store" text={`Store ${msg}`} />
-                <NavButton link="/debug" text="Debug" />
+                <NavButton link="/debug" text="Prestiege" />
                 {isTutorial && <NavButton link="/tutorial" text="Tutorial" />}
                 {isCasino && <NavButton link="/casino" text="Casino" />}
                 {isBillionaire && <NavButton link="/club" text="Billionaire Club" />}

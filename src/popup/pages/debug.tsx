@@ -12,7 +12,7 @@ const Debug: React.FC<{}> = () => {
     // let r = useRef<HTMLInputElement>(null)
     const [v, setV] = useState<number>(100)
     return (<div className="btn-center">
-        <h1>Developer Debugger</h1>
+        <h1>Prestiege</h1>
         <p>Do you want to experience the joy of Make Money again? If you reset, all your items
             will go away and you will go to the beginning of the story. If you prestige, you
             lose your items but your income increases.<b> Prestiging can be a good way to get
@@ -24,7 +24,7 @@ const Debug: React.FC<{}> = () => {
         <br />
         <div className="btn-center"><button id="reset" className="btn" onClick={() => dispatch(reset())}>reset all</button>
         </div>
-        <style>{`#reset:hover{ background-color:red !important;}`}</style>
+        <style>{`#reset:hover:not(:disabled){ background-color:red !important;}`}</style>
         (lose everything and start from beginning)
         <br />
         <br />
@@ -32,7 +32,7 @@ const Debug: React.FC<{}> = () => {
         <div className="btn-center">
             <button className="btn" id="prestiege" disabled={money < 1e6} onClick={() => dispatch(prestige())}>prestige</button>
         </div>
-        <style>{`#prestiege:hover{ background-color:red !important;;}`}</style>
+        <style>{`#prestiege:hover:not(:disabled){ background-color:red !important;;}`}</style>
 
         (your income will be ${Math.floor(income + Math.sqrt(money) * 0.0001)} )
         <br />
