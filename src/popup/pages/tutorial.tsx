@@ -1,6 +1,6 @@
 import React from "react"
 import upgrades from "../../upgrades"
-import { formatNumber, itemToIncome } from "../../utils";
+import { formatNumber, itemToIncome, wordNumber } from "../../utils";
 const Tutorial: React.FC<{}> = () => {
     const { buttons, items } = upgrades;
     const u = upgrades.upgrades;
@@ -9,8 +9,10 @@ const Tutorial: React.FC<{}> = () => {
         <p>Make money is a fun game where you click buttons to earn money. Purchase new upgrades in
             the store and then equip them in load out.
         </p>
+        <br /> <br /> <br />
         <h2>Possible Upgrades</h2>
         Here are all the possible upgrades you can purchase.
+        <br /> <br />
         <h3>Buttons</h3>
         <table>
             <tr>
@@ -21,6 +23,7 @@ const Tutorial: React.FC<{}> = () => {
                 <td>{b.name}</td>
                 <td>${formatNumber(b.cost)}</td></tr>))}
         </table>
+        <br /> <br />
         <h3>Items</h3>
         <table>
             <tr>
@@ -30,12 +33,13 @@ const Tutorial: React.FC<{}> = () => {
             </tr>
             {items.map(i => (<tr>
                 <td>{i.name}</td>
-                <td>${formatNumber(i.cost)}</td>
-                <td>+ ${Math.floor(itemToIncome(i.cost))}</td>
+                <td>${wordNumber(i.cost)}</td>
+                <td>+ ${(itemToIncome(i.cost).toFixed(2))}</td>
 
             </tr>
             ))}
         </table>
+        <br /> <br />
         <h3>Upgrades</h3>
         <table>
             <tr>
@@ -46,10 +50,12 @@ const Tutorial: React.FC<{}> = () => {
                 <td>{u.name}</td>
                 <td>${formatNumber(u.cost)}</td></tr>))}
         </table>
+        <br /> <br /> <br />
         <h2>Need Help with Game?</h2>
         <p>If you need help with this game, DM MrEconomical#4400 on Discord. You can also join the
             official support server at <a href="https://discord.gg/aapA7sB">https://discord.gg/aapA7sB</a>
         </p>
+        <br /> <br /> <br />
         <h2>Hotkeys</h2>
         <p>Once you buy the hotkeys upgrade,
             h + shift to go to home,

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react"
 import { simpleEarn } from "../../redux/earn"
 import { useDisp, useSel } from "../../redux/store"
-import { fromMaybe, inRange, maybeParseInt, randomInRange, sleep, wordNumber } from "../../utils"
+import { fromMaybe, inRange, maybeParseInt, randomInRange, sleep } from "../../utils"
 
 const SlotNumber: React.FC<{ number: number }> = ({ number }) => {
     return <div style={{ margin: "0px", border: "1px solid black", fontSize: "40px", display: "inline-block", width: "40px", height: "50px" }}>
@@ -75,10 +75,11 @@ const SlotMachine: React.FC<{}> = () => {
     </div>
 }
 const RouletteWheel: React.FC<{}> = () => {
-    const money = useSel(state => state.money.value)
+    // const money = useSel(state => state.money.value)
     const dispatch = useDisp()
+    const radius = 120;
     useEffect(() => {
-        var options: number[] = new Array(10).fill(0).map((_e, i) => Math.floor((i - 5) * (money / 1000)));
+        var options: number[] = new Array(10).fill(0).map((_e, i) => Math.floor((i - 5)));
         var startAngle = 0;
         var arc = Math.PI / (options.length / 2);
         var spinTimeout: number = 0;
@@ -90,18 +91,18 @@ const RouletteWheel: React.FC<{}> = () => {
         function drawRouletteWheel() {
             var canvas = document.getElementById("canvas") as HTMLCanvasElement;
             if (canvas.getContext) {
-                var outsideRadius = 200;
-                var textRadius = 160;
-                var insideRadius = 95;
+                var outsideRadius = radius + 10;
+                var textRadius = radius - 30;
+                var insideRadius = radius / 2;
                 ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
-                ctx.clearRect(0, 0, 380, 380);
+                ctx.clearRect(0, 0, 2 * radius, 2 * radius);
                 ctx.strokeStyle = "black";
                 for (var i = 0; i < options.length; i++) {
                     var angle = startAngle + i * arc;
                     ctx.fillStyle = getColor(i, options.length);
                     ctx.beginPath();
-                    ctx.arc(190, 190, outsideRadius, angle, angle + arc, false);
-                    ctx.arc(190, 190, insideRadius, angle + arc, angle, true);
+                    ctx.arc(radius + 10, radius + 10, outsideRadius, angle, angle + arc, false);
+                    ctx.arc(radius + 10, radius + 10, insideRadius, angle + arc, angle, true);
                     ctx.stroke();
                     ctx.fill();
                     ctx.save();
@@ -110,11 +111,12 @@ const RouletteWheel: React.FC<{}> = () => {
                     ctx.shadowBlur = 0;
                     ctx.shadowColor = "rgb(220,220,220)";
                     ctx.fillStyle = "black";
-                    ctx.translate(190 + Math.cos(angle + arc / 2) * textRadius,
-                        190 + Math.sin(angle + arc / 2) * textRadius);
+                    ctx.translate(radius + Math.cos(angle + arc / 2) * textRadius,
+                        radius + Math.sin(angle + arc / 2) * textRadius);
                     ctx.rotate(angle + arc / 2 + Math.PI / 2);
                     var text = options[i];
-                    ctx.fillText(wordNumber(text), -ctx.measureText(text.toString()).width / 2, 0);
+                    ctx.font = 'bold 15px Helvetica, Arial';
+                    ctx.fillText(`${text}%`, -ctx.measureText(text.toString()).width / 2, 0);
                     ctx.restore();
                 }
             }
@@ -146,7 +148,7 @@ const RouletteWheel: React.FC<{}> = () => {
             ctx.save();
             var text = options[index]
             ctx.font = 'bold 15px Helvetica, Arial';
-            ctx.fillText(wordNumber(text), 190 - ctx.measureText(text.toString()).width / 2, 190 + 10);
+            ctx.fillText(`${text}%`, radius - ctx.measureText(text.toString()).width / 2, radius + 10);
             dispatch(simpleEarn(text))
             ctx.restore();
         }
@@ -160,7 +162,7 @@ const RouletteWheel: React.FC<{}> = () => {
     return <>
         <h1>Roulette Wheel</h1>
 
-        <canvas id="canvas" width="380" height="380" />
+        <canvas id="canvas" width={(2 * radius + 20).toString()} height={(2 * radius + 20).toString()} />
         <input type="button" value="spin the wheel" style={{ float: "left" }} id='spin' />
     </>
 }
@@ -172,7 +174,9 @@ const Casino: React.FC<{}> = () => {
         <div className="btn-center">
             <SlotMachine />
         </div>
-        <RouletteWheel />
+        <div className="btn-center">
+            <RouletteWheel />
+        </div>
     </>)
 }
 export default Casino

@@ -46,7 +46,7 @@ const spb: React.FC<{}> = () => {
         dispatch(earn(spbearn))
         setDeg(deg + 1)
     }
-    return <div className="btn-center"><button style={{ transform: `rotate(${deg}deg)` }} onClick={click}>Money has a good spin to it.</button>
+    return <div className="btn-center"><button className="btn" style={{ transform: `rotate(${deg}deg)` }} onClick={click}>Money has a good spin to it.</button>
     </div>
 }
 const mb: React.FC<{}> = () => {
@@ -262,7 +262,7 @@ const tb: React.FC<{}> = () => {
     }
     return <div onKeyDown={keyPress} style={{ height: "200px" }}>
         <div className="btn-center" style={{ height: "200px" }}>
-            <button onClick={() => dispatch(earn(tbearn))}>What is the "type" of money?</button>
+            <button className="ob original-button btn" onClick={() => dispatch(earn(tbearn))}>What is the "type" of money?</button>
             <br />
             <br />
             <br />
