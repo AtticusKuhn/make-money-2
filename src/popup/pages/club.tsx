@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { randomInRange, sleep } from "../../utils"
 
 const Animation: React.FC<{}> = () => {
-    const width = 12;
+    const width = 25;
     const height = 20;
     const [state, setState] = useState<string[]>(new Array(height).fill(" ".repeat(width)))
     const newRow = () => new Array(width).fill("").map(_x => randomInRange(0, 5)).map(x => x == 0 ? "$" : "    ").join("")
@@ -16,7 +16,7 @@ const Animation: React.FC<{}> = () => {
         })()
     }, [state])
     return <>
-        <pre>
+        <pre className="btn-center">
             {state.map((row, i) => <p key={i}>{row}</p>)}
         </pre>
     </>

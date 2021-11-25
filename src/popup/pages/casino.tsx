@@ -69,7 +69,7 @@ const SlotMachine: React.FC<{}> = () => {
     return <div style={{ alignItems: "center", alignContent: "center" }}>
         <h2>Slot Machine</h2> <br /> <br /><br /><br /><br />
         {val.map((v, i) => <SlotNumber key={i} number={v} />)} <br /><br /><br /><br />
-        <input ref={ref} placeholder="amount to gamble" /> <br /><br /><br /><br />
+        <input ref={ref} placeholder="amount to gamble" /> <br /><br />
         {msg} <br /><br /><br />
         <button disabled={money === 0 || spinning} onClick={click}>Gamble Slot Machine</button><br /><br /><br /><br />
     </div>
@@ -169,7 +169,9 @@ const Casino: React.FC<{}> = () => {
     return (<>
         <h1>Casino</h1>  <br />
         get ready to gamble (${money}) <br />
-        <SlotMachine />
+        <div className="btn-center">
+            <SlotMachine />
+        </div>
         <RouletteWheel />
     </>)
 }

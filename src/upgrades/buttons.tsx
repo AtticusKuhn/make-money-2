@@ -46,7 +46,8 @@ const spb: React.FC<{}> = () => {
         dispatch(earn(spbearn))
         setDeg(deg + 1)
     }
-    return <button style={{ transform: `rotate(${deg}deg)` }} onClick={click}>Money has a good spin to it.</button>
+    return <div className="btn-center"><button style={{ transform: `rotate(${deg}deg)` }} onClick={click}>Money has a good spin to it.</button>
+    </div>
 }
 const mb: React.FC<{}> = () => {
     const dispatch = useDisp()
@@ -260,10 +261,14 @@ const tb: React.FC<{}> = () => {
         }
     }
     return <div onKeyDown={keyPress} style={{ height: "200px" }}>
-        <div style={{ height: "200px" }}>
+        <div className="btn-center" style={{ height: "200px" }}>
             <button onClick={() => dispatch(earn(tbearn))}>What is the "type" of money?</button>
             <br />
-            <pre>{currentSentence.length > 0 ? currentSentence : "loading..."}</pre>
+            <br />
+            <br />
+            <br />
+            <b className="big" style={{ display: "inline-block" }}>{currentSentence.length > 0 && currentSentence[0]}</b>
+            <pre style={{ display: "inline-block" }}>{currentSentence.length > 0 ? currentSentence.slice(1, 30) : "loading..."}</pre>
         </div>
     </div>
 }
@@ -310,11 +315,12 @@ const sb: React.FC<{}> = () => {
 const sdb: React.FC<{}> = () => {
     const sdcpm = 6520;
     const sdearn = (1 / 192) * (getPrice(10) / (timePerButton(9) * sdcpm));
-
+    const height = 300;
+    const width = 200;
     const dispatch = useDisp()
     const [buttonPosition, setButtonPosition] = useState<number>(0)
     const [Bdirection, setBDirection] = useState<"left" | "right">("right")
-    const [enemyPosition, setEnemyPosition] = useState<v>({ right: 0, up: 100 })
+    const [enemyPosition, setEnemyPosition] = useState<v>({ right: 0, up: height })
     const [bulletPosition, setBulletPosition] = useState<v>({ right: 0, up: 0 })
     const [isBulletVisible, setBulletVisible] = useState<boolean>(false)
     const [enemyDirection, setEnemyDirection] = useState<v>({ right: -10, up: -2 })
@@ -323,7 +329,7 @@ const sdb: React.FC<{}> = () => {
             right: enemyPosition.right + enemyDirection.right,
             up: enemyPosition.up + enemyDirection.up
         })
-        if (enemyPosition.right >= 100) {
+        if (enemyPosition.right >= width) {
             setEnemyDirection({ right: -10, up: enemyDirection.up })
         }
         if (enemyPosition.right <= 0) {
@@ -331,7 +337,7 @@ const sdb: React.FC<{}> = () => {
         }
         if (enemyPosition.up <= 0) {
             dispatch(earn(-10 * sdearn))
-            setEnemyPosition({ right: 0, up: 300 })
+            setEnemyPosition({ right: 0, up: height })
         }
         if (isBulletVisible) {
             setBulletPosition({
@@ -340,17 +346,17 @@ const sdb: React.FC<{}> = () => {
             })
         }
         if (distance(bulletPosition, enemyPosition) <= 20 && isBulletVisible) {
-            setEnemyPosition({ right: 0, up: 300 })
+            setEnemyPosition({ right: 0, up: height })
             setBulletPosition({ right: 0, up: 0 })
             setBulletVisible(false)
             dispatch(earn(200 * sdearn));
         }
-        if (bulletPosition.up >= 300) {
+        if (bulletPosition.up >= height) {
             setBulletVisible(false)
             setBulletPosition({ right: 0, up: 0 })
         }
     }
-    const r = () => setButtonPosition(Math.min(buttonPosition + 5, 100))
+    const r = () => setButtonPosition(Math.min(buttonPosition + 5, width))
     const l = () => setButtonPosition(Math.max(buttonPosition - 5, 0))
     const keyPress: React.KeyboardEventHandler<any> = (key) => {
         // alert(key.key)
@@ -388,7 +394,7 @@ const sdb: React.FC<{}> = () => {
         dispatch(earn(2));
         if (buttonPosition <= 0)
             setBDirection("right")
-        if (buttonPosition >= 100)
+        if (buttonPosition >= width)
             setBDirection("left")
         if (Bdirection === "right") {
             return r()
@@ -401,10 +407,10 @@ const sdb: React.FC<{}> = () => {
         return () => clearInterval(gameLoop);
     }, [enemyDirection, enemyPosition, bulletPosition])
     return (<>
-        <div onKeyPress={keyPress} className="holder" style={{ height: "300px" }}>
-            <div className="enemy" style={{ marginTop: `${300 - enemyPosition.up}px`, position: "absolute", marginLeft: `${enemyPosition.right}px`, width: "10px", height: "10px", backgroundColor: "red" }} />
-            <div className="bullet" style={{ display: (!isBulletVisible ? "none" : "block"), marginTop: `${300 - bulletPosition.up}px`, position: "absolute", marginLeft: `${bulletPosition.right}px`, width: "7px", height: "7px", backgroundColor: "orange" }} />
-            <button style={{ width: "45px", height: "20px", position: "relative", marginTop: "300px", marginLeft: `${buttonPosition}px` }} onClick={click}>shoot</button>
+        <div onKeyPress={keyPress} className="holder" style={{ height: `${height}px` }}>
+            <div className="enemy" style={{ marginTop: `${height - enemyPosition.up}px`, position: "absolute", marginLeft: `${enemyPosition.right}px`, width: "10px", height: "10px", backgroundColor: "red" }} />
+            <div className="bullet" style={{ display: (!isBulletVisible ? "none" : "block"), marginTop: `${height - bulletPosition.up}px`, position: "absolute", marginLeft: `${bulletPosition.right}px`, width: "7px", height: "7px", backgroundColor: "orange" }} />
+            <button style={{ width: "45px", height: "20px", position: "relative", marginTop: `${height}px`, marginLeft: `${buttonPosition}px` }} onClick={click}>shoot</button>
         </div>
     </>)
 }

@@ -45,7 +45,7 @@ const PossiblePurchase: React.FC<PossiblePurchaseProps> = (props) => {
                 alignContent: "right",
 
                 float: "right"
-            }} onClick={() => dispatch(purchase(props))}>buy for {props.cost}</button>
+            }} onClick={() => dispatch(purchase(props))}>${props.cost}</button>
 
         </div>
 
