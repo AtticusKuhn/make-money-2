@@ -87,39 +87,41 @@ const RouletteWheel: React.FC<{}> = () => {
     let spinTime = 0;
     let spinTimeTotal = 0;
     let ctx: CanvasRenderingContext2D;
+    const canvasRef = useRef<HTMLCanvasElement>(null)
+    // const canvas = canvasRef!.current as HTMLCanvasElement
     const getColor = (item: number, maxItem: number): string => `hsl(${item * 360 / maxItem},70%, 50%)`;
     function drawRouletteWheel() {
-        let canvas = document.getElementById("canvas") as HTMLCanvasElement;
-        if (canvas.getContext) {
-            let outsideRadius = radius + 10;
-            let textRadius = radius - 3;
-            let insideRadius = radius / 2;
-            ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
-            ctx.clearRect(0, 0, 2 * radius, 2 * radius);
-            ctx.strokeStyle = "black";
-            for (let i = 0; i < options.length; i++) {
-                let angle = startAngle + i * arc;
-                ctx.fillStyle = getColor(i, options.length);
-                ctx.beginPath();
-                ctx.arc(radius + 10, radius + 10, outsideRadius, angle, angle + arc, false);
-                ctx.arc(radius + 10, radius + 10, insideRadius, angle + arc, angle, true);
-                ctx.stroke();
-                ctx.fill();
-                ctx.save();
-                ctx.shadowOffsetX = -1;
-                ctx.shadowOffsetY = -1;
-                ctx.shadowBlur = 0;
-                ctx.shadowColor = "rgb(220,220,220)";
-                ctx.fillStyle = "black";
-                ctx.translate(radius + Math.cos(angle + arc / 2) * textRadius,
-                    radius + Math.sin(angle + arc / 2) * textRadius);
-                ctx.rotate(angle + arc / 2 + Math.PI / 2);
-                let text = options[i];
-                ctx.font = 'bold 15px Helvetica, Arial';
-                ctx.fillText(`${text}%`, -ctx.measureText(text.toString()).width / 2 + 10, 20);
-                ctx.restore();
-            }
+        // let canvas = document.getElementById("canvas") as HTMLCanvasElement;
+        // if (canvasRef.current.getContext) {
+        let outsideRadius = radius + 10;
+        let textRadius = radius - 3;
+        let insideRadius = radius / 2;
+        ctx = canvasRef!.current!.getContext("2d") as CanvasRenderingContext2D;
+        ctx.clearRect(0, 0, 2 * radius, 2 * radius);
+        ctx.strokeStyle = "black";
+        for (let i = 0; i < options.length; i++) {
+            let angle = startAngle + i * arc;
+            ctx.fillStyle = getColor(i, options.length);
+            ctx.beginPath();
+            ctx.arc(radius + 10, radius + 10, outsideRadius, angle, angle + arc, false);
+            ctx.arc(radius + 10, radius + 10, insideRadius, angle + arc, angle, true);
+            ctx.stroke();
+            ctx.fill();
+            ctx.save();
+            ctx.shadowOffsetX = -1;
+            ctx.shadowOffsetY = -1;
+            ctx.shadowBlur = 0;
+            // ctx.shadowColor = "rgb(220,220,220)";
+            ctx.fillStyle = "black";
+            ctx.translate(radius + Math.cos(angle + arc / 2) * textRadius,
+                radius + Math.sin(angle + arc / 2) * textRadius);
+            ctx.rotate(angle + arc / 2 + Math.PI / 2);
+            let text = options[i];
+            ctx.font = '20px serif';
+            ctx.fillText(`${text}`, -ctx.measureText(text.toString()).width / 2 - 7, 30);
+            ctx.restore();
         }
+        // }
     }
     let spinAngleStart = 0;
     function spin() {
@@ -160,11 +162,18 @@ const RouletteWheel: React.FC<{}> = () => {
         return b + c * (tc + -3 * ts + 3 * t);
     }
     useEffect(() => {
+        console.log(canvasRef.current)
+        if (canvasRef.current) {
+            canvasRef.current.width = 2 * radius + 20;
+            canvasRef.current.height = 2 * radius + 20;
+            canvasRef.current.style.width = `${2 * radius + 20}px`;
+            canvasRef.current.style.height = `${2 * radius + 20}px`;
+        }
         drawRouletteWheel();
-    }, [])
+    }, [canvasRef])
     return <div className="btn-center">
         <h1>Roulette Wheel</h1>
-        <canvas id="canvas" width={(2 * radius + 20).toString()} height={(2 * radius + 20).toString()} />
+        <canvas ref={canvasRef} id="canvas" width={(2 * radius + 20).toString()} height={(2 * radius + 20).toString()} />
         <br /> <br />
         <button onClick={spin} disabled={money === 0 || isSpinning} className="btn" type="button" value="spin the wheel" style={{ float: "left" }} id='spin'>Spin the Wheel!</button>
     </div>
