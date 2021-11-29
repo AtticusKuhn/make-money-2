@@ -152,7 +152,7 @@ const RouletteWheel: React.FC<{}> = () => {
         let text = options[index]
         ctx.font = 'bold 15px Helvetica, Arial';
         ctx.fillText(`${text}%`, radius - ctx.measureText(text.toString()).width / 2, radius + 10);
-        dispatch(simpleEarn(text))
+        dispatch(simpleEarn((text / 100) * money))
         ctx.restore();
         setIsSpinning(false)
     }
