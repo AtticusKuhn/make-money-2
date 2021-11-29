@@ -12,7 +12,7 @@ const Debug: React.FC<{}> = () => {
     // let r = useRef<HTMLInputElement>(null)
     const [v, setV] = useState<number>(100)
     return (<div className="btn-center">
-        <h1>Prestiege</h1>
+        <h1 className="centered">Prestiege</h1>
         <p>Do you want to experience the joy of Make Money again? If you reset, all your items
             will go away and you will go to the beginning of the story. If you prestige, you
             lose your items but your income increases.<b> Prestiging can be a good way to get
@@ -22,7 +22,7 @@ const Debug: React.FC<{}> = () => {
         <br />
         <br />
         <br />
-        <div className="btn-center"><button id="reset" className="btn" onClick={() => dispatch(reset())}>reset all</button>
+        <div className="btn-center"><button id="reset" className="btn" onClick={() => dispatch(reset())}>Reset All</button>
         </div>
         <style>{`#reset:hover:not(:disabled){ background-color:red !important;}`}</style>
         (lose everything and start from beginning)
@@ -30,7 +30,7 @@ const Debug: React.FC<{}> = () => {
         <br />
         <br />
         <div className="btn-center">
-            <button className="btn" id="prestiege" disabled={money < 1e6} onClick={() => dispatch(prestige())}>prestige</button>
+            <button className="btn" id="prestiege" disabled={money < 1e6} onClick={() => dispatch(prestige())}>Prestige</button>
         </div>
         <style>{`#prestiege:hover:not(:disabled){ background-color:red !important;;}`}</style>
 
@@ -38,11 +38,16 @@ const Debug: React.FC<{}> = () => {
         <br />
         <br />
         <br />
-        <input value={v} onChange={(e) => isNaN(Number(e.target.value)) || setV(Number(e.target.value))} />
-        <br /> <br />
-        <div className="btn-center">
-            <button className="btn" onClick={() => dispatch(set(Number(v)))}>set your money to ${v}</button>
-        </div>
+        {process.env.NODE_ENV === "development" && <>
+            <p>Because this is being run in developer mode, you can set your money to whatever value you like, but this ability is not in production mode</p>
+            <input value={v} onChange={(e) => isNaN(Number(e.target.value)) || setV(Number(e.target.value))} />
+            <br /> <br />
+            <div className="btn-center">
+                <button className="btn" onClick={() => dispatch(set(Number(v)))}>Set your money to ${v}</button>
+            </div>
+        </>}
+
+
     </div>)
 }
 export default Debug;

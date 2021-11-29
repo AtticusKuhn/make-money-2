@@ -5,7 +5,7 @@ const Tutorial: React.FC<{}> = () => {
     const { buttons, items } = upgrades;
     const u = upgrades.upgrades;
     return <>
-        <h1>Make Money Tutorial</h1>
+        <h1 className="centered">Make Money Tutorial</h1>
         <p>Make money is a fun game where you click buttons to earn money. Purchase new upgrades in
             the store and then equip them in load out.
         </p>

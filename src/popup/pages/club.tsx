@@ -24,7 +24,7 @@ const Animation: React.FC<{}> = () => {
 
 const Club: React.FC<{}> = () => {
     return <>
-        <h1>Welcome to the Billionaire's Club</h1>
+        <h1 className="centered">Welcome to the Billionaire's Club</h1>
         <div>You have become so rich you can look at the money fly</div>
         <div>Join the secret Billionaire <a target="_blank" href="https://discord.gg/aapA7sB"> discord server </a></div>
         <Animation />

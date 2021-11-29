@@ -181,8 +181,8 @@ const RouletteWheel: React.FC<{}> = () => {
 const Casino: React.FC<{}> = () => {
     const money = useSel(state => state.money.value)
     return (<>
-        <h1>Casino</h1>  <br />
-        get ready to gamble (${formatNumber(money)}) <br />
+        <h1 className="centered">Casino</h1>  <br />
+        Get ready to gamble (${formatNumber(money)}) <br />
         <div className="btn-center">
             <SlotMachine />
         </div>

@@ -61,7 +61,7 @@ export default function LoadOut() {
 
     return (
         <div>
-            <h1 className="centered"> LoadOut</h1>
+            <h1 className="centered"> Load Out</h1>
             <br />
             <p>Here you equip and choose the different upgrades that you have bought.
                 You may must equip exactly 1 button at a time, but you may equip or unequip any number
@@ -70,8 +70,15 @@ export default function LoadOut() {
             <br />
             <h2 className="centered">Equip buttons</h2>
             {buttons.map(b => <ChooseButton button={b} />)}
+            <br />
+            <br />
+            <br />
+            <br />
             <h2 className="centered">Equip Upgrades</h2>
             {notButton.map(b => <ChooseButton button={b} />)}
+            <br />
+            <br />
+            <br />
             <br />
             <h1 className="centered">Purchased Items</h1>
             <ol>
