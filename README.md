@@ -2,7 +2,7 @@
 This is the sequel to the popular game "make money"
 
 # Todos
-These are the milestones of development
+These are the milestones of development.
 - [x] fix spelling
 - [x] consistent capitalization
 - [x] hotkeys upgrade
@@ -11,10 +11,10 @@ These are the milestones of development
 - [x] autoclicker upgrade
 - [x] bonus clicks upgrade
 - [ ] make all pages like main page with margin, spacing
-- [ ] make checkboxes aligned.
-- [ ] center title
+- [x] make checkboxes aligned.
+- [x] center title
 - [ ] make body text slightly bigger
-- [ ] fix capitalization
+- [x] fix capitalization
 - [ ] more whitespace on loadout and prestiege
 - [x] only set money in dev
 
