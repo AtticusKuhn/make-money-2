@@ -101,6 +101,7 @@ const commonConfig: Configuration = {
             title: 'popup page',
             template: resolve(PROJECT_ROOT, 'public/popup.html'),
         }),
+        //@ts-ignore
         new MiniCssExtractPlugin({
             filename: 'css/[name].css',
             ignoreOrder: false,
