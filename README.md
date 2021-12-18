@@ -511,6 +511,7 @@ If you need help with this game, DM MrEconomical#4400 on Discord. You can also j
 Once you buy the hotkeys upgrade, h + shift to go to home, l + shift to go to LoadOut, d + shift to go to debug, s + shift to go to store, t + shift to go to tutorial, c + shift to go to casino, b + shift to go to club
 
 </div>
+
 # Support Server
 If you need help with this game, DM MrEconomical#4400 on Discord. You can also join the official support server at https://discord.gg/aapA7sB
 
