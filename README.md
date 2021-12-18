@@ -525,12 +525,12 @@ These are the milestones of development.
 - [x] money and income on 2 lines
 - [x] autoclicker upgrade
 - [x] bonus clicks upgrade
-- [ ] make all pages like main page with margin, spacing
+- [x] make all pages like main page with margin, spacing
 - [x] make checkboxes aligned.
 - [x] center title
-- [ ] make body text slightly bigger
+- [x] make body text slightly bigger
 - [x] fix capitalization
-- [ ] more whitespace on loadout and prestiege
+- [x] more whitespace on loadout and prestiege
 - [x] only set money in dev
 
 # On depedencies and node version
