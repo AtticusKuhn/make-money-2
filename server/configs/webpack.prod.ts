@@ -41,6 +41,7 @@ const mergedConfig = merge(commonConfig, {
         },
         minimize: true,
         minimizer: [
+            //@ts-ignore
             new TerserPlugin({
                 cache: true,
                 parallel: true,

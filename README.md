@@ -24,3 +24,5 @@ https://stackoverflow.com/questions/66082397/typeerror-this-getoptions-is-not-a-
 https://stackoverflow.com/questions/64625050/error-node-sass-version-5-0-0-is-incompatible-with-4-0-0
 https://stackoverflow.com/questions/60394291/error-node-modules-node-sass-command-failed
 https://stackoverflow.com/questions/64625050/error-node-sass-version-5-0-0-is-incompatible-with-4-0-0
+
+if you have node version <16, use a package.json from an old commit
