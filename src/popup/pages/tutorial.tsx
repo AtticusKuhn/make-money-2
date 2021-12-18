@@ -53,7 +53,7 @@ const Tutorial: React.FC<{}> = () => {
         <br /> <br /> <br />
         <h2>Need Help with Game?</h2>
         <p>If you need help with this game, DM MrEconomical#4400 on Discord. You can also join the
-            official support server at <a href="https://discord.gg/aapA7sB">https://discord.gg/aapA7sB</a>
+            official support server at <a target="_blank" href="https://discord.gg/aapA7sB">https://discord.gg/aapA7sB</a>
         </p>
         <br /> <br /> <br />
         <h2>Hotkeys</h2>
@@ -65,6 +65,14 @@ const Tutorial: React.FC<{}> = () => {
             t + shift to go to tutorial,
             c + shift to go to casino,
             b + shift to go to club </p>
+        <br /> <br /> <br />
+        <h2>Contribute</h2>
+        <p>Would you like to add more features to make money 2?
+            You are welcome to contribute to the development of the game.
+            The source code is free and open source at
+            <a target="_blank" href="https://github.com/eulerthedestroyer/make-money-2">https://github.com/eulerthedestroyer/make-money-2</a>
+            and the maintainers are welcoming of people who want to help add new features to future versions.
+        </p>
     </>
 }
 export default Tutorial
