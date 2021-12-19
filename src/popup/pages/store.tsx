@@ -33,10 +33,10 @@ const PossiblePurchase: React.FC<PossiblePurchaseProps> = (props) => {
                 boxSizing: "border-box", display: "inline-block"
             }}>{props.name}</div>
             <button style={{
-                backgroundColor: "#FFFFFF",
+                backgroundColor: "var(--c1)",
                 fontSize: "14px",
                 // padding: "12px 16px",
-                border: "2px solid #000000",
+                border: "2px solid var(--c5)",
                 cursor: "pointer",
                 marginRight: "10%",
                 marginLeft: "auto",

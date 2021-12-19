@@ -31,24 +31,26 @@
     text-align: center;
 }
 .btn {
-  background-color: #FFFFFF;
+  background-color: var(--c1);
   font-size: 14px;
   padding: 12px 16px;
-  border: 2px solid #000000;
+  border: 2px solid var(--c5);
+  color: var(--c5);
   cursor: pointer ;
 }
 button {
-  background-color: #FFFFFF;
+  background-color: var(--c1);
+  color: var(--c5);
   font-size: 14px;
-  border: 2px solid #000000;
+  border: 2px solid var(--c5);
   cursor: pointer ;
 }
 .btn:hover {
-    background-color: #F5F5F5 !important;
+    background-color: var(--c3) !important;
 }
 
 .nav-button {
-    color: #000000;
+    color: var(--c5);
     text-decoration: none !important;
     font-size: 13px;
     margin: 0 6px;
