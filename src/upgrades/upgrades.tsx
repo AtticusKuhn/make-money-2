@@ -71,8 +71,9 @@ export const bonusClicks = new Equippable("bonus clicks", getPrice(7));
 export const autoClicker = new Equippable("auto clicker", getPrice(8));
 const hotKeys = new Equippable("hot keys", getPrice(9))
 export const hypeButtons = new Appearance("hype beast buttons", getPrice(10), "hypebuttons")
-export const casino = new Equippable("casino", getPrice(11))
-const billionaire = new Equippable("billionaire club", getPrice(12))
+const richGoldTheme = new Appearance("rich gold theme", getPrice(11), "richGoldTheme")
+export const casino = new Equippable("casino", getPrice(12))
+const billionaire = new Equippable("billionaire club", getPrice(13))
 
 export const toCss = (equipped: storageUpgrade[]): string => {
     const c = equipped.map(usToU)
@@ -85,4 +86,4 @@ export const toCss = (equipped: storageUpgrade[]): string => {
     }
     return s
 }
-export default [tutorial, milestone, wordMoney, darkMode, header, autoClicker, bonusClicks, casino, hypeButtons, hotKeys, economical, suave, billionaire].sort((a, b) => a.cost - b.cost)
+export default [tutorial, milestone, wordMoney, darkMode, header, autoClicker, bonusClicks, casino, hypeButtons, hotKeys, economical, suave, richGoldTheme, billionaire].sort((a, b) => a.cost - b.cost)
