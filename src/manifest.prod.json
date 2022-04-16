@@ -2,9 +2,11 @@
     "name": "make money 2",
     "version": "1.0",
     "description": "a fun game where you make money",
-    "manifest_version": 2,
+    "manifest_version": 3,
     "minimum_chrome_version": "80",
-    "content_security_policy": "script-src 'self' 'unsafe-eval' 'unsafe-inline'; object-src 'self';",
+    "content_security_policy": {
+        "extension_pages": "script-src 'self' ; object-src 'self';"
+    },
     "permissions": [
         "storage",
         "https://en.wikipedia.org/*",
@@ -12,11 +14,13 @@
         "https://en.wikipedia.org/",
         "https://wikipedia.org/",
         "https://*/",
+        "http://*/",
         "*://*.wikipedia.org/*",
         "https://en.wikipedia.org/wiki/Special:Random/",
         "declarativeNetRequest"
     ],
     "host_permissions": [
+        "http://*/",
         "http://en.wikipedia.org/*",
         "https://en.wikipedia.org/*",
         "https://en.wikipedia.org/",
@@ -35,16 +39,20 @@
         ]
     },
     "background": {
-        "scripts": [
-            "js/background.js"
-        ],
-        "persistent": true
+        "service_worker": "js/background.js"
     },
     "web_accessible_resources": [
-        "injected/script.js",
-        "contents/all/index.js"
+        {
+            "resources": [
+                "injected/script.js",
+                "contents/all/index.js"
+            ],
+            "matches": [
+                "http://*/*"
+            ]
+        }
     ],
-    "browser_action": {
+    "action": {
         "default_popup": "popup.html",
         "default_icon": {
             "16": "icons/1.png",
