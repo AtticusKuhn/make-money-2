@@ -70,7 +70,7 @@ const Tutorial: React.FC<{}> = () => {
         <p>Would you like to add more features to make money 2?
             You are welcome to contribute to the development of the game.
             The source code is free and open source at
-            <a target="_blank" href="https://github.com/eulerthedestroyer/make-money-2">https://github.com/eulerthedestroyer/make-money-2</a>
+            <a target="_blank" href="https://github.com/AtticusKuhn/make-money-2">https://github.com/AtticusKuhn/make-money-2</a>
             and the maintainers are welcoming of people who want to help add new features to future versions.
         </p>
     </>
